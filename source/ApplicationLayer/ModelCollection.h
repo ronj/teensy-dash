@@ -6,6 +6,8 @@
 #include "Models/CalculatedGearModel.h"
 #include "Models/RandomValueModel.h"
 #include "Models/AccelerationModel.h"
+#include "Models/PitchModel.h"
+#include "Models/RollModel.h"
 
 namespace PeripheralLayer
 {
@@ -26,6 +28,9 @@ namespace ApplicationLayer
 		const Models::Model& GetYAccelerationModel() const;
 		const Models::Model& GetZAccelerationModel() const;
 
+		const Models::Model& GetPitchModel() const;
+		const Models::Model& GetRollModel() const;
+
 		const Models::Model& GetGearModel() const;
 
 		Common::List<Models::Model>& GetModels();
@@ -36,9 +41,12 @@ namespace ApplicationLayer
 
 		Models::CalculatedGearModel m_GearModel;
 
-		Models::AccelerationModel m_XAcceleration;
-		Models::AccelerationModel m_YAcceleration;
-		Models::AccelerationModel m_ZAcceleration;
+		Models::AccelerationModel m_XAccelerationModel;
+		Models::AccelerationModel m_YAccelerationModel;
+		Models::AccelerationModel m_ZAccelerationModel;
+
+		Models::PitchModel m_PitchModel;
+		Models::RollModel m_RollModel;
 
 		Common::List<Models::Model> m_ModelList;
 	};

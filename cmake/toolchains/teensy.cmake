@@ -110,7 +110,7 @@ function(teensy_add_executable TARGET)
 	                   DEPENDS ${TARGET}
 	                   COMMENT "Creating HEX file for ${TARGET}")
 
-	add_custom_target(hex ALL DEPENDS ${TARGET}.hex)
+	add_custom_target(${TARGET}-hex ALL DEPENDS ${TARGET}.hex)
 endfunction()
 
 function(teensy_add_library TARGET)

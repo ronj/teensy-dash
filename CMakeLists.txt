@@ -277,6 +277,10 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
                     source/ApplicationLayer/Models/SpeedModel.cpp
                     source/ApplicationLayer/Models/CalculatedGearModel.h
                     source/ApplicationLayer/Models/CalculatedGearModel.cpp
+                    source/ApplicationLayer/Models/RollModel.h
+                    source/ApplicationLayer/Models/RollModel.cpp
+                    source/ApplicationLayer/Models/PitchModel.h
+                    source/ApplicationLayer/Models/PitchModel.cpp
                     source/ApplicationLayer/Models/AccelerationModel.h
                     source/ApplicationLayer/Models/AccelerationModel.cpp)
 

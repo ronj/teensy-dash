@@ -3,7 +3,7 @@
 PeripheralLayer::Configuration::Configuration()
 	: m_AccelerometerXCalibration(403, 604)
 	, m_AccelerometerYCalibration(401, 599)
-	, m_AccelerometerZCalibration(398, 408)
+	, m_AccelerometerZCalibration(398, 608)
 {
 }
 

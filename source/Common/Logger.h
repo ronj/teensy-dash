@@ -7,6 +7,7 @@
 #undef min
 #undef max
 #undef swap
+#undef PI
 
 namespace Common
 {
@@ -20,7 +21,7 @@ namespace Common
 		}
 
 		template <typename T>
-		void Log(T& toLog)
+		void Log(const T& toLog) const
 		{
 			Serial.println(toLog);
 		}

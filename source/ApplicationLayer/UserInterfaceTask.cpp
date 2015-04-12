@@ -10,8 +10,6 @@
 #include "ApplicationLayer/Fonts.h"
 
 #include "ApplicationLayer/ModelCollection.h"
-#include "ApplicationLayer/Models/RandomValueModel.h"
-#include "ApplicationLayer/Models/AccelerationModel.h"
 
 #include "ApplicationLayer/Views/IconValueRow.h"
 #include "ApplicationLayer/Views/LargeValueView.h"
@@ -61,6 +59,9 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 
 	static Views::XYScatterView acceleration(0, 0, m_Models.GetXAccelerationModel(), m_Models.GetYAccelerationModel());
 
+	Views::IconValueRow pitch(0, 0, Images::Oilcan, "Pitch (Deg)", m_Models.GetPitchModel());
+	Views::IconValueRow roll(0, 32 + 5 + 12, Images::Oilcan, "Roll (Deg)", m_Models.GetRollModel());
+
 	switch (m_CurrentScreen)
 	{
 		case 0:
@@ -82,6 +83,11 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 			break;
 
 		case 3:
+			pitch.OnDraw(eventArgs);
+			roll.OnDraw(eventArgs);
+			break;
+
+		case 4:
 			oilTempGraph.OnDraw(eventArgs);
 			break;
 
