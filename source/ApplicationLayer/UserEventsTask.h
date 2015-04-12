@@ -9,7 +9,7 @@ namespace ApplicationLayer
 	class UserEventsTask : public Common::Task
 	{
 	public:
-		UserEventsTask(ApplicationLayer::ModelCollection& models);
+		UserEventsTask();
 
 		bool CanRun(uint32_t);
 		void Run(uint32_t now);
