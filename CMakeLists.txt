@@ -1,0 +1,328 @@
+cmake_minimum_required(VERSION 2.8)
+
+project(dash)
+
+## Options section.
+#
+# Add user configurable options here.
+# These will show up in the cmake-gui.
+
+option(BUILD_FOR_EMULATOR "Build for SDL emulator" OFF)
+option(BUILD_SHARED_LIBS  "Build shared libraries" OFF)
+
+
+## Set our own module path.
+#
+# If you define additional FindXXX.cmake files,
+# put them in this directory.
+
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
+include(CheckCXXCompilerFlag)
+
+
+## Derived settings.
+#
+# Based upon the options defined above
+# derive some helper methods and enable
+# required functionality.
+
+set(EXTERNAL_DIR ${PROJECT_SOURCE_DIR}/external)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+if(${BUILD_FOR_EMULATOR})
+  function(internal_add_executable)
+    add_executable(${ARGN})
+  endfunction()
+
+  function(internal_add_library)
+    add_library(${ARGN})
+  endfunction()
+else()
+  function(internal_add_executable)
+    teensy_add_executable(${ARGN})
+  endfunction()
+
+  function(internal_add_library)
+    teensy_add_library(${ARGN})
+  endfunction()
+endif()
+
+
+## Set up testing from CMake with CTest
+#
+# This will also set the option BUILD_TESTING
+# when "On" the testing tree is built.
+
+include(CTest)
+enable_testing()
+
+## Add unit tests.
+#
+# This macro requires two arguments.
+# The first argument is the executable that needs to be called for running unit tests.
+# This executable is expected to output zero in case of no failed test and non-zero in
+# case one or more of the tests failed.
+# The second argument is a list of source files that contain "TEST" or "TEST_F" macros.
+#
+# The source files are scanned for the macros and added to CTest with the following form:
+# suitename::testname.
+#
+# Compatibility: Yaffut and Google Test (GTest).
+# TODO: Proper support for FUNC test definition of Yaffut.
+macro(add_unit_test _executable)
+  foreach(TEST_SOURCE ${ARGN})
+    file(READ "${TEST_SOURCE}" CONTENTS)
+    string(REGEX MATCHALL "TEST_?F?\\(([A-Za-z_0-9 ,]+)\\)" FOUND_TESTS ${CONTENTS})
+
+    foreach(FOUND_TEST ${FOUND_TESTS})
+      string(REGEX REPLACE ".*\\(([A-Za-z_0-9]+)[, ]*([A-Za-z_0-9]+)\\).*" "\\1::\\2" TEST_NAME ${FOUND_TEST})
+
+      add_test(${TEST_NAME} ${_executable} ${TEST_NAME})
+    endforeach()
+  endforeach()
+endmacro()
+
+
+if (CMAKE_SIZEOF_VOID_P MATCHES 4)
+    set(PROJECT_SIZE_TYPE x86 CACHE INTERNAL "" FORCE)
+else()
+    set(PROJECT_SIZE_TYPE x64 CACHE INTERNAL "" FORCE)
+endif()
+
+
+## Compiler options section.
+#
+# Based upon the options set by the user and the detected compiler
+# the compilation flags are determined.
+
+## Clang/GCC config section.
+
+if (CMAKE_CXX_COMPILER MATCHES ".*clang")
+  set(CMAKE_COMPILER_IS_CLANGXX 1)
+endif()
+
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+  set(CMAKE_COMPILER_IS_CLANGXX 1)
+endif()
+
+if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX)
+  set(PROJECT_COMMON_FLAGS "${PROJECT_COMMON_FLAGS} -Wall -Wextra -Wno-missing-braces")
+
+  if (MINGW)
+    set(PROJECT_COMMON_FLAGS "${PROJECT_COMMON_FLAGS} -static-libstdc++ -static-libgcc -static")
+  endif()
+
+  foreach (flag "-std=c++11" "-std=c++0x")
+    CHECK_CXX_COMPILER_FLAG(${flag} CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
+
+    if (CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
+      set(CXX_NEW_ISO_STD_FLAG ${flag})
+      break()
+    endif()
+  endforeach()
+
+  if (NOT CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
+    #message(FATAL_ERROR "The project requires C++11 features.\n"
+    #                    "You need at least one of the following compilers:\n"
+    #                    "- gcc 4.7 (see: http://gcc.gnu.org/projects/cxx0x.html).\n"
+    #                    "- clang 3.1 (see: http://clang.llvm.org/cxx_status.html).")
+  endif()
+
+  if (CMAKE_COMPILER_IS_CLANGXX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_NEW_ISO_STD_FLAG} -stdlib=libc++")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_NEW_ISO_STD_FLAG}")
+    # Workaround for usage of thread::sleep (see: http://stackoverflow.com/questions/12523122/what-is-glibcxx-use-nanosleep-all-about).
+    add_definitions("-D_GLIBCXX_USE_NANOSLEEP")
+  endif()
+
+  set(CMAKE_C_FLAGS             "${CMAKE_C_FLAGS} ${PROJECT_COMMON_FLAGS}")
+  set(CMAKE_CXX_FLAGS           "${CMAKE_CXX_FLAGS} ${PROJECT_COMMON_FLAGS}")
+  set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS} ${PROJECT_COMMON_FLAGS}")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${PROJECT_COMMON_FLAGS}")
+  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${PROJECT_COMMON_FLAGS}")
+endif()
+
+
+## Build Common
+#
+
+set(COMMON_SOURCES source/Common/DisableInterruptContext.h
+                   source/Common/List.h
+                   source/Common/Interpolation.h
+                   source/Common/Math.h
+                   source/Common/Math.cpp
+                   source/Common/NonCopyable.h
+                   source/Common/Task.h
+                   source/Common/TimedTask.h
+                   source/Common/TaskScheduler.h)
+
+internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
+
+
+## Build HardwareLayer
+#
+
+set(HARDWARE_LAYER_SOURCES source/HardwareLayer/Hardware.h
+                           source/HardwareLayer/Platform.h
+                           source/HardwareLayer/Timer.h
+                           source/HardwareLayer/AnalogPin.h
+                           source/HardwareLayer/AccelerometerDriver.h
+                           source/HardwareLayer/DisplayDriver.h)
+
+if (${BUILD_FOR_EMULATOR})
+  list(APPEND CMAKE_PREFIX_PATH ${EXTERNAL_DIR}/sdl2-2.0.3)
+  list(APPEND CMAKE_PREFIX_PATH ${EXTERNAL_DIR}/sdl2-2.0.3/lib/${PROJECT_SIZE_TYPE})
+
+  add_definitions("-DBUILD_FOR_EMULATOR")
+
+  find_package(SDL2 REQUIRED)
+
+  list(APPEND EXTERNAL_INCLUDES ${SDL2_INCLUDE_DIR})
+  list(APPEND EXTERNAL_LIBRARIES ${SDL2_LIBRARY})
+
+  list(APPEND HARDWARE_LAYER_SOURCES source/HardwareLayer/SDLHardware.cpp
+                                     source/HardwareLayer/SDLHardware.h
+                                     source/HardwareLayer/SDLPlatform.cpp
+                                     source/HardwareLayer/SDLPlatform.h
+                                     source/HardwareLayer/SDLTimer.cpp
+                                     source/HardwareLayer/SDLTimer.h
+                                     source/HardwareLayer/SDLAnalogPin.cpp
+                                     source/HardwareLayer/SDLAnalogPin.h
+                                     source/HardwareLayer/ADXL335Driver.h
+                                     source/HardwareLayer/ADXL335Driver.cpp
+                                     source/HardwareLayer/SDLDisplayDriver.cpp
+                                     source/HardwareLayer/SDLDisplayDriver.h)
+else()
+  list(APPEND HARDWARE_LAYER_SOURCES source/HardwareLayer/TeensyHardware.h
+                                     source/HardwareLayer/TeensyHardware.cpp
+                                     source/HardwareLayer/TeensyTimer.h
+                                     source/HardwareLayer/TeensyTimer.cpp
+                                     source/HardwareLayer/TeensyAnalogPin.h
+                                     source/HardwareLayer/TeensyAnalogPin.cpp
+                                     source/HardwareLayer/ADXL335Driver.h
+                                     source/HardwareLayer/ADXL335Driver.cpp
+                                     source/HardwareLayer/ST7735DisplayDriver.h
+                                     source/HardwareLayer/ST7735DisplayDriver.cpp)
+endif()
+
+internal_add_library(${CMAKE_PROJECT_NAME}.HardwareLayer ${HARDWARE_LAYER_SOURCES})
+target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source ${EXTERNAL_INCLUDES})
+
+
+## Build PeripheralLayer
+#
+
+list(APPEND PERIPHERAL_LAYER_SOURCES
+                   source/PeripheralLayer/Peripherals.h
+                   source/PeripheralLayer/Peripherals.cpp
+                   source/PeripheralLayer/Configuration.h
+                   source/PeripheralLayer/Configuration.cpp
+                   source/PeripheralLayer/TimeProvider.h
+                   source/PeripheralLayer/TimeProvider.cpp
+                   source/PeripheralLayer/GraphicContext.h
+                   source/PeripheralLayer/GraphicContext.cpp
+                   source/PeripheralLayer/Color.h
+                   source/PeripheralLayer/Color.cpp
+                   source/PeripheralLayer/TextHelper.h
+                   source/PeripheralLayer/TextHelper.cpp
+                   source/PeripheralLayer/AccelerationAxis.h
+                   source/PeripheralLayer/AccelerationAxis.cpp)
+
+internal_add_library(${CMAKE_PROJECT_NAME}.PeripheralLayer ${PERIPHERAL_LAYER_SOURCES})
+target_include_directories(${CMAKE_PROJECT_NAME}.PeripheralLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_link_libraries(${CMAKE_PROJECT_NAME}.PeripheralLayer ${CMAKE_PROJECT_NAME}.Common)
+
+
+## Build ApplicationLayer
+#
+
+list(APPEND APPLICATION_LAYER_SOURCES
+                    source/ApplicationLayer/DashApplication.h
+                    source/ApplicationLayer/DashApplication.cpp
+                    source/ApplicationLayer/DrawEventArgs.h
+                    source/ApplicationLayer/Fonts.h
+                    source/ApplicationLayer/Images.h
+                    source/ApplicationLayer/Palette.h
+                    source/ApplicationLayer/UserEventsTask.h
+                    source/ApplicationLayer/UserEventsTask.cpp
+                    source/ApplicationLayer/UserInterfaceTask.h
+                    source/ApplicationLayer/UserInterfaceTask.cpp
+                    source/ApplicationLayer/ModelUpdateTask.h
+                    source/ApplicationLayer/ModelUpdateTask.cpp
+                    source/ApplicationLayer/ModelCollection.h
+                    source/ApplicationLayer/ModelCollection.cpp)
+
+list(APPEND APPLICATION_LAYER_VIEW_SOURCES
+                    source/ApplicationLayer/Views/View.h
+                    source/ApplicationLayer/Views/BaseView.h
+                    source/ApplicationLayer/Views/IconValueRow.h
+                    source/ApplicationLayer/Views/IconValueRow.cpp
+                    source/ApplicationLayer/Views/GraphView.h
+                    source/ApplicationLayer/Views/GraphView.cpp
+                    source/ApplicationLayer/Views/XYScatterView.h
+                    source/ApplicationLayer/Views/XYScatterView.cpp
+                    source/ApplicationLayer/Views/LargeValueView.h
+                    source/ApplicationLayer/Views/LargeValueView.cpp)
+
+list(APPEND APPLICATION_LAYER_MODEL_SOURCES
+                    source/ApplicationLayer/Models/Model.h
+                    source/ApplicationLayer/Models/Model.cpp
+                    source/ApplicationLayer/Models/ConversionHelper.h
+                    source/ApplicationLayer/Models/ConversionHelper.cpp
+                    source/ApplicationLayer/Models/RandomValueModel.h
+                    source/ApplicationLayer/Models/RandomValueModel.cpp
+                    source/ApplicationLayer/Models/SpeedModel.h
+                    source/ApplicationLayer/Models/SpeedModel.cpp
+                    source/ApplicationLayer/Models/CalculatedGearModel.h
+                    source/ApplicationLayer/Models/CalculatedGearModel.cpp
+                    source/ApplicationLayer/Models/AccelerationModel.h
+                    source/ApplicationLayer/Models/AccelerationModel.cpp)
+
+internal_add_library(${CMAKE_PROJECT_NAME}.ApplicationLayer ${APPLICATION_LAYER_SOURCES} ${APPLICATION_LAYER_VIEW_SOURCES} ${APPLICATION_LAYER_MODEL_SOURCES})
+target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_link_libraries(${CMAKE_PROJECT_NAME}.ApplicationLayer ${CMAKE_PROJECT_NAME}.PeripheralLayer)
+
+
+## Build Application
+#
+
+list(APPEND APPLICATION_SOURCES source/Application.h source/main.cpp)
+
+if (${BUILD_FOR_EMULATOR})
+  list(APPEND APPLICATION_SOURCES source/EmulatorApplication.cpp)
+else()
+  list(APPEND APPLICATION_SOURCES source/EmbeddedApplication.cpp)
+endif()
+
+internal_add_executable(${CMAKE_PROJECT_NAME} ${APPLICATION_SOURCES})
+target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}.Common ${CMAKE_PROJECT_NAME}.HardwareLayer ${CMAKE_PROJECT_NAME}.PeripheralLayer ${CMAKE_PROJECT_NAME}.ApplicationLayer ${EXTERNAL_LIBRARIES})
+
+if (WIN32)
+  if (MSVC)
+    if (${BUILD_FOR_EMULATOR})
+      set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
+
+      add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                   "${EXTERNAL_DIR}/sdl2-2.0.3/lib/${PROJECT_SIZE_TYPE}/SDL2.dll"
+                   $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+    endif()
+  endif()
+endif()
+
+
+## Build unittests if required.
+#
+
+if(${BUILD_TESTING})
+  file(GLOB_RECURSE TEST_SOURCES "test_*.cpp")
+
+  internal_add_executable(${CMAKE_PROJECT_NAME}.UnitTests ${TEST_SOURCES} "${EXTERNAL_DIR}/yaffut/testrunner.cpp")
+  target_link_libraries(${CMAKE_PROJECT_NAME}.UnitTests ${CMAKE_PROJECT_NAME}.ApplicationLayer)
+  target_include_directories(${CMAKE_PROJECT_NAME}.UnitTests PUBLIC ${EXTERNAL_DIR}/yaffut)
+
+  add_unit_test("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.UnitTests" ${TEST_SOURCES})
+endif()
