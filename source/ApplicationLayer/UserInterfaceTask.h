@@ -18,11 +18,15 @@ namespace ApplicationLayer
 	public:
 		UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ModelCollection& models, uint32_t now);
 
+		void NextScreen();
+		void PreviousScreen();
+
 		void Run(uint32_t now);
 
 	private:
 		PeripheralLayer::GraphicContext& m_GraphicContext;
 		ApplicationLayer::ModelCollection& m_Models;
 		ApplicationLayer::PaletteEntry m_Palette;
+		uint8_t m_CurrentScreen;
 	};
 }

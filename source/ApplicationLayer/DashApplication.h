@@ -4,6 +4,7 @@
 
 #include "ModelCollection.h"
 #include "ModelUpdateTask.h"
+#include "UserEventsTask.h"
 #include "UserInterfaceTask.h"
 
 namespace PeripheralLayer
@@ -27,6 +28,7 @@ namespace ApplicationLayer
 		ModelCollection m_Models;
 
 		ModelUpdateTask m_ModelUpdateTask;
+		UserEventsTask m_UserEventsTask;
 		UserInterfaceTask m_UITask;
 
 		Common::TaskScheduler m_Scheduler;

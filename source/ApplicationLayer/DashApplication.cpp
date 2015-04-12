@@ -9,9 +9,13 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 	, m_UITask(peripherals.GetGraphicContext(), m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
 {
 	m_Scheduler.Add(m_ModelUpdateTask);
+	m_Scheduler.Add(m_UserEventsTask);
 	m_Scheduler.Add(m_UITask);
 
-	m_Scheduler.GetMillisecondCount = std::bind(&PeripheralLayer::TimeProvider::TickCountMilliseconds, peripherals.GetTimeProvider());
+	m_Scheduler.GetMillisecondCount = std::bind(&PeripheralLayer::TimeProvider::TickCountMilliseconds, &peripherals.GetTimeProvider());
+
+	m_UserEventsTask.OnNext = std::bind(&ApplicationLayer::UserInterfaceTask::NextScreen, &m_UITask);
+	m_UserEventsTask.OnPrevious = std::bind(&ApplicationLayer::UserInterfaceTask::PreviousScreen, &m_UITask);
 }
 
 bool ApplicationLayer::DashApplication::IsRunning()

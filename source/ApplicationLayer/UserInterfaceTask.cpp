@@ -1,6 +1,8 @@
 #include "UserInterfaceTask.h"
 #include "DrawEventArgs.h"
 
+#include "Common/Logger.h"
+
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
 
@@ -21,8 +23,25 @@ ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicC
 	, m_GraphicContext(context)
 	, m_Models(models)
 	, m_Palette(Palette::Default)
+	, m_CurrentScreen(0)
 {
 	m_GraphicContext.FillScreen(m_Palette.Background);
+}
+
+void ApplicationLayer::UserInterfaceTask::NextScreen()
+{
+	Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::NextScreen Called");
+
+	m_GraphicContext.FillScreen(m_Palette.Background);
+	m_CurrentScreen++;
+}
+
+void ApplicationLayer::UserInterfaceTask::PreviousScreen()
+{
+	Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::PreviousScreen Called");
+
+	m_GraphicContext.FillScreen(m_Palette.Background);
+	m_CurrentScreen--;
 }
 
 void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
@@ -42,19 +61,33 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 
 	static Views::XYScatterView acceleration(0, 0, m_Models.GetXAccelerationModel(), m_Models.GetYAccelerationModel());
 
-	batteryVoltageModel.Update();
-	oilPressureModel.Update();
-	oilTemperatureModel.Update();
+	switch (m_CurrentScreen)
+	{
+		case 0:
+			batteryVoltageModel.Update();
+			oilPressureModel.Update();
+			oilTemperatureModel.Update();
 
-	//batteryVoltage.OnDraw(eventArgs);
-	//oilPressure.OnDraw(eventArgs);
-	//oilTemp.OnDraw(eventArgs);
+			batteryVoltage.OnDraw(eventArgs);
+			oilPressure.OnDraw(eventArgs);
+			oilTemp.OnDraw(eventArgs);
+			break;
 
-	//gear.OnDraw(eventArgs);
+		case 1:
+			gear.OnDraw(eventArgs);
+			break;
 
-	//oilTempGraph.OnDraw(eventArgs);
+		case 2:
+			acceleration.OnDraw(eventArgs);
+			break;
 
-	acceleration.OnDraw(eventArgs);
+		case 3:
+			oilTempGraph.OnDraw(eventArgs);
+			break;
+
+		default:
+			break;
+	}
 
 	m_GraphicContext.Update();
 

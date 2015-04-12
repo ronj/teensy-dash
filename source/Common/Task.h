@@ -1,15 +1,15 @@
 #pragma once
 
-#include "Common/NonCopyable.h"
 #include "Common/List.h"
+#include "Common/NonCopyable.h"
 
 #include <cinttypes>
 
 namespace Common
 {
 	class Task
-		: public NonCopyable
-		, public Common::List<Task>::Element
+		: public Common::List<Task>::Element
+		, public Common::NonCopyable
 	{
 	public:
 	    virtual bool CanRun(uint32_t now) = 0;
