@@ -13,7 +13,7 @@ namespace ApplicationLayer
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
-			virtual void Update();
+			virtual void Update(uint32_t);
 
 		private:
 			float CalculateGearRatio(int32_t rpm, int32_t speed) const;

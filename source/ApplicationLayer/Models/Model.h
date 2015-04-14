@@ -13,7 +13,7 @@ namespace ApplicationLayer
 		public:
 			virtual int32_t GetRawValue() const = 0;
 			virtual const char* GetFormattedValue() const = 0;
-			virtual void Update() = 0;
+			virtual void Update(uint32_t now) = 0;
 
 		protected:
 			Model();

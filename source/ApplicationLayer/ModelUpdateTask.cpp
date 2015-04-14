@@ -12,6 +12,6 @@ void ApplicationLayer::ModelUpdateTask::Run(uint32_t now)
 {
 	for (auto&& model : m_Models.GetModels())
 	{
-		model.Update();
+		model.Update(now);
 	}
 }

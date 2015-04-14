@@ -18,7 +18,7 @@ namespace ApplicationLayer
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
-			virtual void Update();
+			virtual void Update(uint32_t now);
 
 		private:
 			int32_t ConvertPulsesToSpeed(int32_t pulses, int32_t timediff) const;

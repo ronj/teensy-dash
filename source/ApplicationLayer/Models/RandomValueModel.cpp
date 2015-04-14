@@ -40,7 +40,7 @@ const char* ApplicationLayer::Models::RandomValueModel::GetFormattedValue() cons
 	return formatted;
 }
 
-void ApplicationLayer::Models::RandomValueModel::Update()
+void ApplicationLayer::Models::RandomValueModel::Update(uint32_t)
 {
 	m_Value = random(m_From, m_To);
 }

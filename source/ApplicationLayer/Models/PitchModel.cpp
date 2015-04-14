@@ -29,7 +29,7 @@ const char* ApplicationLayer::Models::PitchModel::GetFormattedValue() const
     return formatted;
 }
 
-void ApplicationLayer::Models::PitchModel::Update()
+void ApplicationLayer::Models::PitchModel::Update(uint32_t)
 {
 	float xAccel = m_XAxis.GetValue() / 1000.0f;
 	float yAccel = m_YAxis.GetValue() / 1000.0f;

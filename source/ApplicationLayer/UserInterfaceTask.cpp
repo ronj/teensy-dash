@@ -57,6 +57,8 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 	Views::GraphView oilTempGraph(0, 0, oilTemperatureModel);
 	Views::LargeValueView gear(0, 0, "Gear", m_Models.GetGearModel());
 
+	Views::IconValueRow speed(0, 0, Images::Battery, "KM/H", m_Models.GetSpeedModel());
+
 	static Views::XYScatterView acceleration(0, 0, m_Models.GetXAccelerationModel(), m_Models.GetYAccelerationModel());
 
 	Views::IconValueRow pitch(0, 0, Images::Oilcan, "Pitch (Deg)", m_Models.GetPitchModel());
@@ -65,9 +67,9 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 	switch (m_CurrentScreen)
 	{
 		case 0:
-			batteryVoltageModel.Update();
-			oilPressureModel.Update();
-			oilTemperatureModel.Update();
+			batteryVoltageModel.Update(0);
+			oilPressureModel.Update(0);
+			oilTemperatureModel.Update(0);
 
 			batteryVoltage.OnDraw(eventArgs);
 			oilPressure.OnDraw(eventArgs);
@@ -88,6 +90,10 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 			break;
 
 		case 4:
+			speed.OnDraw(eventArgs);
+			break;
+
+		case 5:
 			oilTempGraph.OnDraw(eventArgs);
 			break;
 

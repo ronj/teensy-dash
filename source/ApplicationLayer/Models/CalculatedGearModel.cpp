@@ -41,7 +41,7 @@ const char* ApplicationLayer::Models::CalculatedGearModel::GetFormattedValue() c
 	return formatted;
 }
 
-void ApplicationLayer::Models::CalculatedGearModel::Update()
+void ApplicationLayer::Models::CalculatedGearModel::Update(uint32_t)
 {
 	m_Gear = DetermineGear(CalculateGearRatio(m_RpmModel.GetRawValue(), m_SpeedModel.GetRawValue()));
 }

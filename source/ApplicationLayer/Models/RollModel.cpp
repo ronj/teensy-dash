@@ -28,7 +28,7 @@ const char* ApplicationLayer::Models::RollModel::GetFormattedValue() const
     return formatted;
 }
 
-void ApplicationLayer::Models::RollModel::Update()
+void ApplicationLayer::Models::RollModel::Update(uint32_t)
 {
 	float yAccel = m_YAxis.GetValue() / 1000.0f;
 	float zAccel = m_ZAxis.GetValue() / 1000.0f;

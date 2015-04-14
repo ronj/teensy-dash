@@ -24,7 +24,7 @@ const char* ApplicationLayer::Models::AccelerationModel::GetFormattedValue() con
     return formatted;
 }
 
-void ApplicationLayer::Models::AccelerationModel::Update()
+void ApplicationLayer::Models::AccelerationModel::Update(uint32_t)
 {
     m_AccelerationMilliG = m_Axis.GetValue();
 }
