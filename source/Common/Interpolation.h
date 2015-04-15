@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Common/Math.h"
+#include "Math.h"
 
 #include <cmath>
 
@@ -11,7 +11,7 @@ namespace Common
         template <typename T>
         T Linear(T a, T b, float t)
         {
-            return a * (1 - t) + b * t;
+            return static_cast<T>(a * (1 - t) + b * t);
         }
 
 		template <typename T>
@@ -20,7 +20,7 @@ namespace Common
 			double tt;
 
 			tt = (1 - std::cos(t * Math::PI)) / 2;
-			return a * (1 - tt) + b * tt;
+			return static_cast<T>(a * (1 - tt) + b * tt);
 		}
     }
 }
