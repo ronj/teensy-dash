@@ -2,6 +2,8 @@
 
 #include "ConversionHelper.h"
 
+#include "Common/DisableInterruptContext.h"
+
 #include "WProgram.h"
 
 static volatile unsigned long counter = 0;
@@ -14,8 +16,8 @@ void isrCounter()
 ApplicationLayer::Models::SpeedModel::SpeedModel()
 	: m_Speed(0)
 {
-	pinMode(23, INPUT); // sets the digital pin as output
-	attachInterrupt(23, isrCounter, RISING); // interrrupt 1 is data ready
+	pinMode(23, INPUT);
+	attachInterrupt(23, isrCounter, RISING);
 }
 
 int32_t ApplicationLayer::Models::SpeedModel::GetRawValue() const
@@ -38,9 +40,11 @@ void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 	{
 		m_Speed = ConvertPulsesToSpeed(counter, now - previous);
 		previous = now;
-		cli();
-		counter = 0;
-		sei();
+
+		Common::DisableInterruptContext disableInterrupts;
+		{
+			counter = 0;
+		}
 	}
 }
 
