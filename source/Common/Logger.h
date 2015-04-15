@@ -5,9 +5,11 @@
 #ifdef BUILD_FOR_EMULATOR
 	#include <iostream>
 #else
-	#include "WCharacter.h"
-	#include "WString.h"
-	#include "HardwareSerial.h"
+	#include "WProgram.h"
+	#undef min
+	#undef max
+	#undef abs
+	#undef PI
 #endif
 
 namespace Common
