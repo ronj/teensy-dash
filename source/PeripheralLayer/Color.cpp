@@ -1,12 +1,13 @@
 #include "Color.h"
 
+#include <algorithm>
+
 PeripheralLayer::Color::HSV PeripheralLayer::Color::Convert(const PeripheralLayer::Color::RGB& rgb)
 {
 	HSV hsv;
-	unsigned char rgbMin, rgbMax;
 
-	rgbMin = rgb.r < rgb.g ? (rgb.r < rgb.b ? rgb.r : rgb.b) : (rgb.g < rgb.b ? rgb.g : rgb.b);
-	rgbMax = rgb.r > rgb.g ? (rgb.r > rgb.b ? rgb.r : rgb.b) : (rgb.g > rgb.b ? rgb.g : rgb.b);
+	uint8_t rgbMin = std::min(std::min(rgb.r, rgb.g), rgb.b);
+	uint8_t rgbMax = std::max(std::max(rgb.r, rgb.g), rgb.b);
 
 	hsv.v = rgbMax;
 	if (hsv.v == 0)

@@ -16,10 +16,10 @@ namespace PeripheralLayer
 		{
 			RGB() : RGB(0, 0, 0) {}
 
-			RGB(uint32_t rgba)
-				: r((rgba >> 24) & 0xFF)
-				, g((rgba >> 16) & 0xFF)
-				, b((rgba >> 8) & 0xFF)
+			explicit RGB(uint32_t rgb)
+				: r((rgb >> 16) & 0xFF)
+				, g((rgb >> 8) & 0xFF)
+				, b(rgb & 0xFF)
 			{
 			}
 
@@ -38,6 +38,11 @@ namespace PeripheralLayer
 			uint32_t ToRGBA(uint8_t a) const
 			{
 				return (r << 24) + (g << 16) + (b << 8) + a;
+			}
+
+			uint32_t ToRGB() const
+			{
+				return (r << 16) + (g << 8) + b;
 			}
 
 			uint8_t r;
@@ -67,11 +72,11 @@ namespace PeripheralLayer
 		};
 
 		template <typename InterpolationMethod>
-		Color::RGB Interpolate(Color::RGB a, Color::RGB b, float t, InterpolationMethod interpolator)
+		Color::RGB Interpolate(const Color::RGB& start, const Color::RGB& end, float t, InterpolationMethod interpolator)
 		{
 			// 0.0 <= t <= 1.0
-			Color::HSV ca = a;
-			Color::HSV cb = b;
+			Color::HSV ca = start;
+			Color::HSV cb = end;
 			Color::HSV final;
 
 			final.h = interpolator(ca.h, cb.h, t);
