@@ -6,7 +6,7 @@
 
 #include "HardwareLayer/AccelerometerDriver.h"
 
-PeripheralLayer::AccelerationAxis::AccelerationAxis(HardwareLayer::AccelerometerDriver& driver, PeripheralLayer::Configuration& configuration, Axis axis)
+PeripheralLayer::AccelerationAxis::AccelerationAxis(HardwareLayer::AccelerometerDriver& driver, Configuration& configuration, Axis axis)
 	: m_Driver(driver)
 	, m_Configuration(configuration)
 	, m_Axis(axis)

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common/List.h"
-#include "Common/NonCopyable.h"
+#include "List.h"
+#include "NonCopyable.h"
 
 #include <cinttypes>
 
