@@ -1,14 +1,16 @@
 #pragma once
 
+#include "Common/Config.h"
+
 namespace Common
 {
 	class NonCopyable
 	{
 	protected:
-	  NonCopyable() = default;
+		NonCopyable() CFG_DECL_DEFAULT;
 
 	private:
-	  NonCopyable(const NonCopyable&) = delete;
-	  const NonCopyable& operator=(const NonCopyable&) = delete;
+	  NonCopyable(const NonCopyable&) CFG_DECL_DELETE;
+	  const NonCopyable& operator=(const NonCopyable&) CFG_DECL_DELETE;
 	};
 }
