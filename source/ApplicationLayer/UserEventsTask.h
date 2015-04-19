@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Encoder.h>
+#undef PI
 
 #include "Common/Task.h"
 

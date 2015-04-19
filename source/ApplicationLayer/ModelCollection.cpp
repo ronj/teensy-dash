@@ -3,8 +3,9 @@
 #include "PeripheralLayer/Peripherals.h"
 
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
-	: m_RPMModel(0, 7200)
-	, m_GearModel(205, 40, 17, 4.05f, m_RoadspeedModel, m_RPMModel)
+	: m_RoadspeedModel(peripherals.GetConfiguration(), peripherals.GetVSSPulseCounter())
+	, m_RPMModel(0, 7200)
+	, m_GearModel(peripherals.GetConfiguration(), m_RoadspeedModel, m_RPMModel)
 	, m_XAccelerationModel(peripherals.GetXAcceleration())
 	, m_YAccelerationModel(peripherals.GetYAcceleration())
 	, m_ZAccelerationModel(peripherals.GetZAcceleration())

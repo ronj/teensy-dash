@@ -2,22 +2,14 @@
 
 #include "ConversionHelper.h"
 
-#include "Common/DisableInterruptContext.h"
+#include "PeripheralLayer/Configuration.h"
+#include "PeripheralLayer/PulseCounter.h"
 
-#include "WProgram.h"
-
-static volatile unsigned long counter = 0;
-
-void isrCounter()
+ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter)
+	: m_PulsesPerKm(configuration.GetVSSPulsesPerKm())
+	, m_Speed(0)
+	, m_PulseCounter(pulseCounter)
 {
-	++counter;
-}
-
-ApplicationLayer::Models::SpeedModel::SpeedModel()
-	: m_Speed(0)
-{
-	pinMode(23, INPUT);
-	attachInterrupt(23, isrCounter, RISING);
 }
 
 int32_t ApplicationLayer::Models::SpeedModel::GetRawValue() const
@@ -38,17 +30,12 @@ void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 
 	if (now - previous > 1000)
 	{
-		m_Speed = ConvertPulsesToSpeed(counter, now - previous);
+		m_Speed = ConvertPulsesToSpeed(m_PulseCounter.GetCount(), now - previous);
 		previous = now;
-
-		Common::DisableInterruptContext disableInterrupts;
-		{
-			counter = 0;
-		}
 	}
 }
 
 int32_t ApplicationLayer::Models::SpeedModel::ConvertPulsesToSpeed(int32_t pulses, int32_t timediff) const
 {
-	return static_cast<int32_t>((pulses / (PulsesPerKM / (3.6f * timediff))) * 10);
+	return static_cast<int32_t>(((float)pulses / ((float)m_PulsesPerKm / (float)(3.6f * timediff))) * 10);
 }

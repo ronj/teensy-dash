@@ -3,7 +3,7 @@
 #include "ConversionHelper.h"
 
 #ifndef BUILD_FOR_EMULATOR
-	#include "WProgram.h"
+	#include "Common/ArduinoWrapper.h"
 #else
 	#include <cstdlib>
 	#define random(from, to) from + (rand() % (int)(to - from + 1))

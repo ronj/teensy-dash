@@ -4,6 +4,7 @@
 #include "GraphicContext.h"
 #include "TimeProvider.h"
 #include "AccelerationAxis.h"
+#include "PulseCounter.h"
 
 namespace HardwareLayer
 {
@@ -17,12 +18,16 @@ namespace PeripheralLayer
 	public:
 		Peripherals(HardwareLayer::Hardware& hardware);
 
+		const Configuration& GetConfiguration() const;
+
 		GraphicContext& GetGraphicContext();
 		TimeProvider& GetTimeProvider();
 
 		AccelerationAxis& GetXAcceleration();
 		AccelerationAxis& GetYAcceleration();
 		AccelerationAxis& GetZAcceleration();
+
+		PulseCounter& GetVSSPulseCounter();
 
 	private:
 		Configuration m_Configuration;
@@ -33,5 +38,7 @@ namespace PeripheralLayer
 		AccelerationAxis m_XAccelerationAxis;
 		AccelerationAxis m_YAccelerationAxis;
 		AccelerationAxis m_ZAccelerationAxis;
+
+		PulseCounter m_VSSPulseCounter;
 	};
 }

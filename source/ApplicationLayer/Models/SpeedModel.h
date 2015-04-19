@@ -7,6 +7,12 @@
 
 #include "Model.h"
 
+namespace PeripheralLayer
+{
+	class Configuration;
+	class PulseCounter;
+}
+
 namespace ApplicationLayer
 {
 	namespace Models
@@ -14,7 +20,7 @@ namespace ApplicationLayer
 		class SpeedModel : public Model
 		{
 		public:
-			SpeedModel();
+			SpeedModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter);
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
@@ -24,8 +30,9 @@ namespace ApplicationLayer
 			int32_t ConvertPulsesToSpeed(int32_t pulses, int32_t timediff) const;
 
 		private:
-			const uint16_t PulsesPerKM = 4971;
+			const uint16_t m_PulsesPerKm;
 			uint16_t m_Speed;
+			PeripheralLayer::PulseCounter& m_PulseCounter;
 		};
 	}
 }

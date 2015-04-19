@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Common/Config.h"
+#include "Config.h"
 
 namespace Common
 {

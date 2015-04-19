@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef BUILD_FOR_EMULATOR
-	#include "WProgram.h"
+	#include "Common/ArduinoWrapper.h"
 #endif
 
 namespace Common

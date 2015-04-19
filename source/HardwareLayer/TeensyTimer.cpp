@@ -1,6 +1,6 @@
 #include "TeensyTimer.h"
 
-#include "WProgram.h"
+#include "Common/ArduinoWrapper.h"
 
 uint32_t HardwareLayer::TeensyTimer::TickCountMilliseconds() const
 {

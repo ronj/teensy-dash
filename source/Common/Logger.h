@@ -5,11 +5,7 @@
 #ifdef BUILD_FOR_EMULATOR
 	#include <iostream>
 #else
-	#include "WProgram.h"
-	#undef min
-	#undef max
-	#undef abs
-	#undef PI
+	#include "Common/ArduinoWrapper.h"
 #endif
 
 namespace Common

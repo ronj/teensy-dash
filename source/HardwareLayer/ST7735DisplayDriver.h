@@ -4,6 +4,10 @@
 
 #include <Adafruit_ST7735.h>
 
+#undef swap
+#undef min
+#undef max
+
 namespace HardwareLayer
 {
 	class ST7735DisplayDriver : public DisplayDriver

@@ -1,6 +1,6 @@
 #include "TeensyAnalogPin.h"
 
-#include "WProgram.h"
+#include "Common/ArduinoWrapper.h"
 
 HardwareLayer::TeensyAnalogPin::TeensyAnalogPin(const uint8_t pin)
 	: m_Pin(pin)

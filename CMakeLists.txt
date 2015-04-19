@@ -148,15 +148,16 @@ endif()
 ## Build Common
 #
 
-set(COMMON_SOURCES source/Common/DisableInterruptContext.h
-                   source/Common/List.h
+set(COMMON_SOURCES source/Common/ArduinoWrapper.h
+                   source/Common/DisableInterruptContext.h
                    source/Common/Interpolation.h
+                   source/Common/List.h
                    source/Common/Math.h
                    source/Common/Math.cpp
                    source/Common/NonCopyable.h
                    source/Common/Task.h
-                   source/Common/TimedTask.h
-                   source/Common/TaskScheduler.h)
+                   source/Common/TaskScheduler.h
+                   source/Common/TimedTask.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
 
@@ -227,6 +228,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
                    source/PeripheralLayer/Color.cpp
                    source/PeripheralLayer/TextHelper.h
                    source/PeripheralLayer/TextHelper.cpp
+                   source/PeripheralLayer/PulseCounter.h
+                   source/PeripheralLayer/PulseCounter.cpp
                    source/PeripheralLayer/AccelerationAxis.h
                    source/PeripheralLayer/AccelerationAxis.cpp)
 

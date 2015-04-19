@@ -49,3 +49,20 @@ Inspiration
 
 *	Digital speedometer with Arduino and 7-segment display: http://matthewcmcmillan.blogspot.nl/2014/02/arduino-digital-speedometer.html
 *	MPGuino and derivatives: http://ecomodder.com/wiki/index.php/MPGuino and http://mpguino.wiseman.ee/eng
+
+
+Testing
+=======
+
+Setting up the integration test environment
+-------------------------------------------
+
+1. Install Cucumber
+   * # sudo gem update --system
+   * # sudo gem install rspec
+   * # sudo gem install gherkin
+   * # sudo gem install cucumber
+
+2. Install ruby-serialport
+   * # sudo gem install serialport
+

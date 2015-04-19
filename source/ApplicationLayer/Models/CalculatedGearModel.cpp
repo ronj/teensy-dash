@@ -2,21 +2,20 @@
 
 #include "ConversionHelper.h"
 
+#include "PeripheralLayer/Configuration.h"
+
+#include "Common/Math.h"
+
 #include <cmath>
 
-ApplicationLayer::Models::CalculatedGearModel::CalculatedGearModel(int tireWidth, int tireAspect, int rimSize, float finalDrive, Model& speedModel, Model& rpmModel)
+ApplicationLayer::Models::CalculatedGearModel::CalculatedGearModel(const PeripheralLayer::Configuration& configuration, const Model& speedModel, const Model& rpmModel)
 	: m_Gear(0)
-	, m_TireCircumfence(TireCircumfence(TireDiameter(tireWidth, tireAspect, rimSize)))
-	, m_FinalDriveRatio(finalDrive)
+	, m_TireCircumfence(TireCircumfence(TireDiameter(configuration.GetTireWidth(), configuration.GetTireAspect(), configuration.GetRimSize())))
+	, m_FinalDriveRatio(configuration.GetFinalDriveRatio())
+	, m_GearRatios(configuration.GetGearRatios())
 	, m_SpeedModel(speedModel)
 	, m_RpmModel(rpmModel)
 {
-	m_GearRatios[0] = 2.92f;
-	m_GearRatios[1] = 1.87f;
-	m_GearRatios[2] = 1.41f;
-	m_GearRatios[3] = 1.15f;
-	m_GearRatios[4] = 0.92f;
-	m_GearRatios[5] = 0.79f;
 }
 
 int32_t ApplicationLayer::Models::CalculatedGearModel::GetRawValue() const
@@ -52,7 +51,7 @@ float ApplicationLayer::Models::CalculatedGearModel::CalculateGearRatio(int32_t 
 	return (60.f / 100000.f) * (rpm * m_TireCircumfence) / (fractionalSpeed * m_FinalDriveRatio);
 }
 
-uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearRatio)
+uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearRatio) const
 {
 	int32_t gear = 0;
 
@@ -67,4 +66,14 @@ uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearR
 	}
 
 	return 0;
+}
+
+float ApplicationLayer::Models::CalculatedGearModel::TireDiameter(int width, int aspect, int size)
+{
+	return (size * 2.54f) + (((width / 10.0f) * (aspect / 100.0f)) * 2);
+}
+
+float ApplicationLayer::Models::CalculatedGearModel::TireCircumfence(float rollingRadius)
+{
+	return Common::Math::PI * rollingRadius;
 }

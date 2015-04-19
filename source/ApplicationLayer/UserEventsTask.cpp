@@ -1,9 +1,6 @@
 #include "UserEventsTask.h"
 
-int sign(int value)
-{ 
-	return (value > 0) - (value < 0); 
-}
+#include "Common/Math.h"
 
 ApplicationLayer::UserEventsTask::UserEventsTask()
 	: m_CurrentEncoderValue(0)
@@ -24,7 +21,7 @@ void ApplicationLayer::UserEventsTask::Run(uint32_t)
     {
       m_Encoder.write(0);
 
-      int8_t direction = sign(m_CurrentEncoderValue);
+      int8_t direction = Common::Math::Sign(m_CurrentEncoderValue);
       if (direction == 1) CallOnPrevious();
       if (direction == -1) CallOnNext();
     }

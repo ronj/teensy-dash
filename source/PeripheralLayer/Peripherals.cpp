@@ -11,6 +11,11 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 {
 }
 
+const PeripheralLayer::Configuration& PeripheralLayer::Peripherals::GetConfiguration() const
+{
+	return m_Configuration;
+}
+
 PeripheralLayer::GraphicContext& PeripheralLayer::Peripherals::GetGraphicContext()
 {
 	return m_GraphicContext;
@@ -34,4 +39,9 @@ PeripheralLayer::AccelerationAxis& PeripheralLayer::Peripherals::GetYAcceleratio
 PeripheralLayer::AccelerationAxis& PeripheralLayer::Peripherals::GetZAcceleration()
 {
 	return m_ZAccelerationAxis;
+}
+
+PeripheralLayer::PulseCounter& PeripheralLayer::Peripherals::GetVSSPulseCounter()
+{
+	return m_VSSPulseCounter;
 }
