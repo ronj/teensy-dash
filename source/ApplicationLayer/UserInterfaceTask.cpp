@@ -28,7 +28,7 @@ ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicC
 
 void ApplicationLayer::UserInterfaceTask::NextScreen()
 {
-	Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::NextScreen Called");
+	//Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::NextScreen Called");
 
 	m_GraphicContext.FillScreen(m_Palette.Background);
 	m_CurrentScreen++;
@@ -36,7 +36,7 @@ void ApplicationLayer::UserInterfaceTask::NextScreen()
 
 void ApplicationLayer::UserInterfaceTask::PreviousScreen()
 {
-	Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::PreviousScreen Called");
+	//Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::PreviousScreen Called");
 
 	m_GraphicContext.FillScreen(m_Palette.Background);
 	m_CurrentScreen--;

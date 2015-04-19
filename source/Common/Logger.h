@@ -29,6 +29,12 @@ namespace Common
 #endif
 		}
 
+		template <typename T>
+		void LogExpectation(const T& toLog) const
+		{
+			Log(toLog);
+		}
+
 	private:
 		Logger()
 		{
