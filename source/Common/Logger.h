@@ -39,7 +39,7 @@ namespace Common
 		Logger()
 		{
 #ifndef BUILD_FOR_EMULATOR
-			Serial.begin(9600);
+			Serial.begin(57600);
 #endif
 		}
 	};

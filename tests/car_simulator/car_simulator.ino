@@ -8,7 +8,7 @@ unsigned long speedDelayMicroSeconds = 10 * 1000000;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(57600);
 
   pinMode(speedOutPin, OUTPUT);
 }
@@ -20,20 +20,20 @@ void loop()
   if (Serial.available() > 0)
   {
     String command = Serial.readStringUntil(':');
-    int data = Serial.parseInt();
     
     if (command == "speed")
     {
-      float speedFrequency = (PULSES_PER_KM * data) / 3600.0f;
+      int speed = Serial.parseInt();
+      float speedFrequency = (PULSES_PER_KM * speed) / 3600.0f;
       speedDelayMicroSeconds = (1.0f / speedFrequency) * 1000000;
     }
   }
 
-  if (currentTime - previousSpeedTime > (speedDelayMicroSeconds - 5)) {
+  if (currentTime - previousSpeedTime > (speedDelayMicroSeconds)) {
     previousSpeedTime = currentTime;
 
     digitalWrite(speedOutPin, HIGH);
-    delayMicroseconds(10);
+    delayMicroseconds(1);
     digitalWrite(speedOutPin, LOW);
   }
 }
