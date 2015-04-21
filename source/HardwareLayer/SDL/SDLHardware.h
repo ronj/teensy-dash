@@ -2,6 +2,7 @@
 
 #include "Hardware.h"
 
+#include "SDLPlatform.h"
 #include "SDLAnalogPin.h"
 #include "ADXL335Driver.h"
 #include "SDLDisplayDriver.h"
@@ -19,6 +20,8 @@ namespace HardwareLayer
 		virtual Timer& GetTimer();
 
 	private:
+		SDLPlatform m_Platform;
+
 		SDLAnalogPin m_X;
 		SDLAnalogPin m_Y;
 		SDLAnalogPin m_Z;

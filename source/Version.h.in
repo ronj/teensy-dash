@@ -1,0 +1,5 @@
+#pragma once
+
+// Semantic version string according version 2.0.0 of http://semver.org/.
+
+static const char* DASH_SOFTWARE_VERSION = "@dash_VERSION_MAJOR@.@dash_VERSION_MINOR@.@dash_VERSION_PATCH@+@dash_VERSION_METADATA@";

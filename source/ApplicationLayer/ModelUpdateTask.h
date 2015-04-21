@@ -1,17 +1,16 @@
 #pragma once
 
-#include "Common/Task.h"
+#include "Common/TimedTask.h"
 
 namespace ApplicationLayer
 {
 	class ModelCollection;
 
-	class ModelUpdateTask : public Common::Task
+	class ModelUpdateTask : public Common::TimedTask
 	{
 	public:
-		ModelUpdateTask(ApplicationLayer::ModelCollection& models);
+		ModelUpdateTask(ApplicationLayer::ModelCollection& models, uint32_t now);
 
-		bool CanRun(uint32_t) { return true; }
 		void Run(uint32_t now);
 
 	private:

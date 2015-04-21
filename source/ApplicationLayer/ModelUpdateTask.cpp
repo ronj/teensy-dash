@@ -3,8 +3,9 @@
 #include "ModelCollection.h"
 #include "Models/Model.h"
 
-ApplicationLayer::ModelUpdateTask::ModelUpdateTask(ApplicationLayer::ModelCollection& models)
-	: m_Models(models)
+ApplicationLayer::ModelUpdateTask::ModelUpdateTask(ApplicationLayer::ModelCollection& models, uint32_t now)
+	: TimedTask(now)
+	, m_Models(models)
 {
 }
 
@@ -14,4 +15,6 @@ void ApplicationLayer::ModelUpdateTask::Run(uint32_t now)
 	{
 		model.Update(now);
 	}
+
+	IncrementRunTime(25);
 }

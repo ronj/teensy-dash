@@ -7,7 +7,9 @@ namespace HardwareLayer
 	class SDLPlatform : public Platform
 	{
 	public:
+		SDLPlatform();
 		virtual ~SDLPlatform();
+
 		virtual void Init();
 	};
 }

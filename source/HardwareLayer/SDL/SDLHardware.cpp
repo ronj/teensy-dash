@@ -3,6 +3,7 @@
 HardwareLayer::SDLHardware::SDLHardware()
 	: m_AccelerometerDriver(m_X, m_Y, m_Z, m_Timer)
 {
+	m_Platform.Init();
 }
 
 HardwareLayer::AccelerometerDriver& HardwareLayer::SDLHardware::GetAccelerometerDriver()
