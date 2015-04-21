@@ -1,0 +1,22 @@
+language:
+  - cpp
+
+compiler:
+  - gcc
+
+before_install:
+  - sudo apt-add-repository --yes ppa:zoogie/sdl2-snapshots  # libsdl2
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y   # gcc4.8
+  - sudo apt-get -qq update
+
+install:
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - sudo apt-get -qq install libsdl2-dev 
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DBUILD_FOR_EMULATOR=On ..
+  - make
+  - ctest
