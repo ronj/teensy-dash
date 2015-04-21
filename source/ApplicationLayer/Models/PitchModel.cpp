@@ -7,6 +7,8 @@
 
 #include "PeripheralLayer/AccelerationAxis.h"
 
+#include <cmath>
+
 ApplicationLayer::Models::PitchModel::PitchModel(const PeripheralLayer::AccelerationAxis& xAxis, const PeripheralLayer::AccelerationAxis& yAxis, const PeripheralLayer::AccelerationAxis& zAxis)
 	: m_XAxis(xAxis)
 	, m_YAxis(yAxis)

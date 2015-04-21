@@ -27,11 +27,12 @@ namespace ApplicationLayer
 			virtual void Update(uint32_t now);
 
 		private:
-			int32_t ConvertPulsesToSpeed(int32_t pulses, int32_t timediff) const;
+			uint32_t ConvertPulsesToSpeed(uint32_t pulses, uint32_t timediff) const;
 
 		private:
-			const uint16_t m_PulsesPerKm;
-			uint16_t m_Speed;
+			float m_PulseFactor;
+			uint16_t m_Speed = 0;
+			uint32_t m_PreviousTicks = 0;
 			PeripheralLayer::PulseCounter& m_PulseCounter;
 		};
 	}

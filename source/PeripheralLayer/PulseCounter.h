@@ -9,6 +9,6 @@ namespace PeripheralLayer
 	public:
 		PulseCounter();
 
-		uint32_t GetCount();
+		virtual uint32_t GetCount();
 	};
 }

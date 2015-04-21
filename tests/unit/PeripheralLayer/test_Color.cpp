@@ -32,20 +32,20 @@ struct ColorTest
 	}
 };
 
-TEST(ColorTest, test_should_construct_rgb_color)
+TEST(ColorTest, should_construct_rgb_color)
 {
 	check_rgb(0, 0, 0, Color::RGB());
 	check_rgb(0xFF, 0xAA, 0x00, Color::RGB(0xFF, 0xAA, 0x00));
 	check_rgb(0x12, 0x34, 0x56, Color::RGB(0x123456));
 }
 
-TEST(ColorTest, test_should_construct_hsv_color)
+TEST(ColorTest, should_construct_hsv_color)
 {
 	check_hsv(0, 0, 0, Color::HSV());
 	check_hsv(30, 100, 100, Color::HSV(30, 100, 100));
 }
 
-TEST(ColorTest, test_should_convert_colorspaces)
+TEST(ColorTest, should_convert_colorspaces)
 {
 	hsv_rgb_hsv_conversion_helper(20, 255, 100);
 	hsv_rgb_hsv_conversion_helper(0, 0, 150);

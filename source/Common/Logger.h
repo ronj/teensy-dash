@@ -46,7 +46,7 @@ namespace Common
 		template <typename T>
 		void LogExpectation(const T& toLog) const
 		{
-			Log(toLog);
+			LogLine(toLog);
 		}
 
 	private:
@@ -74,9 +74,9 @@ namespace Common
 			Logger::Get().Log(m_File);
 			Logger::Get().Log('@');
 			Logger::Get().Log(m_Line);
-			Logger::Get().Log(' [');
+			Logger::Get().Log(" [");
 			Logger::Get().Log(m_Function);
-			Logger::Get().Log(']: ');
+			Logger::Get().Log("]: ");
 			Logger::Get().LogLine(toLog);
 		}
 

@@ -352,7 +352,7 @@ if(${BUILD_TESTING})
 
   internal_add_executable(${CMAKE_PROJECT_NAME}.UnitTests ${TEST_SOURCES} "${EXTERNAL_DIR}/yaffut/testrunner.cpp")
   target_link_libraries(${CMAKE_PROJECT_NAME}.UnitTests ${CMAKE_PROJECT_NAME}.ApplicationLayer)
-  target_include_directories(${CMAKE_PROJECT_NAME}.UnitTests PUBLIC ${EXTERNAL_DIR}/yaffut)
+  target_include_directories(${CMAKE_PROJECT_NAME}.UnitTests PUBLIC ${EXTERNAL_DIR}/yaffut ${EXTERNAL_DIR}/hippomocks ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
   add_unit_test("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.UnitTests" ${TEST_SOURCES})
 endif()

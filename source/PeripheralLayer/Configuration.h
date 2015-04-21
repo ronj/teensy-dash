@@ -29,7 +29,7 @@ namespace PeripheralLayer
 		float GetFinalDriveRatio() const;
 		const std::array<float, 6>& GetGearRatios() const;
 
-		uint16_t GetVSSPulsesPerKm() const;
+		virtual uint16_t GetVSSPulsesPerKm() const;
 
 	private:
 		MinMaxCalibration<int16_t> m_AccelerometerXCalibration;

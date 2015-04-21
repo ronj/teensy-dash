@@ -7,6 +7,8 @@
 
 #include "PeripheralLayer/AccelerationAxis.h"
 
+#include <cmath>
+
 ApplicationLayer::Models::RollModel::RollModel(const PeripheralLayer::AccelerationAxis& yAxis, const PeripheralLayer::AccelerationAxis& zAxis)
 	: m_YAxis(yAxis)
 	, m_ZAxis(zAxis)

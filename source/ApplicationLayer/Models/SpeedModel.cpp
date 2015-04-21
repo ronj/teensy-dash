@@ -6,8 +6,7 @@
 #include "PeripheralLayer/PulseCounter.h"
 
 ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter)
-	: m_PulsesPerKm(configuration.GetVSSPulsesPerKm())
-	, m_Speed(0)
+	: m_PulseFactor(configuration.GetVSSPulsesPerKm() / 3600000.f)
 	, m_PulseCounter(pulseCounter)
 {
 }
@@ -26,16 +25,14 @@ const char* ApplicationLayer::Models::SpeedModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 {
-	static unsigned long previous = 0;
-
-	if (now - previous > 1000)
+	if (now - m_PreviousTicks >= 1000)
 	{
-		m_Speed = ConvertPulsesToSpeed(m_PulseCounter.GetCount(), now - previous);
-		previous = now;
+		m_Speed = ConvertPulsesToSpeed(m_PulseCounter.GetCount(), now - m_PreviousTicks);
+		m_PreviousTicks = now;
 	}
 }
 
-int32_t ApplicationLayer::Models::SpeedModel::ConvertPulsesToSpeed(int32_t pulses, int32_t timediff) const
+uint32_t ApplicationLayer::Models::SpeedModel::ConvertPulsesToSpeed(uint32_t pulses, uint32_t timediff) const
 {
-	return static_cast<int32_t>(((float)pulses / ((float)m_PulsesPerKm / (float)(3.6f * timediff))) * 10);
+	return (pulses / (m_PulseFactor * timediff)) * 10;
 }
