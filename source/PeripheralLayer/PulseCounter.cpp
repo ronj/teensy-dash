@@ -12,8 +12,8 @@ void isrCounter()
 
 PeripheralLayer::PulseCounter::PulseCounter()
 {
-	pinMode(23, INPUT);
-	attachInterrupt(23, isrCounter, RISING);
+	//pinMode(23, INPUT);
+	//attachInterrupt(23, isrCounter, RISING);
 }
 
 uint32_t PeripheralLayer::PulseCounter::GetCount()
