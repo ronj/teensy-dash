@@ -1,19 +1,24 @@
 #pragma once
 
-#include <Encoder.h>
-#undef PI
-
 #include "Common/Task.h"
+#include "Common/List.h"
+
+#include "PeripheralLayer/EventSource.h"
 
 #include <cinttypes>
 #include <functional>
+
+namespace PeripheralLayer
+{
+	class Peripherals;
+}
 
 namespace ApplicationLayer
 {
 	class UserEventsTask : public Common::Task
 	{
 	public:
-		UserEventsTask();
+		UserEventsTask(PeripheralLayer::Peripherals& peripherals);
 
 		bool CanRun(uint32_t);
 		void Run(uint32_t now);
@@ -22,14 +27,16 @@ namespace ApplicationLayer
 		std::function<void()> OnPrevious;
 		std::function<void()> OnShortPress;
 		std::function<void()> OnLongPress;
+		std::function<void()> OnQuit;
 
 	private:
-		void CallOnNext();
-		void CallOnPrevious();
+		template <typename Func>
+		void CallWrapper(Func&& f)
+		{
+			if (f) f();
+		}
 
 	private:
-		int32_t m_CurrentEncoderValue;
-		int32_t m_PreviousEncoderValue;
-		Encoder m_Encoder;
+		Common::List<PeripheralLayer::EventSource> m_EventSources;
 	};
 }

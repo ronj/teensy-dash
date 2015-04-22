@@ -20,3 +20,8 @@ HardwareLayer::Timer& HardwareLayer::SDLHardware::GetTimer()
 {
 	return m_Timer;
 }
+
+HardwareLayer::RotaryEncoder& HardwareLayer::SDLHardware::GetRotaryEncoder()
+{
+	return m_RotaryEncoder;
+}

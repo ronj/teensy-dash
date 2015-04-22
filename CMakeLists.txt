@@ -32,7 +32,7 @@ set(${CMAKE_PROJECT_NAME}_VERSION_MAJOR 0)
 set(${CMAKE_PROJECT_NAME}_VERSION_MINOR 1)
 set(${CMAKE_PROJECT_NAME}_VERSION_PATCH 0)
 
-execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
+execute_process(COMMAND ${GIT_EXECUTABLE} -C ${PROJECT_SOURCE_DIR} rev-parse --short HEAD
                 OUTPUT_VARIABLE ${CMAKE_PROJECT_NAME}_VERSION_METADATA
                 OUTPUT_STRIP_TRAILING_WHITESPACE)
 
@@ -170,7 +170,7 @@ endif()
 set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/DisableInterruptContext.h
                    source/Common/Interpolation.h
-				   source/Common/Logger.h
+                   source/Common/Logger.h
                    source/Common/List.h
                    source/Common/Math.h
                    source/Common/Math.cpp
@@ -187,11 +187,12 @@ internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
 
 set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/AnalogPin.h
-						   source/HardwareLayer/Common/ADXL335Driver.h
+                           source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/Common/ADXL335Driver.cpp
                            source/HardwareLayer/DisplayDriver.h
                            source/HardwareLayer/Hardware.h
                            source/HardwareLayer/Platform.h
+                           source/HardwareLayer/RotaryEncoder.h
                            source/HardwareLayer/Timer.h)
 
 if (${BUILD_FOR_EMULATOR})
@@ -214,6 +215,8 @@ if (${BUILD_FOR_EMULATOR})
               source/HardwareLayer/SDL/SDLHardware.h
               source/HardwareLayer/SDL/SDLPlatform.cpp
               source/HardwareLayer/SDL/SDLPlatform.h
+              source/HardwareLayer/SDL/SDLRotaryEncoder.cpp
+              source/HardwareLayer/SDL/SDLRotaryEncoder.h
               source/HardwareLayer/SDL/SDLTimer.cpp
               source/HardwareLayer/SDL/SDLTimer.h)
 else()
@@ -224,6 +227,10 @@ else()
               source/HardwareLayer/Teensy/TeensyAnalogPin.cpp
               source/HardwareLayer/Teensy/TeensyHardware.h
               source/HardwareLayer/Teensy/TeensyHardware.cpp
+              source/HardwareLayer/Teensy/TeensyPlatform.cpp
+              source/HardwareLayer/Teensy/TeensyPlatform.h
+              source/HardwareLayer/Teensy/TeensyRotaryEncoder.h
+              source/HardwareLayer/Teensy/TeensyRotaryEncoder.cpp
               source/HardwareLayer/Teensy/TeensyTimer.h
               source/HardwareLayer/Teensy/TeensyTimer.cpp)
 endif()
@@ -231,8 +238,8 @@ endif()
 internal_add_library(${CMAKE_PROJECT_NAME}.HardwareLayer ${HARDWARE_LAYER_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source
                                                                       ${CMAKE_CURRENT_SOURCE_DIR}/source/HardwareLayer
-																	  ${CMAKE_CURRENT_SOURCE_DIR}/source/HardwareLayer/Common
-																	  ${EXTERNAL_INCLUDES})
+                                                                      ${CMAKE_CURRENT_SOURCE_DIR}/source/HardwareLayer/Common
+                                                                      ${EXTERNAL_INCLUDES})
 
 
 ## Build PeripheralLayer
@@ -245,12 +252,17 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/Color.cpp
             source/PeripheralLayer/Configuration.h
             source/PeripheralLayer/Configuration.cpp
+            source/PeripheralLayer/EventSource.h
+            source/PeripheralLayer/EventSource.cpp
+            source/PeripheralLayer/EventTypes.h
             source/PeripheralLayer/GraphicContext.h
             source/PeripheralLayer/GraphicContext.cpp
             source/PeripheralLayer/Peripherals.h
             source/PeripheralLayer/Peripherals.cpp
             source/PeripheralLayer/PulseCounter.h
             source/PeripheralLayer/PulseCounter.cpp
+            source/PeripheralLayer/RotaryEventSource.h
+            source/PeripheralLayer/RotaryEventSource.cpp
             source/PeripheralLayer/TextHelper.h
             source/PeripheralLayer/TextHelper.cpp
             source/PeripheralLayer/TimeProvider.h
@@ -270,7 +282,7 @@ list(APPEND APPLICATION_LAYER_SOURCES
             source/ApplicationLayer/DrawEventArgs.h
             source/ApplicationLayer/Fonts.h
             source/ApplicationLayer/Images.h
-			source/ApplicationLayer/ModelCollection.h
+            source/ApplicationLayer/ModelCollection.h
             source/ApplicationLayer/ModelCollection.cpp
             source/ApplicationLayer/ModelUpdateTask.h
             source/ApplicationLayer/ModelUpdateTask.cpp

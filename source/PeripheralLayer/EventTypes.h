@@ -4,10 +4,11 @@ namespace PeripheralLayer
 {
     enum class EventType
     {
+        None,
         Next,
         Previous,
-        Press,
+        ShortPress,
         LongPress,
-        Reset
+		Quit
     };
 }

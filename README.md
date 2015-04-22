@@ -1,4 +1,4 @@
-teensy-dash
+teensy-dash [![Build Status](https://travis-ci.org/ronj/teensy-dash.svg?branch=master)](https://travis-ci.org/ronj/teensy-dash)
 ===========
 
 Circuit / code information and documentation.

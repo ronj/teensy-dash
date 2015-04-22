@@ -22,3 +22,8 @@ HardwareLayer::Timer& HardwareLayer::TeensyHardware::GetTimer()
 {
 	return m_Timer;
 }
+
+HardwareLayer::RotaryEncoder& HardwareLayer::TeensyHardware::GetRotaryEncoder()
+{
+	return m_RotaryEncoder;
+}

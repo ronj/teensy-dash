@@ -1,18 +1,19 @@
 #pragma once
 
-#include <cinttypes>
-
 #include "EventTypes.h"
 
-#include "Common/NonCopyable.h"
+#include "Common/List.h"
 
 namespace PeripheralLayer
 {
     class EventSource
-        : public Common::NonCopyable
+        : public Common::List<EventSource>::Element
     {
     public:
-        virtual bool EventAvailable() const = 0;
+        virtual bool EventAvailable() = 0;
         virtual EventType Get() = 0;
+
+    protected:
+        EventSource();
     };
 }

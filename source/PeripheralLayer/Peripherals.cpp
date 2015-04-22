@@ -8,6 +8,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_XAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::X)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
 	, m_ZAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Z)
+	, m_RotaryEventSource(hardware.GetRotaryEncoder())
 {
 }
 
@@ -44,4 +45,9 @@ PeripheralLayer::AccelerationAxis& PeripheralLayer::Peripherals::GetZAcceleratio
 PeripheralLayer::PulseCounter& PeripheralLayer::Peripherals::GetVSSPulseCounter()
 {
 	return m_VSSPulseCounter;
+}
+
+PeripheralLayer::RotaryEventSource& PeripheralLayer::Peripherals::GetRotaryEventSource()
+{
+	return m_RotaryEventSource;
 }

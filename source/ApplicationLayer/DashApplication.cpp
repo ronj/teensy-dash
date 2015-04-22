@@ -6,6 +6,7 @@
 ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals& peripherals)
 	: m_Models(peripherals)
 	, m_ModelUpdateTask(m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
+	, m_UserEventsTask(peripherals)
 	, m_UITask(peripherals.GetGraphicContext(), m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
 {
 	m_Scheduler.Add(m_ModelUpdateTask);
@@ -16,6 +17,7 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 
 	m_UserEventsTask.OnNext = std::bind(&ApplicationLayer::UserInterfaceTask::NextScreen, &m_UITask);
 	m_UserEventsTask.OnPrevious = std::bind(&ApplicationLayer::UserInterfaceTask::PreviousScreen, &m_UITask);
+	m_UserEventsTask.OnQuit = [this]() { m_Running = false; };
 }
 
 bool ApplicationLayer::DashApplication::IsRunning()

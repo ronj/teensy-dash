@@ -4,6 +4,7 @@ namespace HardwareLayer
 {
 	class AccelerometerDriver;
 	class DisplayDriver;
+	class RotaryEncoder;
 	class Timer;
 
 	class Hardware
@@ -12,5 +13,6 @@ namespace HardwareLayer
 		virtual AccelerometerDriver& GetAccelerometerDriver() = 0;
 		virtual DisplayDriver& GetDisplayDriver() = 0;
 		virtual Timer& GetTimer() = 0;
+		virtual RotaryEncoder& GetRotaryEncoder() = 0;
 	};
 }

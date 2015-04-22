@@ -61,7 +61,7 @@ TEST(SpeedModelTest, should_calculate_speed_for_period_longer_than_default)
 	for (auto i : { 15, 25, 35, 55, 65, 75, 85, 95, 105, 125, 155, 225 })
 	{
 		mocks.ExpectCall(pulseCounter, PeripheralLayer::PulseCounter::GetCount).Return(i);
-		speed.Update(timestamp += longerPeriod);
+		speed.Update(timestamp += static_cast<unsigned long>(longerPeriod));
 
 		EXPECT_EQ((i * (DEFAULT_SPEED_PERIOD / longerPeriod)) * 10, speed.GetRawValue());
 		EXPECT_EQ(std::to_string(static_cast<unsigned int>(i * (DEFAULT_SPEED_PERIOD / longerPeriod))), speed.GetFormattedValue());

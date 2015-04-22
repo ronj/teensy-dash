@@ -1,10 +1,11 @@
 #pragma once
 
+#include "AccelerationAxis.h"
 #include "Configuration.h"
 #include "GraphicContext.h"
-#include "TimeProvider.h"
-#include "AccelerationAxis.h"
 #include "PulseCounter.h"
+#include "RotaryEventSource.h"
+#include "TimeProvider.h"
 
 namespace HardwareLayer
 {
@@ -29,6 +30,8 @@ namespace PeripheralLayer
 
 		PulseCounter& GetVSSPulseCounter();
 
+		RotaryEventSource& GetRotaryEventSource();
+
 	private:
 		Configuration m_Configuration;
 
@@ -40,5 +43,7 @@ namespace PeripheralLayer
 		AccelerationAxis m_ZAccelerationAxis;
 
 		PulseCounter m_VSSPulseCounter;
+
+		RotaryEventSource m_RotaryEventSource;
 	};
 }
