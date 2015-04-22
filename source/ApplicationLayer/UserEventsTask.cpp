@@ -38,6 +38,8 @@ void ApplicationLayer::UserEventsTask::Run(uint32_t)
 		case PeripheralLayer::EventType::Quit:
 			CallWrapper(OnQuit);
 			break;
+		default:
+			break;
 		}
 	}
 }
