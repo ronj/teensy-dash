@@ -5,6 +5,7 @@
 #include "TeensyPlatform.h"
 
 #include "Common/ArduinoWrapper.h"
+#include "Common/Logger.h"
 
 HardwareLayer::TeensyPlatform::TeensyPlatform()
 {
@@ -18,4 +19,40 @@ HardwareLayer::TeensyPlatform::~TeensyPlatform()
 
 void HardwareLayer::TeensyPlatform::Init()
 {
+	LogResetReason();
+}
+
+void HardwareLayer::TeensyPlatform::LogResetReason() const
+{
+	uint16_t mask = 1;
+	uint16_t reason = RCM_SRS0 | RCM_SRS1 << 8;
+
+	Common::Logger& logger = Common::Logger::Get();
+
+	logger.Log("Reset reason: ");
+
+	do
+	{
+		switch (reason & mask)
+		{
+			case 0x0001: logger.LogLine("Wakeup"); break;
+			case 0x0002: logger.LogLine("Low-voltage Detect"); break;
+			case 0x0004: logger.LogLine("Loss of Clock"); break;
+			case 0x0008: logger.LogLine("Loss of Lock"); break;
+			//case 0x0010: Reserved
+			case 0x0020: logger.LogLine("Watchdog"); break;
+			case 0x0040: logger.LogLine("External Pin"); break;
+			case 0x0080: logger.LogLine("Power-on"); break;
+
+			case 0x0100: logger.LogLine("JTAG"); break;
+			case 0x0200: logger.LogLine("Core Lockup Event"); break;
+			case 0x0400: logger.LogLine("Software"); break;
+			case 0x0800: logger.LogLine("MDM-AP"); break;
+
+			case 0x1000: logger.LogLine("EzPort"); break;
+			case 0x2000: logger.LogLine("Stop Mode Acknowledge Error"); break;
+			case 0x8000: logger.LogLine("Tamper Detect"); break;
+		}
+
+	} while (mask <<= 1);
 }

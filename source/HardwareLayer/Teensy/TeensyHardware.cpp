@@ -6,6 +6,7 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_ZPin(A4)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
 {
+	m_Platform.Init();
 }
 
 HardwareLayer::AccelerometerDriver& HardwareLayer::TeensyHardware::GetAccelerometerDriver()

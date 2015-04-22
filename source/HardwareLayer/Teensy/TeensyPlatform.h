@@ -11,5 +11,8 @@ namespace HardwareLayer
 		virtual ~TeensyPlatform();
 
 		virtual void Init();
+
+	private:
+		void LogResetReason() const;
 	};
 }
