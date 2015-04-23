@@ -50,12 +50,7 @@ namespace Common
 		}
 
 	private:
-		Logger()
-		{
-#ifndef BUILD_FOR_EMULATOR
-			Serial.begin(57600);
-#endif
-		}
+		Logger() CFG_DECL_DEFAULT;
 	};
 
 	class LogHelper

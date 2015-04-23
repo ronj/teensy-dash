@@ -9,6 +9,6 @@ namespace PeripheralLayer
         Previous,
         ShortPress,
         LongPress,
-		Quit
+        Quit
     };
 }
