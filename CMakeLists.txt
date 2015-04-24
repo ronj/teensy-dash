@@ -89,7 +89,7 @@ enable_testing()
 #
 # Compatibility: Yaffut and Google Test (GTest).
 # TODO: Proper support for FUNC test definition of Yaffut.
-macro(add_unit_test _executable)
+macro(add_unit_tests _executable)
   foreach(TEST_SOURCE ${ARGN})
     file(READ "${TEST_SOURCE}" CONTENTS)
     string(REGEX MATCHALL "TEST_?F?\\(([A-Za-z_0-9 ,]+)\\)" FOUND_TESTS ${CONTENTS})
@@ -189,6 +189,7 @@ set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/AnalogPin.h
                            source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/Common/ADXL335Driver.cpp
+                           source/HardwareLayer/DigitalPin.h
                            source/HardwareLayer/DisplayDriver.h
                            source/HardwareLayer/Hardware.h
                            source/HardwareLayer/Platform.h
@@ -209,6 +210,8 @@ if (${BUILD_FOR_EMULATOR})
   list(APPEND HARDWARE_LAYER_SOURCES
               source/HardwareLayer/SDL/SDLAnalogPin.cpp
               source/HardwareLayer/SDL/SDLAnalogPin.h
+              source/HardwareLayer/SDL/SDLDigitalPin.h
+              source/HardwareLayer/SDL/SDLDigitalPin.cpp
               source/HardwareLayer/SDL/SDLDisplayDriver.cpp
               source/HardwareLayer/SDL/SDLDisplayDriver.h
               source/HardwareLayer/SDL/SDLHardware.cpp
@@ -225,6 +228,8 @@ else()
               source/HardwareLayer/Teensy/ST7735DisplayDriver.cpp
               source/HardwareLayer/Teensy/TeensyAnalogPin.h
               source/HardwareLayer/Teensy/TeensyAnalogPin.cpp
+              source/HardwareLayer/Teensy/TeensyDigitalPin.h
+              source/HardwareLayer/Teensy/TeensyDigitalPin.cpp
               source/HardwareLayer/Teensy/TeensyHardware.h
               source/HardwareLayer/Teensy/TeensyHardware.cpp
               source/HardwareLayer/Teensy/TeensyPlatform.cpp
@@ -348,9 +353,9 @@ if (WIN32)
       set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS")
 
       add_custom_command(TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                   "${EXTERNAL_DIR}/sdl2-2.0.3/lib/${PROJECT_SIZE_TYPE}/SDL2.dll"
-                   $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
+                         COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                         "${EXTERNAL_DIR}/sdl2-2.0.3/lib/${PROJECT_SIZE_TYPE}/SDL2.dll"
+                         $<TARGET_FILE_DIR:${CMAKE_PROJECT_NAME}>)
     endif()
   endif()
 endif()
@@ -366,5 +371,5 @@ if(${BUILD_TESTING})
   target_link_libraries(${CMAKE_PROJECT_NAME}.UnitTests ${CMAKE_PROJECT_NAME}.ApplicationLayer)
   target_include_directories(${CMAKE_PROJECT_NAME}.UnitTests PUBLIC ${EXTERNAL_DIR}/yaffut ${EXTERNAL_DIR}/hippomocks ${CMAKE_CURRENT_SOURCE_DIR}/source)
 
-  add_unit_test("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.UnitTests" ${TEST_SOURCES})
+  add_unit_tests("${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_PROJECT_NAME}.UnitTests" ${TEST_SOURCES})
 endif()
