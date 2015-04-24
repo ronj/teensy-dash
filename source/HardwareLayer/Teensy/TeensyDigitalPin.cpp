@@ -8,13 +8,17 @@ namespace
 
     void ISR()
     {
-        self->OnInterrupt();
+    	if (self)
+    	{
+        	self->OnInterrupt();
+        }
     }
 }
 
 HardwareLayer::TeensyDigitalPin::TeensyDigitalPin(const uint8_t pin)
     : m_Pin(pin)
 {
+	self = this;
     pinMode(m_Pin, INPUT);
 }
 
