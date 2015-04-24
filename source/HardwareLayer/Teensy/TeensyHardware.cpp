@@ -28,3 +28,8 @@ HardwareLayer::RotaryEncoder& HardwareLayer::TeensyHardware::GetRotaryEncoder()
 {
 	return m_RotaryEncoder;
 }
+
+HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetVSSPin()
+{
+    return m_VSSPin;
+}

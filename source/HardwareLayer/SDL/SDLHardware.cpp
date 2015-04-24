@@ -25,3 +25,8 @@ HardwareLayer::RotaryEncoder& HardwareLayer::SDLHardware::GetRotaryEncoder()
 {
 	return m_RotaryEncoder;
 }
+
+HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetVSSPin()
+{
+    return m_VSSPin;
+}

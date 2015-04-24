@@ -8,6 +8,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_XAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::X)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
 	, m_ZAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Z)
+	, m_VSSPulseCounter(hardware.GetVSSPin())
 	, m_RotaryEventSource(hardware.GetRotaryEncoder())
 {
 }
