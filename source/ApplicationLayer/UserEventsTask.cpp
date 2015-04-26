@@ -5,6 +5,7 @@
 ApplicationLayer::UserEventsTask::UserEventsTask(PeripheralLayer::Peripherals& peripherals)
 {
 	m_EventSources.Add(peripherals.GetRotaryEventSource());
+	m_EventSources.Add(peripherals.GetSerialEventSource());
 }
 
 bool ApplicationLayer::UserEventsTask::CanRun(uint32_t)

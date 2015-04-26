@@ -268,6 +268,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/PulseCounter.cpp
             source/PeripheralLayer/RotaryEventSource.h
             source/PeripheralLayer/RotaryEventSource.cpp
+            source/PeripheralLayer/SerialEventSource.h
+            source/PeripheralLayer/SerialEventSource.cpp
             source/PeripheralLayer/TextHelper.h
             source/PeripheralLayer/TextHelper.cpp
             source/PeripheralLayer/TimeProvider.h

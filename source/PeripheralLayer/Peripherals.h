@@ -5,6 +5,7 @@
 #include "GraphicContext.h"
 #include "PulseCounter.h"
 #include "RotaryEventSource.h"
+#include "SerialEventSource.h"
 #include "TimeProvider.h"
 
 namespace HardwareLayer
@@ -31,6 +32,7 @@ namespace PeripheralLayer
 		PulseCounter& GetVSSPulseCounter();
 
 		RotaryEventSource& GetRotaryEventSource();
+		SerialEventSource& GetSerialEventSource();
 
 	private:
 		Configuration m_Configuration;
@@ -45,5 +47,6 @@ namespace PeripheralLayer
 		PulseCounter m_VSSPulseCounter;
 
 		RotaryEventSource m_RotaryEventSource;
+		SerialEventSource m_SerialEventSource;
 	};
 }

@@ -52,3 +52,8 @@ PeripheralLayer::RotaryEventSource& PeripheralLayer::Peripherals::GetRotaryEvent
 {
 	return m_RotaryEventSource;
 }
+
+PeripheralLayer::SerialEventSource& PeripheralLayer::Peripherals::GetSerialEventSource()
+{
+	return m_SerialEventSource;
+}
