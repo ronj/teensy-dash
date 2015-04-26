@@ -15,7 +15,8 @@ ApplicationLayer::Views::GraphView::GraphView(int16_t x, int16_t y, const Models
 
 void ApplicationLayer::Views::GraphView::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
-	e.graphicContext.DrawVerticalLine(m_XPos, 160 - GetModel().GetRawValue(), 160, e.colorScheme.Control);
+	e.graphicContext.DrawVerticalLine(m_XPos, e.graphicContext.Height() - GetModel().GetRawValue(), e.graphicContext.Height(), e.colorScheme.Text);
+	e.graphicContext.DrawVerticalLine(m_XPos, 0, e.graphicContext.Height() - GetModel().GetRawValue(), e.colorScheme.Background);
 
-	(m_XPos > 128) ? m_XPos = 0 : m_XPos++;
+	(m_XPos > e.graphicContext.Width()) ? m_XPos = 0 : m_XPos++;
 }
