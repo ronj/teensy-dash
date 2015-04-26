@@ -24,14 +24,18 @@ namespace ApplicationLayer
 		const Models::Model& GetSpeedModel() const;
 		const Models::Model& GetRPMModel() const;
 
+		const Models::Model& GetGearModel() const;
+
+		const Models::Model& GetBatteryVoltageModel() const;
+		const Models::Model& GetOilPressureModel() const;
+		const Models::Model& GetOilTemperatureModel() const;
+
 		const Models::Model& GetXAccelerationModel() const;
 		const Models::Model& GetYAccelerationModel() const;
 		const Models::Model& GetZAccelerationModel() const;
 
 		const Models::Model& GetPitchModel() const;
 		const Models::Model& GetRollModel() const;
-
-		const Models::Model& GetGearModel() const;
 
 		Common::List<Models::Model>& GetModels();
 
@@ -40,6 +44,10 @@ namespace ApplicationLayer
 		Models::RandomValueModel m_RPMModel;
 
 		Models::CalculatedGearModel m_GearModel;
+
+		Models::RandomValueModel m_BatteryVoltageModel;
+		Models::RandomValueModel m_OilPressureModel;
+		Models::RandomValueModel m_OilTemperatureModel;
 
 		Models::AccelerationModel m_XAccelerationModel;
 		Models::AccelerationModel m_YAccelerationModel;

@@ -46,15 +46,11 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 {
 	DrawEventArgs eventArgs(m_GraphicContext, m_Palette);
 
-	Models::RandomValueModel batteryVoltageModel(110, 148);
-	Models::RandomValueModel oilPressureModel(4, 6);
-	Models::RandomValueModel oilTemperatureModel(25, 125);
+	Views::IconValueRow batteryVoltage(0, 0, Images::Battery, "Volt", m_Models.GetBatteryVoltageModel());
+	Views::IconValueRow oilPressure(0, 32 + 5 + 12, Images::Oilcan, "Bar", m_Models.GetOilPressureModel());
+	Views::IconValueRow oilTemp(0, (32 + 5 + 12) * 2, Images::Temperature, "degC", m_Models.GetOilTemperatureModel());
 
-	Views::IconValueRow batteryVoltage(0, 0, Images::Battery, "Volt", batteryVoltageModel);
-	Views::IconValueRow oilPressure(0, 32 + 5 + 12, Images::Oilcan, "Bar", oilPressureModel);
-	Views::IconValueRow oilTemp(0, (32 + 5 + 12) * 2, Images::Temperature, "degC", oilTemperatureModel);
-
-	Views::GraphView oilTempGraph(0, 0, oilTemperatureModel);
+	static Views::GraphView oilTempGraph(0, 0, m_Models.GetOilTemperatureModel());
 	Views::LargeValueView gear(0, 0, "Gear", m_Models.GetGearModel());
 
 	Views::IconValueRow speed(0, 0, Images::Battery, "KM/H", m_Models.GetSpeedModel());
@@ -67,10 +63,6 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 	switch (m_CurrentScreen)
 	{
 		case 0:
-			batteryVoltageModel.Update(0);
-			oilPressureModel.Update(0);
-			oilTemperatureModel.Update(0);
-
 			batteryVoltage.OnDraw(eventArgs);
 			oilPressure.OnDraw(eventArgs);
 			oilTemp.OnDraw(eventArgs);
