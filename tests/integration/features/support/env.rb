@@ -1,31 +1,24 @@
 require 'serialport'
 
-simulatorPort = SerialPort.new "/dev/tty.usbserial-A700eU6X", 57600
-simulatorPort.sync = true
-
-devicePort = SerialPort.new "/dev/tty.usbmodem743881", 57600
-devicePort.sync = true
-devicePort.read_timeout = 1000
-
-at_exit do
-	simulatorPort.close
-	devicePort.close
-end
-
 class TeensyWorld
-	def initialize(simulatorPort, devicePort)
-		@simulatorPort = simulatorPort
-		@devicePort = devicePort
+	def initialize()
+		@simulatorPort = open_port("/dev/tty.usbserial-A700eU6X")
+		@devicePort = open_port("/dev/tty.usbmodem743881")
 	end
 
 	def reset_teensy_cpu()
-		@devicePort.write 'R'
+		@devicePort.write 'Q'
 		sleep 4 # Should read firmware version and log iso sleep!
 		@devicePort.close
-		@devicePort = SerialPort.new "/dev/tty.usbmodem743881", 57600
-		@devicePort.sync = true
-		@devicePort.read_timeout = 1000
+		@devicePort = open_port("/dev/tty.usbmodem743881")
+	end
+
+	def open_port(name)
+		port = SerialPort.new name, 57600
+		port.sync = true
+		port.read_timeout = 1000
+		return port
 	end
 end
 
-World { TeensyWorld.new(simulatorPort, devicePort) }
+World { TeensyWorld.new }

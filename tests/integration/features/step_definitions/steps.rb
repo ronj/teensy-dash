@@ -4,7 +4,7 @@ end
 
 When /^I have selected the speed display/ do
 	4.times do
-		@devicePort.write 'N'
+		@devicePort.write '+'
 	end
 end
 
@@ -18,9 +18,8 @@ Then /^the speed should be (\d+) on the screen/ do |speed|
 
 	for i in 1..samples
 		response = @devicePort.readline
-		print "#{response}"
 		avgspeed += response.to_i / 10
 	end
 
-	expect(avgspeed.to_i / samples).to equal(speed.to_i)
+	expect(avgspeed.to_i / samples).to be_within(1).of(speed.to_i)
 end
