@@ -1,13 +1,14 @@
 #include "UserInterfaceTask.h"
-#include "DrawEventArgs.h"
 
 #include "Common/Logger.h"
 
 #include "PeripheralLayer/GraphicContext.h"
 
-#include "ApplicationLayer/ViewCollection.h"
+#include "DrawEventArgs.h"
+#include "Palette.h"
+#include "ViewCollection.h"
 
-ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ViewCollection& views, uint32_t now)
+ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicContext& context, ViewCollection& views, uint32_t now)
 	: TimedTask(now)
 	, m_GraphicContext(context)
 	, m_Palette(Palette::Default)
