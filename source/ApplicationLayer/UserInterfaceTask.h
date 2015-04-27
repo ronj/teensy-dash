@@ -30,7 +30,7 @@ namespace ApplicationLayer
 
 	private:
 		PeripheralLayer::GraphicContext& m_GraphicContext;
-		ApplicationLayer::PaletteEntry m_Palette;
+		const ApplicationLayer::PaletteEntry& m_Palette;
 		ApplicationLayer::ViewCollection& m_Views;
 		Views::View* m_CurrentScreen;
 	};

@@ -7,8 +7,6 @@
 
 #include "ApplicationLayer/ViewCollection.h"
 
-#include <cassert>
-
 ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ViewCollection& views, uint32_t now)
 	: TimedTask(now)
 	, m_GraphicContext(context)
@@ -21,7 +19,7 @@ ApplicationLayer::UserInterfaceTask::UserInterfaceTask(PeripheralLayer::GraphicC
 
 void ApplicationLayer::UserInterfaceTask::NextScreen()
 {
-	//Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::NextScreen Called");
+	LOG_METHOD_ENTRY;
 
 	m_GraphicContext.FillScreen(m_Palette.Background);
 	m_CurrentScreen = m_Views.GetViews().GetNext();
@@ -30,7 +28,7 @@ void ApplicationLayer::UserInterfaceTask::NextScreen()
 
 void ApplicationLayer::UserInterfaceTask::PreviousScreen()
 {
-	//Common::Logger::Get().Log("ApplicationLayer::UserInterfaceTask::PreviousScreen Called");
+	LOG_METHOD_ENTRY;
 
 	m_GraphicContext.FillScreen(m_Palette.Background);
 	m_CurrentScreen = m_Views.GetViews().GetPrevious();
@@ -39,7 +37,7 @@ void ApplicationLayer::UserInterfaceTask::PreviousScreen()
 
 void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 {
-	assert(m_CurrentScreen);
+	CHECK_IF(m_CurrentScreen != nullptr);
 
 	DrawEventArgs eventArgs(m_GraphicContext, m_Palette);
 

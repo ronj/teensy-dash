@@ -8,9 +8,7 @@
 	#include "Common/ArduinoWrapper.h"
 #endif
 
-#if !(defined(__PRETTY_FUNCTION__))
-	#define __PRETTY_FUNCTION__   __FUNCTION__
-#endif
+#include <cassert>
 
 namespace Common
 {
@@ -49,37 +47,53 @@ namespace Common
 			LogLine(toLog);
 		}
 
+		template <typename T>
+		void LogBrokenContract(const T& toLog) const
+		{
+			Log("Assertion failed: ");
+			LogLine(toLog);
+
+			assert(false);
+		}
+
 	private:
 		Logger() CFG_DECL_DEFAULT;
 	};
 
-	class LogHelper
+	class LogDecorator
 	{
 	public:
-		LogHelper(const char* file, unsigned int line, const char* function)
+		LogDecorator(const char* file, unsigned int line, const char* function)
 			: m_File(file)
 			, m_Line(line)
 			, m_Function(function)
 		{
+			Common::Logger& logger = Logger::Get();
+
+			logger.Log(m_File);
+			logger.Log('(');
+			logger.Log(m_Line);
+			logger.Log(") [");
+			logger.Log(m_Function);
+			logger.Log("] ");
 		}
 
-		template <typename T>
-		void Debug(const T& toLog)
-		{
-			Logger::Get().Log(m_File);
-			Logger::Get().Log('@');
-			Logger::Get().Log(m_Line);
-			Logger::Get().Log(" [");
-			Logger::Get().Log(m_Function);
-			Logger::Get().Log("]: ");
-			Logger::Get().LogLine(toLog);
-		}
+		Common::Logger& GetLogger() { return Logger::Get(); }
 
 	private:
 		const char* m_File;
 		unsigned int m_Line;
 		const char* m_Function;
 	};
-
-#define LOG LogHelper(__FILE__, __LINE__, __PRETTY_FUNCTION__)
 }
+
+#if !(defined(__PRETTY_FUNCTION__))
+	#define __PRETTY_FUNCTION__ __FUNCTION__
+#endif
+
+#define INTERNAL_FILE_LINE_DECORATOR Common::LogDecorator(__FILE__, __LINE__, __PRETTY_FUNCTION__).GetLogger()
+
+#define LOG_METHOD_ENTRY INTERNAL_FILE_LINE_DECORATOR.Log('\n');
+
+#define CHECK_IF(boolean_expression) \
+	if (false == (boolean_expression)) INTERNAL_FILE_LINE_DECORATOR.LogBrokenContract(#boolean_expression)
