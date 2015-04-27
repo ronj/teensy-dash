@@ -50,7 +50,7 @@ void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 	Views::IconValueRow oilPressure(0, 32 + 5 + 12, Images::Oilcan, "Bar", m_Models.GetOilPressureModel());
 	Views::IconValueRow oilTemp(0, (32 + 5 + 12) * 2, Images::Temperature, "degC", m_Models.GetOilTemperatureModel());
 
-	static Views::GraphView oilTempGraph(0, 0, m_Models.GetOilTemperatureModel());
+	static Views::GraphView oilTempGraph(0, 0, m_GraphicContext.Width(), m_GraphicContext.Height(), m_Models.GetOilPressureModel());
 	Views::LargeValueView gear(0, 0, "Gear", m_Models.GetGearModel());
 
 	Views::IconValueRow speed(0, 0, Images::Battery, "KM/H", m_Models.GetSpeedModel());
