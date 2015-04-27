@@ -6,6 +6,7 @@
 #include "ModelUpdateTask.h"
 #include "UserEventsTask.h"
 #include "UserInterfaceTask.h"
+#include "ViewCollection.h"
 
 namespace PeripheralLayer
 {
@@ -26,6 +27,7 @@ namespace ApplicationLayer
 		bool m_Running = true;
 
 		ModelCollection m_Models;
+		ViewCollection m_Views;
 
 		ModelUpdateTask m_ModelUpdateTask;
 		UserEventsTask m_UserEventsTask;

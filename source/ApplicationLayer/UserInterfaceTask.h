@@ -11,12 +11,17 @@ namespace PeripheralLayer
 
 namespace ApplicationLayer
 {
-	class ModelCollection;
+	class ViewCollection;
+
+	namespace Views
+	{
+		class View;
+	}
 
 	class UserInterfaceTask : public Common::TimedTask
 	{
 	public:
-		UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ModelCollection& models, uint32_t now);
+		UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ViewCollection& views, uint32_t now);
 
 		void NextScreen();
 		void PreviousScreen();
@@ -25,8 +30,8 @@ namespace ApplicationLayer
 
 	private:
 		PeripheralLayer::GraphicContext& m_GraphicContext;
-		ApplicationLayer::ModelCollection& m_Models;
 		ApplicationLayer::PaletteEntry m_Palette;
-		uint8_t m_CurrentScreen;
+		ApplicationLayer::ViewCollection& m_Views;
+		Views::View* m_CurrentScreen;
 	};
 }

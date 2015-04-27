@@ -297,7 +297,9 @@ list(APPEND APPLICATION_LAYER_SOURCES
             source/ApplicationLayer/UserEventsTask.h
             source/ApplicationLayer/UserEventsTask.cpp
             source/ApplicationLayer/UserInterfaceTask.h
-            source/ApplicationLayer/UserInterfaceTask.cpp)
+            source/ApplicationLayer/UserInterfaceTask.cpp
+            source/ApplicationLayer/ViewCollection.h
+            source/ApplicationLayer/ViewCollection.cpp)
 
 list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/BaseView.h

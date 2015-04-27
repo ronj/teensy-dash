@@ -5,9 +5,10 @@
 
 ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals& peripherals)
 	: m_Models(peripherals)
+	, m_Views(m_Models)
 	, m_ModelUpdateTask(m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
 	, m_UserEventsTask(peripherals)
-	, m_UITask(peripherals.GetGraphicContext(), m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
+	, m_UITask(peripherals.GetGraphicContext(), m_Views, peripherals.GetTimeProvider().TickCountMilliseconds())
 {
 	m_Scheduler.Add(m_ModelUpdateTask);
 	m_Scheduler.Add(m_UserEventsTask);
