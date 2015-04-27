@@ -2,9 +2,10 @@
 
 #include "Common/List.h"
 
+#include "ApplicationLayer/Views/GraphView.h"
 #include "ApplicationLayer/Views/IconValueRow.h"
 #include "ApplicationLayer/Views/LargeValueView.h"
-#include "ApplicationLayer/Views/GraphView.h"
+#include "ApplicationLayer/Views/TwoRowView.h"
 #include "ApplicationLayer/Views/XYScatterView.h"
 
 namespace ApplicationLayer
@@ -29,6 +30,8 @@ namespace ApplicationLayer
 		Views::IconValueRow m_SpeedView;
 
 		Views::XYScatterView m_AccelerationView;
+
+		Views::TwoRowView m_SpeedRPMView;
 
 		//Views::IconValueRow pitch(0, 0, Images::Oilcan, "Pitch (Deg)", m_Models.GetPitchModel());
 		//Views::IconValueRow roll(0, 32 + 5 + 12, Images::Oilcan, "Roll (Deg)", m_Models.GetRollModel());

@@ -9,8 +9,6 @@
 
 #include "ApplicationLayer/Models/Model.h"
 
-#include <cstring>
-
 ApplicationLayer::Views::LargeValueView::LargeValueView(int16_t x, int16_t y, const char* label, const Models::Model& model)
 	: BaseView(x, y, model)
 	, m_Label(label)

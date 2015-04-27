@@ -309,6 +309,8 @@ list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/IconValueRow.cpp
             source/ApplicationLayer/Views/LargeValueView.h
             source/ApplicationLayer/Views/LargeValueView.cpp
+            source/ApplicationLayer/Views/TwoRowView.h
+            source/ApplicationLayer/Views/TwoRowView.cpp
             source/ApplicationLayer/Views/View.h
             source/ApplicationLayer/Views/XYScatterView.h
             source/ApplicationLayer/Views/XYScatterView.cpp)

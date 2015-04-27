@@ -44,3 +44,13 @@ void PeripheralLayer::TextHelper::Write(const char* str)
 		Write(str[i]);
 	}
 }
+
+uint16_t PeripheralLayer::TextHelper::TextWidth(const char* str, uint8_t size)
+{
+	return std::strlen(str) * size * 6;
+}
+
+uint16_t PeripheralLayer::TextHelper::TextHeight(const char* str, uint8_t size)
+{
+	return size * 8;
+}

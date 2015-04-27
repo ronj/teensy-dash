@@ -14,6 +14,9 @@ namespace PeripheralLayer
 		void Write(uint8_t c);
 		void Write(const char* str);
 
+		static uint16_t TextWidth(const char* str, uint8_t size);
+		static uint16_t TextHeight(const char* str, uint8_t size);
+
 	private:
 		GraphicContext& m_Context;
 		int16_t m_CursorX;
