@@ -30,3 +30,8 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetVSSPin()
 {
     return m_VSSPin;
 }
+
+HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetRPMPin()
+{
+    return m_RPMPin;
+}

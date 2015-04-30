@@ -17,7 +17,6 @@ namespace PeripheralLayer
 		virtual uint32_t GetCount();
 
 	private:
-		HardwareLayer::DigitalPin& m_Pin;
 		volatile unsigned long m_Counter;
 	};
 }

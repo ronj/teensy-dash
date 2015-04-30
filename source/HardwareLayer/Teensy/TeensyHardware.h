@@ -22,6 +22,7 @@ namespace HardwareLayer
 		virtual Timer& GetTimer();
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
+		virtual DigitalPin& GetRPMPin();
 
 	private:
 		TeensyPlatform m_Platform;
@@ -31,6 +32,7 @@ namespace HardwareLayer
 		const TeensyAnalogPin m_ZPin;
 
 		TeensyDigitalPin m_VSSPin;
+		TeensyDigitalPin m_RPMPin;
 
 		TeensyTimer m_Timer;
 		ADXL335Driver m_AccelerometerDriver;
