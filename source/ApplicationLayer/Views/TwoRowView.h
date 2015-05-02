@@ -23,7 +23,7 @@ namespace ApplicationLayer
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 
 		private:
-			void DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint16_t& previousWidth);
+			void DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint8_t textSize, uint16_t& previousWidth);
 
 		private:
 			int16_t m_X;

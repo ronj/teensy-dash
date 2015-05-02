@@ -24,13 +24,12 @@ ApplicationLayer::Views::TwoRowView::TwoRowView(int16_t x, int16_t y, const char
 
 void ApplicationLayer::Views::TwoRowView::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
-	DrawLabelAndModel(m_X, m_Y, e, m_LabelOne, m_ModelOne, m_PreviousWidthOne);
-	DrawLabelAndModel(m_X, m_Y + e.graphicContext.Height() / 2, e, m_LabelTwo, m_ModelTwo, m_PreviousWidthTwo);
+	DrawLabelAndModel(m_X, m_Y, e, m_LabelOne, m_ModelOne, 7, m_PreviousWidthOne);
+	DrawLabelAndModel(m_X, m_Y + e.graphicContext.Height() / 2 + 10, e, m_LabelTwo, m_ModelTwo, 5, m_PreviousWidthTwo);
 }
 
-void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint16_t& previousWidth)
+void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint8_t textSize, uint16_t& previousWidth)
 {
-	const uint8_t textSize = 7;
 	const uint8_t labelSize = 2;
 
 	const char* value = model.GetFormattedValue();
