@@ -53,7 +53,7 @@ float ApplicationLayer::Models::CalculatedGearModel::CalculateGearRatio(int32_t 
 
 uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearRatio) const
 {
-	int32_t gear = 0;
+	int32_t gear = 1;
 
 	for (auto ratio : m_GearRatios)
 	{
