@@ -1,5 +1,7 @@
 #include "TeensyDigitalPin.h"
 
+#include "Common/DisableInterruptContext.h"
+
 #include "core_pins.h"
 
 #include <array>
@@ -34,15 +36,15 @@ namespace
         config = portConfigRegister(pin);
 
         attachInterruptVector2(IRQ_PORTC, portc_interrupt2);
-
-        __disable_irq();
-        cfg = *config;
-        cfg &= ~0x000F0000;     // disable any previous interrupt
-        *config = cfg;
-        interruptFunctions[pin] = function;    // set the function pointer
-        cfg |= mask;
-        *config = cfg;          // enable the new interrupt
-        __enable_irq();
+        {
+            Common::DisableInterruptContext interruptDisable;
+            cfg = *config;
+            cfg &= ~0x000F0000;     // disable any previous interrupt
+            *config = cfg;
+            interruptFunctions[pin] = function;    // set the function pointer
+            cfg |= mask;
+            *config = cfg;          // enable the new interrupt
+        }
     }
 
     void detachInterrupt2(uint8_t pin)
@@ -50,10 +52,11 @@ namespace
         volatile uint32_t *config;
 
         config = portConfigRegister(pin);
-        __disable_irq();
-        *config = ((*config & ~0x000F0000) | 0x01000000);
-        interruptFunctions[pin] = nullptr;
-        __enable_irq();
+        {
+            Common::DisableInterruptContext interruptDisable;
+            *config = ((*config & ~0x000F0000) | 0x01000000);
+            interruptFunctions[pin] = nullptr;
+        }
     }
 
     static void portc_interrupt2(void)

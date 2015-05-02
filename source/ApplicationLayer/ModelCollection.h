@@ -2,12 +2,13 @@
 
 #include "Common/List.h"
 
-#include "Models/SpeedModel.h"
-#include "Models/CalculatedGearModel.h"
-#include "Models/RandomValueModel.h"
 #include "Models/AccelerationModel.h"
+#include "Models/CalculatedGearModel.h"
 #include "Models/PitchModel.h"
+#include "Models/RandomValueModel.h"
 #include "Models/RollModel.h"
+#include "Models/RPMModel.h"
+#include "Models/SpeedModel.h"
 
 namespace PeripheralLayer
 {
@@ -41,7 +42,7 @@ namespace ApplicationLayer
 
 	private:
 		Models::SpeedModel m_RoadspeedModel;
-		Models::RandomValueModel m_RPMModel;
+		Models::RPMModel m_RPMModel;
 
 		Models::CalculatedGearModel m_GearModel;
 

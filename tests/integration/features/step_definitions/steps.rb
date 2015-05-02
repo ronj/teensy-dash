@@ -1,5 +1,5 @@
 Given /^I drive (\d+) kilometer per hour/ do |speed|
-	@simulatorPort.write "speed:#{speed}"
+	@simulatorPort.write "S:#{speed}"
 end
 
 When /^I have selected the speed display/ do
