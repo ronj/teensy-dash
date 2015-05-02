@@ -4,7 +4,7 @@
 
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
 	: m_RoadspeedModel(peripherals.GetConfiguration(), peripherals.GetVSSPulseCounter())
-	, m_RPMModel(0, 7200)
+	, m_RPMModel(peripherals.GetRPMPulseCounter())
 	, m_GearModel(peripherals.GetConfiguration(), m_RoadspeedModel, m_RPMModel)
 	, m_BatteryVoltageModel(110, 148)
 	, m_OilPressureModel(4, 6)

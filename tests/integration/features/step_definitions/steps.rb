@@ -1,9 +1,9 @@
 Given /^I drive (\d+) kilometer per hour/ do |speed|
-	@simulatorPort.write "speed:#{speed}"
+	set_speed speed
 end
 
 When /^I have selected the speed display/ do
-	4.times do
+	2.times do
 		@devicePort.write '+'
 	end
 end

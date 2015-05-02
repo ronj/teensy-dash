@@ -6,13 +6,12 @@
 
 namespace HardwareLayer
 {
-    enum class InterruptType { Rising, Falling, Change };
+    enum class InterruptType { Rising, Falling, Change, Low, High };
 
 	class DigitalPin
         : public Common::NonCopyable
 	{
 	public:
-        virtual void EnableInterrupt(InterruptType edge) = 0;
-		std::function<void()> OnInterrupt;
+        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr) = 0;
 	};
 }

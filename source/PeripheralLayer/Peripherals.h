@@ -30,6 +30,7 @@ namespace PeripheralLayer
 		AccelerationAxis& GetZAcceleration();
 
 		PulseCounter& GetVSSPulseCounter();
+		PulseCounter& GetRPMPulseCounter();
 
 		RotaryEventSource& GetRotaryEventSource();
 		SerialEventSource& GetSerialEventSource();
@@ -45,6 +46,7 @@ namespace PeripheralLayer
 		AccelerationAxis m_ZAccelerationAxis;
 
 		PulseCounter m_VSSPulseCounter;
+		PulseCounter m_RPMPulseCounter;
 
 		RotaryEventSource m_RotaryEventSource;
 		SerialEventSource m_SerialEventSource;

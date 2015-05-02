@@ -328,6 +328,8 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/PitchModel.cpp
             source/ApplicationLayer/Models/RandomValueModel.h
             source/ApplicationLayer/Models/RandomValueModel.cpp
+            source/ApplicationLayer/Models/RPMModel.h
+            source/ApplicationLayer/Models/RPMModel.cpp
             source/ApplicationLayer/Models/RollModel.h
             source/ApplicationLayer/Models/RollModel.cpp
             source/ApplicationLayer/Models/SpeedModel.h

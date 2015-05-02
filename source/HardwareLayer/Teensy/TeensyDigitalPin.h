@@ -9,8 +9,9 @@ namespace HardwareLayer
     {
     public:
         TeensyDigitalPin(const uint8_t pin);
+        virtual ~TeensyDigitalPin();
 
-        virtual void EnableInterrupt(InterruptType edge);
+        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr);
 
     private:
         const uint8_t m_Pin;

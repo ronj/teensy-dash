@@ -19,6 +19,14 @@ class TeensyWorld
 		port.read_timeout = 1000
 		return port
 	end
+
+	def set_speed(kmh)
+		@simulatorPort.write "S:#{kmh}"
+	end
+
+	def set_rpm(rpm)
+		@simulatorPort.write "R:#{rpm}"
+	end
 end
 
 World { TeensyWorld.new }

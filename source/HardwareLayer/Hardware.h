@@ -16,5 +16,6 @@ namespace HardwareLayer
 		virtual Timer& GetTimer() = 0;
 		virtual RotaryEncoder& GetRotaryEncoder() = 0;
 		virtual DigitalPin& GetVSSPin() = 0;
+		virtual DigitalPin& GetRPMPin() = 0;
 	};
 }

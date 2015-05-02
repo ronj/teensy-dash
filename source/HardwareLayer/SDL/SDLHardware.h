@@ -22,6 +22,7 @@ namespace HardwareLayer
 		virtual Timer& GetTimer();
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
+		virtual DigitalPin& GetRPMPin();
 
 	private:
 		SDLPlatform m_Platform;
@@ -31,6 +32,7 @@ namespace HardwareLayer
 		SDLAnalogPin m_Z;
 
 		SDLDigitalPin m_VSSPin;
+		SDLDigitalPin m_RPMPin;
 
 		SDLTimer m_Timer;
 		ADXL335Driver m_AccelerometerDriver;
