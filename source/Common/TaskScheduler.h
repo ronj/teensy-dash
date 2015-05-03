@@ -25,7 +25,7 @@ namespace Common
 	        	if (task.CanRun(now))
 	        	{
 	        		task.Run(now);
-	        		//break;
+	        		break;
 	        	}
 	        }
 		}
