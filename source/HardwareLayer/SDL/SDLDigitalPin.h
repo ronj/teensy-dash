@@ -3,6 +3,7 @@
 #include "DigitalPin.h"
 
 #include <SDL.h>
+#include <functional>
 
 namespace HardwareLayer
 {
@@ -11,7 +12,9 @@ namespace HardwareLayer
     {
     public:
 		virtual ~SDLDigitalPin();
-        virtual void EnableInterrupt(InterruptType mode, std::function<void()> func);
+        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr);
+
+        std::function<void()> m_ISR;
 
 	private:
 		SDL_TimerID m_TimerID;
