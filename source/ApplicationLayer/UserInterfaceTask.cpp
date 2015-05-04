@@ -38,7 +38,7 @@ void ApplicationLayer::UserInterfaceTask::PreviousScreen()
 
 void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
 {
-	CHECK_IF(m_CurrentScreen != nullptr);
+	ASSERT_THAT(m_CurrentScreen != nullptr);
 
 	DrawEventArgs eventArgs(m_GraphicContext, m_Palette);
 

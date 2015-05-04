@@ -95,5 +95,5 @@ namespace Common
 
 #define LOG_METHOD_ENTRY INTERNAL_FILE_LINE_DECORATOR.Log('\n');
 
-#define CHECK_IF(boolean_expression) \
+#define ASSERT_THAT(boolean_expression) \
 	if (false == (boolean_expression)) INTERNAL_FILE_LINE_DECORATOR.LogBrokenContract(#boolean_expression)
