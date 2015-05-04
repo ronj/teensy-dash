@@ -19,9 +19,9 @@
   #define CFG_HAS_CONSTEXPR                     __has_feature(cxx_constexpr)
   #define CFG_HAS_STRING_LITERALS               __has_feature(cxx_raw_string_literals)
 #elif defined(__GNUC__)
-  #define GCC_VERSION(__GNUC__ * 10000 + \
+  #define GCC_VERSION __GNUC__ * 10000 + \
                       __GNUC_MINOR__ * 100 + \
-                      __GNUC_PATCHLEVEL__)
+                      __GNUC_PATCHLEVEL__
   #if GCC_VERSION >= 40300
     #define CFG_HAS_VARIADIC_TEMPLATES 1
     #define CFG_HAS_RVALUE_REFERENCES 1
