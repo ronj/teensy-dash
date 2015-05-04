@@ -24,6 +24,10 @@ TEST(ListTest, should_construct_empty_list)
 {
 	Common::List<ListElement> list;
 	EXPECT_TRUE(list.IsEmpty());
+	// Here I would rather say EXPECT_EQ(nullptr, list.GetFirst()) but there
+	// is an ambiguity error when using the stream put operator and nullptr_t.
+	EXPECT_TRUE(!list.GetFirst());
+	EXPECT_TRUE(!list.GetLast());
 }
 
 TEST(ListTest, should_add_and_remove_items)
@@ -60,8 +64,6 @@ TEST(ListTest, should_not_add_element_that_is_already_in_list)
 	list.Add(one);
 
 	EXPECT_EQ(&one, list.GetFirst());
-	// Here I would rather say EXPECT_EQ(nullptr, list.GetNext()) but there
-	// is an ambiguity error when using the stream put operator and nullptr_t.
 	EXPECT_TRUE(!list.GetNext());
 }
 
