@@ -177,6 +177,7 @@ set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/NonCopyable.h
                    source/Common/Task.h
                    source/Common/TaskScheduler.h
+                   source/Common/TaskScheduler.cpp
                    source/Common/TimedTask.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
