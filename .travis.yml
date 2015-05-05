@@ -17,10 +17,14 @@ install:
   - tar -xzf cmake-3.0.2-Linux-64.tar.gz
   - sudo cp -fR cmake-3.0.2-Linux-64/* /usr
   - rm -rf cmake-3.0.2-Linux-64 cmake-3.0.2-Linux-64.tar.gz
+  - gem install coveralls-lcov
+
+before_script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --zerocounters
 
 script:
-  - mkdir build
-  - cd build
+  - cd ${TRAVIS_BUILD_DIR}
   - cmake -DBUILD_FOR_EMULATOR=On ..
   - make
   - ctest
