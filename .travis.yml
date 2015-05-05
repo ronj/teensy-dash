@@ -20,17 +20,16 @@ install:
   - gem install coveralls-lcov
 
 before_script:
-  - cd ${TRAVIS_BUILD_DIR}
   - lcov --directory . --zerocounters
 
 script:
-  - cd ${TRAVIS_BUILD_DIR}
+  - mkdir build
+  - cd build
   - cmake -DBUILD_FOR_EMULATOR=On ..
   - make
   - ctest
 
 after_success:
-  - cd ${TRAVIS_BUILD_DIR}
   - lcov --directory . --capture --output-file coverage.info
   - lcov --list coverage.info
   - coveralls-lcov --repo-token ${COVERALLS_TOKEN} coverage.info
