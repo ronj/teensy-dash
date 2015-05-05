@@ -12,11 +12,19 @@ before_install:
 install:
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - sudo apt-get -qq install libsdl2-dev lcov
+  - sudo apt-get -qq install libsdl2-dev
+
+  # Install more current version of CMake
   - wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-Linux-64.tar.gz
   - tar -xzf cmake-3.0.2-Linux-64.tar.gz
   - sudo cp -fR cmake-3.0.2-Linux-64/* /usr
   - rm -rf cmake-3.0.2-Linux-64 cmake-3.0.2-Linux-64.tar.gz
+
+  # Install more current version of lcov
+  - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
+  - tar -xzf lcov_1.11.orig.tar.gz
+  - sudo make -C lcov-1.11 install
+
   - gem install coveralls-lcov
 
 before_script:
