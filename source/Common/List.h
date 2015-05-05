@@ -13,6 +13,14 @@ namespace Common
 		{
 		}
 
+		~List()
+		{
+			for (T* it = GetFirst(); it != nullptr; it = GetNext())
+			{
+				Remove(it);
+			}
+		}
+
 		class Element
 		{
 			friend class List<T>;
