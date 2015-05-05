@@ -41,6 +41,7 @@ TEST(ListTest, should_add_and_remove_items)
 	EXPECT_TRUE(!list.IsEmpty());
 
 	EXPECT_EQ(&one, list.GetFirst());
+	EXPECT_EQ(&two, list.GetNext());
 	EXPECT_EQ(&three, list.GetLast());
 
 	list.Remove(three);
@@ -81,16 +82,30 @@ TEST(ListTest, should_remove_item_from_list_when_item_is_destructed)
 
 TEST(ListTest, should_not_remove_item_that_is_not_in_list)
 {
-	Common::List<ListElement> list;
+	Common::List<ListElement> lista;
+	Common::List<ListElement> listb;
 
-	list.Remove(one);
+	lista.Add(one);
+	listb.Remove(one);
 
-	EXPECT_TRUE(list.IsEmpty());
+	EXPECT_TRUE(!lista.IsEmpty());
+	EXPECT_TRUE(listb.IsEmpty());
 
-	list.Add(one);
-	list.Remove(two);
+	EXPECT_EQ(&one, lista.GetFirst());
+}
 
-	EXPECT_EQ(&one, list.GetFirst());
+TEST(ListTest, should_not_add_item_to_list_when_already_in_other_list)
+{
+	Common::List<ListElement> lista;
+	Common::List<ListElement> listb;
+
+	lista.Add(one);
+	listb.Add(one);
+
+	EXPECT_TRUE(!lista.IsEmpty());
+	EXPECT_TRUE(listb.IsEmpty());
+
+	EXPECT_EQ(&one, lista.GetFirst());
 }
 
 TEST(ListTest, should_iterate_over_list_items)
