@@ -1,4 +1,4 @@
-teensy-dash [![Build Status](https://travis-ci.org/ronj/teensy-dash.svg?branch=develop)](https://travis-ci.org/ronj/teensy-dash) [![Coverage Status](https://coveralls.io/repos/ronj/teensy-dash/badge.svg)](https://coveralls.io/r/ronj/teensy-dash)
+teensy-dash [![Build Status](https://travis-ci.org/ronj/teensy-dash.svg?branch=develop)](https://travis-ci.org/ronj/teensy-dash) [![Coverage Status](https://coveralls.io/repos/ronj/teensy-dash/badge.svg?branch=develop)](https://coveralls.io/r/ronj/teensy-dash?branch=develop)
 ===========
 
 Circuit / code information and documentation.
