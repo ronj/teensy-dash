@@ -178,7 +178,8 @@ set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/Task.h
                    source/Common/TaskScheduler.h
                    source/Common/TaskScheduler.cpp
-                   source/Common/TimedTask.h)
+                   source/Common/TimedTask.h
+                   source/Common/TimedTask.cpp)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
 
@@ -374,8 +375,9 @@ endif()
 #
 
 if(${BUILD_TESTING})
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
+  if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -g -O0")
+  endif()
 
   file(GLOB_RECURSE TEST_SOURCES "test_*.cpp")
 
