@@ -10,8 +10,8 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 	, m_UserEventsTask(peripherals)
 	, m_UITask(peripherals.GetGraphicContext(), m_Views, peripherals.GetTimeProvider().TickCountMilliseconds())
 {
-	m_Scheduler.Add(m_ModelUpdateTask);
 	m_Scheduler.Add(m_UserEventsTask);
+	m_Scheduler.Add(m_ModelUpdateTask);
 	m_Scheduler.Add(m_UITask);
 
 	m_Scheduler.GetMillisecondCount = std::bind(&PeripheralLayer::TimeProvider::TickCountMilliseconds, &peripherals.GetTimeProvider());
