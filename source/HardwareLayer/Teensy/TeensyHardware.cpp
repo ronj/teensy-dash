@@ -1,9 +1,9 @@
 #include "TeensyHardware.h"
 
 HardwareLayer::TeensyHardware::TeensyHardware()
-	: m_XPin(A2)
-	, m_YPin(A3)
-	, m_ZPin(A4)
+	: m_XPin(A0)
+	, m_YPin(A1)
+	, m_ZPin(A2)
 	, m_VSSPin(23)
 	, m_RPMPin(22)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
