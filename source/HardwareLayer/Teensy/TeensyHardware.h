@@ -30,6 +30,7 @@ namespace HardwareLayer
 		const TeensyAnalogPin m_XPin;
 		const TeensyAnalogPin m_YPin;
 		const TeensyAnalogPin m_ZPin;
+		TeensyAnalogPin m_BacklightPin;
 
 		TeensyDigitalPin m_VSSPin;
 		TeensyDigitalPin m_RPMPin;
