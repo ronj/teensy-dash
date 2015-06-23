@@ -10,6 +10,7 @@ PeripheralLayer::Configuration::Configuration()
 	, m_FinalDrive(4.05f)
 	, m_GearRatios({ { 2.92f, 1.87f, 1.41f, 1.15f, 0.92f, 0.79f } })
 	, m_VSSPulsesPerKm(4971)
+	, m_PulsesPerRPM(2)
 {
 }
 
@@ -56,4 +57,9 @@ const std::array<float, 6>& PeripheralLayer::Configuration::GetGearRatios() cons
 uint16_t PeripheralLayer::Configuration::GetVSSPulsesPerKm() const
 {
 	return m_VSSPulsesPerKm;
+}
+
+uint8_t PeripheralLayer::Configuration::GetPulsesPerRPM() const
+{
+	return m_PulsesPerRPM;
 }

@@ -4,6 +4,7 @@
 
 namespace PeripheralLayer
 {
+	class Configuration;
 	class PulseCounter;
 }
 
@@ -14,7 +15,7 @@ namespace ApplicationLayer
 		class RPMModel : public Model
 		{
 		public:
-			RPMModel(PeripheralLayer::PulseCounter& pulseCounter);
+			RPMModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter);
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
@@ -26,6 +27,7 @@ namespace ApplicationLayer
 		private:
 			uint16_t m_RPM = 0;
 			uint32_t m_PreviousTicks = 0;
+			uint8_t m_PulsesPerRPM;
 			PeripheralLayer::PulseCounter& m_PulseCounter;
 		};
 	}
