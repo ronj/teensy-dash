@@ -57,7 +57,7 @@ uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearR
 
 	for (auto ratio : m_GearRatios)
 	{
-		if (std::isgreater(gearRatio, ratio))
+		if (std::isnan(ratio) || std::isgreater(gearRatio, ratio))
 		{
 			return gear;
 		}
