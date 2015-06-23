@@ -34,5 +34,5 @@ void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 
 uint32_t ApplicationLayer::Models::SpeedModel::ConvertPulsesToSpeed(uint32_t pulses, uint32_t timediff) const
 {
-	return (pulses / (m_PulseFactor * timediff)) * 10;
+	return static_cast<uint32_t>((pulses / (m_PulseFactor * timediff)) * 10);
 }

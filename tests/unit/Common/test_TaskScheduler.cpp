@@ -78,11 +78,11 @@ TEST(TaskSchedulerTest, should_run_timed_task_with_correct_interval)
 	const uint32_t interval = 5;
 
 	Common::TaskScheduler scheduler;
-	scheduler.GetMillisecondCount = [& ticks]() { return ticks++; };
+	scheduler.GetMillisecondCount = [&ticks]() { return ticks++; };
 
 	scheduler.Add(timedTask);
 
-	timedTask.OnRun = [&timedTask](uint32_t now) { CHECK(now % interval == 0); timedTask.IncrementRunTime(interval); };
+	timedTask.OnRun = [&timedTask, interval](uint32_t now) { CHECK(now % interval == 0); timedTask.IncrementRunTime(interval); };
 
 	for (int i = 0; i < 50; ++i)
 	{

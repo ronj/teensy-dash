@@ -32,5 +32,5 @@ void ApplicationLayer::Models::RPMModel::Update(uint32_t now)
 
 uint32_t ApplicationLayer::Models::RPMModel::ConvertPulsesToRPM(uint32_t pulses, uint32_t timediff) const
 {
-	return pulses * (60.0f / (timediff / 1000.0f));
+	return static_cast<uint32_t>(pulses) * (60.0f / (timediff / 1000.0f));
 }
