@@ -70,9 +70,19 @@ namespace
 }
 
 HardwareLayer::TeensyDigitalPin::TeensyDigitalPin(const uint8_t pin)
+    : TeensyDigitalPin(pin, PinType::Input)
+{
+}
+
+HardwareLayer::TeensyDigitalPin::TeensyDigitalPin(const uint8_t pin, PinType type)
     : m_Pin(pin)
 {
-    pinMode(m_Pin, INPUT);
+    switch (type)
+    {
+        case PinType::Input: pinMode(m_Pin, INPUT); break;
+        case PinType::Output: pinMode(m_Pin, OUTPUT); break;
+        case PinType::InputPullUp: pinMode(m_Pin, INPUT_PULLUP); break;
+    }
 }
 
 HardwareLayer::TeensyDigitalPin::~TeensyDigitalPin()
@@ -82,5 +92,12 @@ HardwareLayer::TeensyDigitalPin::~TeensyDigitalPin()
 
 void HardwareLayer::TeensyDigitalPin::EnableInterrupt(InterruptType mode, std::function<void()> isr)
 {
-    attachInterrupt2(m_Pin, isr, RISING);
+    switch (mode)
+    {
+        case InterruptType::Rising: attachInterrupt2(m_Pin, isr, RISING); break;
+        case InterruptType::Falling: attachInterrupt2(m_Pin, isr, FALLING); break;
+        case InterruptType::Change: attachInterrupt2(m_Pin, isr, CHANGE); break;
+        case InterruptType::Low: attachInterrupt2(m_Pin, isr, LOW); break;
+        case InterruptType::High: attachInterrupt2(m_Pin, isr, HIGH); break;
+    }
 }

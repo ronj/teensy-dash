@@ -6,6 +6,7 @@
 
 namespace HardwareLayer
 {
+	enum class PinType { Input, Output, InputPullUp };
     enum class InterruptType { Rising, Falling, Change, Low, High };
 
 	class DigitalPin
