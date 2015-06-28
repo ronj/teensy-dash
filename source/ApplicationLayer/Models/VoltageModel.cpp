@@ -2,8 +2,6 @@
 
 #include "ConversionHelper.h"
 
-#include "Common/Logger.h"
-
 #include "PeripheralLayer/Voltmeter.h"
 
 ApplicationLayer::Models::VoltageModel::VoltageModel(const PeripheralLayer::Voltmeter& meter)
@@ -31,7 +29,5 @@ const char* ApplicationLayer::Models::VoltageModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::VoltageModel::Update(uint32_t)
 {
-	Common::Logger::Get().Log(m_Meter.GetVoltage());
-
 	m_Value = static_cast<int32_t>(m_Meter.GetVoltage() * 100);
 }
