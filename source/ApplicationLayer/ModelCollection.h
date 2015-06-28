@@ -9,6 +9,7 @@
 #include "Models/RollModel.h"
 #include "Models/RPMModel.h"
 #include "Models/SpeedModel.h"
+#include "Models/VoltageModel.h"
 
 namespace PeripheralLayer
 {
@@ -46,7 +47,7 @@ namespace ApplicationLayer
 
 		Models::CalculatedGearModel m_GearModel;
 
-		Models::RandomValueModel m_BatteryVoltageModel;
+		Models::VoltageModel m_BatteryVoltageModel;
 		Models::RandomValueModel m_OilPressureModel;
 		Models::RandomValueModel m_OilTemperatureModel;
 

@@ -35,3 +35,8 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetRPMPin()
 {
     return m_RPMPin;
 }
+
+const HardwareLayer::AnalogPin& HardwareLayer::SDLHardware::GetBatteryVoltagePin()
+{
+	return m_BatteryVoltagePin;
+}

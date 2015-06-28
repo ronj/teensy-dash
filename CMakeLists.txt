@@ -275,7 +275,11 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/TextHelper.h
             source/PeripheralLayer/TextHelper.cpp
             source/PeripheralLayer/TimeProvider.h
-            source/PeripheralLayer/TimeProvider.cpp)
+            source/PeripheralLayer/TimeProvider.cpp
+            source/PeripheralLayer/VoltageDivider.cpp
+            source/PeripheralLayer/VoltageDivider.h
+            source/PeripheralLayer/Voltmeter.h
+            source/PeripheralLayer/Voltmeter.cpp)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.PeripheralLayer ${PERIPHERAL_LAYER_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.PeripheralLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
@@ -335,7 +339,9 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/RollModel.h
             source/ApplicationLayer/Models/RollModel.cpp
             source/ApplicationLayer/Models/SpeedModel.h
-            source/ApplicationLayer/Models/SpeedModel.cpp)
+            source/ApplicationLayer/Models/SpeedModel.cpp
+            source/ApplicationLayer/Models/VoltageModel.cpp
+            source/ApplicationLayer/Models/VoltageModel.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.ApplicationLayer ${APPLICATION_LAYER_SOURCES} ${APPLICATION_LAYER_VIEW_SOURCES} ${APPLICATION_LAYER_MODEL_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)

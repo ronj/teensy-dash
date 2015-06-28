@@ -23,6 +23,7 @@ namespace HardwareLayer
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
 		virtual DigitalPin& GetRPMPin();
+		virtual const AnalogPin& GetBatteryVoltagePin();
 
 	private:
 		TeensyPlatform m_Platform;
@@ -30,7 +31,9 @@ namespace HardwareLayer
 		const TeensyAnalogPin m_XPin;
 		const TeensyAnalogPin m_YPin;
 		const TeensyAnalogPin m_ZPin;
+
 		TeensyAnalogPin m_BacklightPin;
+		const TeensyAnalogPin m_BatteryVoltagePin;
 
 		TeensyDigitalPin m_VSSPin;
 		TeensyDigitalPin m_RPMPin;

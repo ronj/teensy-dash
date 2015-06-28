@@ -23,6 +23,7 @@ namespace HardwareLayer
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
 		virtual DigitalPin& GetRPMPin();
+		virtual const AnalogPin& GetBatteryVoltagePin();
 
 	private:
 		SDLPlatform m_Platform;
@@ -30,6 +31,8 @@ namespace HardwareLayer
 		SDLAnalogPin m_X;
 		SDLAnalogPin m_Y;
 		SDLAnalogPin m_Z;
+
+		const SDLAnalogPin m_BatteryVoltagePin;
 
 		SDLDigitalPin m_VSSPin;
 		SDLDigitalPin m_RPMPin;

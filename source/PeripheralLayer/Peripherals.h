@@ -7,6 +7,8 @@
 #include "RotaryEventSource.h"
 #include "SerialEventSource.h"
 #include "TimeProvider.h"
+#include "VoltageDivider.h"
+#include "Voltmeter.h"
 
 namespace HardwareLayer
 {
@@ -35,6 +37,8 @@ namespace PeripheralLayer
 		RotaryEventSource& GetRotaryEventSource();
 		SerialEventSource& GetSerialEventSource();
 
+		Voltmeter& GetBatteryVoltageMeter();
+
 	private:
 		Configuration m_Configuration;
 
@@ -50,5 +54,8 @@ namespace PeripheralLayer
 
 		RotaryEventSource m_RotaryEventSource;
 		SerialEventSource m_SerialEventSource;
+
+		VoltageDivider m_BatteryVoltageDivider;
+		Voltmeter m_BatteryVoltageMeter;
 	};
 }

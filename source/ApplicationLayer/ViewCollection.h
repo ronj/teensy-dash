@@ -20,7 +20,7 @@ namespace ApplicationLayer
 		Common::List<Views::View>& GetViews();
 
 	private:
-		//Views::IconValueRow batteryVoltage(0, 0, Images::Battery, "Volt", m_Models.GetBatteryVoltageModel());
+		Views::IconValueRow m_BatteryVoltage;
 		//Views::IconValueRow oilPressure(0, 32 + 5 + 12, Images::Oilcan, "Bar", m_Models.GetOilPressureModel());
 		//Views::IconValueRow oilTemp(0, (32 + 5 + 12) * 2, Images::Temperature, "degC", m_Models.GetOilTemperatureModel());
 

@@ -3,6 +3,7 @@
 namespace HardwareLayer
 {
 	class AccelerometerDriver;
+	class AnalogPin;
 	class DigitalPin;
 	class DisplayDriver;
 	class RotaryEncoder;
@@ -17,5 +18,6 @@ namespace HardwareLayer
 		virtual RotaryEncoder& GetRotaryEncoder() = 0;
 		virtual DigitalPin& GetVSSPin() = 0;
 		virtual DigitalPin& GetRPMPin() = 0;
+		virtual const AnalogPin& GetBatteryVoltagePin() = 0;
 	};
 }
