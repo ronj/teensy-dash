@@ -9,8 +9,8 @@ ApplicationLayer::ViewCollection::ViewCollection(ModelCollection& models)
 	, m_GearView(0, 0, "Gear", models.GetGearModel())
 	, m_AccelerationView(0, 0, models.GetXAccelerationModel(), models.GetYAccelerationModel())
 {
-	m_Views.Add(m_BatteryVoltage);
 	m_Views.Add(m_SpeedRPMView);
+	m_Views.Add(m_BatteryVoltage);
 	m_Views.Add(m_GearView);
 	m_Views.Add(m_AccelerationView);
 }
