@@ -17,6 +17,6 @@ namespace PeripheralLayer
 		virtual uint32_t GetCount();
 
 	private:
-		volatile unsigned long m_Counter;
+		volatile uint32_t m_Counter;
 	};
 }

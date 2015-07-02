@@ -31,7 +31,7 @@ namespace ApplicationLayer
 
 		private:
 			float m_PulseFactor;
-			uint16_t m_Speed = 0;
+			uint32_t m_Speed = 0;
 			uint32_t m_PreviousTicks = 0;
 			PeripheralLayer::PulseCounter& m_PulseCounter;
 		};
