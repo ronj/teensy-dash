@@ -13,7 +13,7 @@ PeripheralLayer::Configuration::Configuration()
 	//, m_GearRatios({ { 2.92f, 1.87f, 1.41f, 1.15f, 0.92f, 0.79f } })
 	, m_FinalDrive(4.06f)
 	, m_GearRatios({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, std::numeric_limits<float>::quiet_NaN() } })
-	, m_VSSPulsesPerKm(4971)
+	, m_VSSPulsesPerKm(10495)
 	, m_PulsesPerRPM(2)
 {
 }
