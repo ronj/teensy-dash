@@ -11,7 +11,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_VSSPulseCounter(hardware.GetVSSPin())
 	, m_RPMPulseCounter(hardware.GetRPMPin())
 	, m_RotaryEventSource(hardware.GetRotaryEncoder())
-	, m_BatteryVoltageDivider(10000, 4700, 3.3)
+	, m_BatteryVoltageDivider(120000, 33000, 3.3)
 	, m_BatteryVoltageMeter(hardware.GetBatteryVoltagePin(), m_BatteryVoltageDivider)
 {
 }
