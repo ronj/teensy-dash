@@ -5,9 +5,6 @@
 #include "PeripheralLayer/Configuration.h"
 #include "PeripheralLayer/PulseCounter.h"
 
-ApplicationLayer::Models::RPMModel::RPMModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter)
-	: m_PulsesPerRPM(configuration.GetPulsesPerRPM())
-	, m_PulseCounter(pulseCounter)
 ApplicationLayer::Models::RPMModel::RPMModel(PeripheralLayer::PulseCounter& pulseCounter)
 	: m_PulseCounter(pulseCounter)
 {
