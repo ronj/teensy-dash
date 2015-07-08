@@ -6,12 +6,14 @@ namespace HardwareLayer
 	class AnalogPin;
 	class DigitalPin;
 	class DisplayDriver;
+	class Platform;
 	class RotaryEncoder;
 	class Timer;
 
 	class Hardware
 	{
 	public:
+		virtual Platform& GetPlatform() = 0;
 		virtual AccelerometerDriver& GetAccelerometerDriver() = 0;
 		virtual DisplayDriver& GetDisplayDriver() = 0;
 		virtual Timer& GetTimer() = 0;

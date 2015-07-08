@@ -6,6 +6,11 @@ HardwareLayer::SDLHardware::SDLHardware()
 	m_Platform.Init();
 }
 
+HardwareLayer::Platform& HardwareLayer::SDLHardware::GetPlatform()
+{
+	return m_Platform;
+}
+
 HardwareLayer::AccelerometerDriver& HardwareLayer::SDLHardware::GetAccelerometerDriver()
 {
 	return m_AccelerometerDriver;

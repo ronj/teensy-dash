@@ -11,5 +11,6 @@ namespace HardwareLayer
 		virtual ~SDLPlatform();
 
 		virtual void Init();
+		virtual void KickWatchdog();
 	};
 }

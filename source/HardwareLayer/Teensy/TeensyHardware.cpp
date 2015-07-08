@@ -14,6 +14,11 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	m_BacklightPin.Write(100);
 }
 
+HardwareLayer::Platform& HardwareLayer::TeensyHardware::GetPlatform()
+{
+	return m_Platform;
+}
+
 HardwareLayer::AccelerometerDriver& HardwareLayer::TeensyHardware::GetAccelerometerDriver()
 {
 	return m_AccelerometerDriver;

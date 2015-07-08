@@ -15,6 +15,7 @@ int Application::Run()
 	while (application.IsRunning())
 	{
 		application.Eventloop();
+		hardware.GetPlatform().KickWatchdog();
 	}
 
 	return 0;

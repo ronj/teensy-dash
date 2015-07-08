@@ -20,4 +20,9 @@ HardwareLayer::SDLPlatform::~SDLPlatform()
 
 void HardwareLayer::SDLPlatform::Init()
 {
+	LOG_METHOD_ENTRY;
+}
+
+void HardwareLayer::SDLPlatform::KickWatchdog()
+{
 }

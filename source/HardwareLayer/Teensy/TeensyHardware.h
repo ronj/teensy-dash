@@ -17,6 +17,7 @@ namespace HardwareLayer
 	public:
 		TeensyHardware();
 
+		virtual Platform& GetPlatform();
 		virtual AccelerometerDriver& GetAccelerometerDriver();
 		virtual DisplayDriver& GetDisplayDriver();
 		virtual Timer& GetTimer();
