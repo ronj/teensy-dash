@@ -1,19 +1,20 @@
-const unsigned long PULSES_PER_KM = 4971;
+const unsigned long PULSES_PER_KM = 4500;
 
 const int speedOutPin = 2;
 const int rpmOutPin = 3;
 
 unsigned long previousSpeedTime = 0;
-unsigned long speedDelayMicroSeconds = 10 * 1000000;
+unsigned long speedDelayMicroSeconds = 1 * 10000;
 
-unsigned long previousRPMTime = 0;
+unsigned long previousRpmTime = 0;
 unsigned long rpmDelayMicroSeconds = 1 * 1000000;
+unsigned long halfRpmDelayMicroSeconds = rpmDelayMicroSeconds / 2;
 
 void setup()
 {
-  Serial.begin(57600);
+  Serial.begin(115200);
 
-  pinMode(speedOutPin, OUTPUT);
+  pinMode(speedOutPin, OUTPUT); 
   pinMode(rpmOutPin, OUTPUT);
 }
 
@@ -36,10 +37,11 @@ void loop()
       int rpm = Serial.parseInt();
       float rpmFrequency = rpm / 60.0f;
       rpmDelayMicroSeconds = (1.0f / rpmFrequency) * 1000000;
+      halfRpmDelayMicroSeconds = rpmDelayMicroSeconds / 2;
     }
   }
 
-  if (currentTime - previousSpeedTime > (speedDelayMicroSeconds))
+  if (currentTime - previousSpeedTime > speedDelayMicroSeconds)
   {
     previousSpeedTime = currentTime;
 
@@ -48,12 +50,16 @@ void loop()
     digitalWrite(speedOutPin, LOW);
   }
 
-  if (currentTime - previousRPMTime > (rpmDelayMicroSeconds))
+  // RPM signal from the car is a PWM square wave with 50% duty-cycle.
+  if (currentTime - previousRpmTime > rpmDelayMicroSeconds)
   {
-    previousRPMTime = currentTime;
+    previousRpmTime = currentTime;
 
     digitalWrite(rpmOutPin, HIGH);
-    delayMicroseconds(1);
+  }
+
+  if (currentTime - previousRpmTime > halfRpmDelayMicroSeconds)
+  {
     digitalWrite(rpmOutPin, LOW);
   }
 }
