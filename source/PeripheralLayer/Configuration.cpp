@@ -9,12 +9,9 @@ PeripheralLayer::Configuration::Configuration()
 	, m_TireWidth(205)
 	, m_TireAspect(40)
 	, m_RimSize(17)
-	//, m_FinalDrive(4.05f)
-	//, m_GearRatios({ { 2.92f, 1.87f, 1.41f, 1.15f, 0.92f, 0.79f } })
 	, m_FinalDrive(4.06f)
-	, m_GearRatios({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, std::numeric_limits<float>::quiet_NaN() } })
+	, m_GearRatios({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, UnavailableGear() } })
 	, m_VSSPulsesPerKm(4500)
-	, m_PulsesPerRPM(1)
 {
 }
 
@@ -58,12 +55,12 @@ const std::array<float, 6>& PeripheralLayer::Configuration::GetGearRatios() cons
 	return m_GearRatios;
 }
 
+float PeripheralLayer::Configuration::UnavailableGear()
+{
+	return std::numeric_limits<float>::quiet_NaN();
+}
+
 uint16_t PeripheralLayer::Configuration::GetVSSPulsesPerKm() const
 {
 	return m_VSSPulsesPerKm;
-}
-
-uint8_t PeripheralLayer::Configuration::GetPulsesPerRPM() const
-{
-	return m_PulsesPerRPM;
 }
