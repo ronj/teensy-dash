@@ -17,7 +17,7 @@ namespace HardwareLayer
 	public:
 		SDLHardware();
 
-		virtual m_Platform& GetPlatform();
+		virtual Platform& GetPlatform();
 		virtual AccelerometerDriver& GetAccelerometerDriver();
 		virtual DisplayDriver& GetDisplayDriver();
 		virtual Timer& GetTimer();
