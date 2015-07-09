@@ -14,7 +14,7 @@ extern "C" {
 void startup_early_hook()
 {
 	/* Enable the watchdog */
-	WDOG_TOVALL = 1000;
+	WDOG_TOVALL = 5000;
 	WDOG_TOVALH = 0;
 	WDOG_PRESC = 0;
 	WDOG_STCTRLH = (WDOG_STCTRLH_ALLOWUPDATE | WDOG_STCTRLH_WDOGEN);
