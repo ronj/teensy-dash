@@ -3,9 +3,11 @@
 #include "PeripheralLayer/Peripherals.h"
 
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
-	: m_RoadspeedModel(peripherals.GetConfiguration(), peripherals.GetVSSPulseCounter())
+	: m_WheelTickModel(peripherals.GetVSSPulseCounter())
+	, m_SpeedModel(peripherals.GetConfiguration(), m_WheelTickModel)
 	, m_RPMModel(peripherals.GetRPMPulseCounter())
-	, m_GearModel(peripherals.GetConfiguration(), m_RoadspeedModel, m_RPMModel)
+	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
+	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel)
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())
 	, m_OilPressureModel(4, 6)
 	, m_OilTemperatureModel(25, 125)
@@ -15,9 +17,14 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	, m_PitchModel(peripherals.GetXAcceleration(), peripherals.GetYAcceleration(), peripherals.GetZAcceleration())
 	, m_RollModel(peripherals.GetYAcceleration(), peripherals.GetZAcceleration())
 {
-	m_ModelList.Add(m_RoadspeedModel);
+	// Please note: since there are dependencies between Models
+	// the sequence of the Models in the list matter. Do not
+	// change carelessly.
+	m_ModelList.Add(m_WheelTickModel);
+	m_ModelList.Add(m_SpeedModel);
 	m_ModelList.Add(m_RPMModel);
 	m_ModelList.Add(m_GearModel);
+	m_ModelList.Add(m_TripComputerModel);
 	m_ModelList.Add(m_BatteryVoltageModel);
 	m_ModelList.Add(m_OilPressureModel);
 	m_ModelList.Add(m_OilTemperatureModel);
@@ -30,7 +37,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetSpeedModel() const
 {
-	return m_RoadspeedModel;
+	return m_SpeedModel;
 }
 
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetRPMModel() const
@@ -41,6 +48,11 @@ const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetRPM
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetGearModel() const
 {
 	return m_GearModel;
+}
+
+const ApplicationLayer::Models::TripComputerModel& ApplicationLayer::ModelCollection::GetTripComputerModel() const
+{
+	return m_TripComputerModel;
 }
 
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const

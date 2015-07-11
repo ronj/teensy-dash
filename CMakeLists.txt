@@ -166,20 +166,19 @@ endif()
 
 ## Build Common
 #
-
 set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/DisableInterruptContext.h
                    source/Common/Interpolation.h
-                   source/Common/Logger.h
                    source/Common/List.h
-                   source/Common/Math.h
+                   source/Common/Logger.h
                    source/Common/Math.cpp
+                   source/Common/Math.h
                    source/Common/NonCopyable.h
                    source/Common/Task.h
-                   source/Common/TaskScheduler.h
                    source/Common/TaskScheduler.cpp
-                   source/Common/TimedTask.h
-                   source/Common/TimedTask.cpp)
+                   source/Common/TaskScheduler.h
+                   source/Common/TimedTask.cpp
+                   source/Common/TimedTask.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
 
@@ -189,8 +188,8 @@ internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
 
 set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/AnalogPin.h
-                           source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/Common/ADXL335Driver.cpp
+                           source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/DigitalPin.h
                            source/HardwareLayer/DisplayDriver.h
                            source/HardwareLayer/Hardware.h
@@ -212,8 +211,8 @@ if (${BUILD_FOR_EMULATOR})
   list(APPEND HARDWARE_LAYER_SOURCES
               source/HardwareLayer/SDL/SDLAnalogPin.cpp
               source/HardwareLayer/SDL/SDLAnalogPin.h
-              source/HardwareLayer/SDL/SDLDigitalPin.h
               source/HardwareLayer/SDL/SDLDigitalPin.cpp
+              source/HardwareLayer/SDL/SDLDigitalPin.h
               source/HardwareLayer/SDL/SDLDisplayDriver.cpp
               source/HardwareLayer/SDL/SDLDisplayDriver.h
               source/HardwareLayer/SDL/SDLHardware.cpp
@@ -290,58 +289,66 @@ target_link_libraries(${CMAKE_PROJECT_NAME}.PeripheralLayer ${CMAKE_PROJECT_NAME
 #
 
 list(APPEND APPLICATION_LAYER_SOURCES
-            source/ApplicationLayer/DashApplication.h
             source/ApplicationLayer/DashApplication.cpp
+            source/ApplicationLayer/DashApplication.h
             source/ApplicationLayer/DrawEventArgs.h
             source/ApplicationLayer/Fonts.h
             source/ApplicationLayer/Images.h
-            source/ApplicationLayer/ModelCollection.h
             source/ApplicationLayer/ModelCollection.cpp
-            source/ApplicationLayer/ModelUpdateTask.h
+            source/ApplicationLayer/ModelCollection.h
             source/ApplicationLayer/ModelUpdateTask.cpp
+            source/ApplicationLayer/ModelUpdateTask.h
             source/ApplicationLayer/Palette.h
-            source/ApplicationLayer/UserEventsTask.h
             source/ApplicationLayer/UserEventsTask.cpp
-            source/ApplicationLayer/UserInterfaceTask.h
+            source/ApplicationLayer/UserEventsTask.h
             source/ApplicationLayer/UserInterfaceTask.cpp
-            source/ApplicationLayer/ViewCollection.h
-            source/ApplicationLayer/ViewCollection.cpp)
+            source/ApplicationLayer/UserInterfaceTask.h
+            source/ApplicationLayer/ViewCollection.cpp
+            source/ApplicationLayer/ViewCollection.h)
 
 list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/BaseView.h
-            source/ApplicationLayer/Views/GraphView.h
             source/ApplicationLayer/Views/GraphView.cpp
-            source/ApplicationLayer/Views/IconValueRow.h
+            source/ApplicationLayer/Views/GraphView.h
             source/ApplicationLayer/Views/IconValueRow.cpp
-            source/ApplicationLayer/Views/LargeValueView.h
+            source/ApplicationLayer/Views/IconValueRow.h
             source/ApplicationLayer/Views/LargeValueView.cpp
-            source/ApplicationLayer/Views/TwoRowView.h
+            source/ApplicationLayer/Views/LargeValueView.h
+            source/ApplicationLayer/Views/TripComputerView.cpp
+            source/ApplicationLayer/Views/TripComputerView.h
             source/ApplicationLayer/Views/TwoRowView.cpp
+            source/ApplicationLayer/Views/TwoRowView.h
             source/ApplicationLayer/Views/View.h
-            source/ApplicationLayer/Views/XYScatterView.h
-            source/ApplicationLayer/Views/XYScatterView.cpp)
+            source/ApplicationLayer/Views/XYScatterView.cpp
+            source/ApplicationLayer/Views/XYScatterView.h)
 
 list(APPEND APPLICATION_LAYER_MODEL_SOURCES
-            source/ApplicationLayer/Models/AccelerationModel.h
             source/ApplicationLayer/Models/AccelerationModel.cpp
-            source/ApplicationLayer/Models/CalculatedGearModel.h
+            source/ApplicationLayer/Models/AccelerationModel.h
             source/ApplicationLayer/Models/CalculatedGearModel.cpp
-            source/ApplicationLayer/Models/ConversionHelper.h
+            source/ApplicationLayer/Models/CalculatedGearModel.h
             source/ApplicationLayer/Models/ConversionHelper.cpp
-            source/ApplicationLayer/Models/Model.h
+            source/ApplicationLayer/Models/ConversionHelper.h
             source/ApplicationLayer/Models/Model.cpp
-            source/ApplicationLayer/Models/PitchModel.h
+            source/ApplicationLayer/Models/Model.h
             source/ApplicationLayer/Models/PitchModel.cpp
-            source/ApplicationLayer/Models/RandomValueModel.h
+            source/ApplicationLayer/Models/PitchModel.h
             source/ApplicationLayer/Models/RandomValueModel.cpp
-            source/ApplicationLayer/Models/RPMModel.h
-            source/ApplicationLayer/Models/RPMModel.cpp
-            source/ApplicationLayer/Models/RollModel.h
+            source/ApplicationLayer/Models/RandomValueModel.h
             source/ApplicationLayer/Models/RollModel.cpp
-            source/ApplicationLayer/Models/SpeedModel.h
+            source/ApplicationLayer/Models/RollModel.h
+            source/ApplicationLayer/Models/RPMModel.cpp
+            source/ApplicationLayer/Models/RPMModel.h
             source/ApplicationLayer/Models/SpeedModel.cpp
+            source/ApplicationLayer/Models/SpeedModel.h
+            source/ApplicationLayer/Models/TripComputerModel.cpp
+            source/ApplicationLayer/Models/TripComputerModel.h
+            source/ApplicationLayer/Models/TripData.cpp
+            source/ApplicationLayer/Models/TripData.h
             source/ApplicationLayer/Models/VoltageModel.cpp
-            source/ApplicationLayer/Models/VoltageModel.h)
+            source/ApplicationLayer/Models/VoltageModel.h
+            source/ApplicationLayer/Models/WheelTickModel.cpp
+            source/ApplicationLayer/Models/WheelTickModel.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.ApplicationLayer ${APPLICATION_LAYER_SOURCES} ${APPLICATION_LAYER_VIEW_SOURCES} ${APPLICATION_LAYER_MODEL_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
