@@ -25,8 +25,6 @@ public:
 
 struct TaskSchedulerTest
 {
-	static uint32_t GetTickCount() { static uint32_t ticks = 0; return ticks++; }
-
 	TaskImpl taskA;
 	TaskImpl taskB;
 };
@@ -34,7 +32,6 @@ struct TaskSchedulerTest
 TEST(TaskSchedulerTest, should_run_task_when_runnable)
 {
 	Common::TaskScheduler scheduler;
-	scheduler.GetMillisecondCount = TaskSchedulerTest::GetTickCount;
 
 	scheduler.Add(taskA);
 	scheduler.Add(taskB);
@@ -47,14 +44,13 @@ TEST(TaskSchedulerTest, should_run_task_when_runnable)
 
 	for (int i = 0; i < 10; ++i)
 	{
-		scheduler.Run();
+		scheduler.Run(i);
 	}
 }
 
 TEST(TaskSchedulerTest, should_only_run_highest_priority_task)
 {
 	Common::TaskScheduler scheduler;
-	scheduler.GetMillisecondCount = TaskSchedulerTest::GetTickCount;
 
 	scheduler.Add(taskA);
 	scheduler.Add(taskB);
@@ -67,18 +63,16 @@ TEST(TaskSchedulerTest, should_only_run_highest_priority_task)
 
 	for (int i = 0; i < 10; ++i)
 	{
-		scheduler.Run();
+		scheduler.Run(i);
 	}
 }
 
 TEST(TaskSchedulerTest, should_run_timed_task_with_correct_interval)
 {
 	TimedTaskImpl timedTask(0);
-	uint32_t ticks = 0;
 	const uint32_t interval = 5;
 
 	Common::TaskScheduler scheduler;
-	scheduler.GetMillisecondCount = [&ticks]() { return ticks++; };
 
 	scheduler.Add(timedTask);
 
@@ -86,6 +80,6 @@ TEST(TaskSchedulerTest, should_run_timed_task_with_correct_interval)
 
 	for (int i = 0; i < 50; ++i)
 	{
-		scheduler.Run();
+		scheduler.Run(i);
 	}
 }
