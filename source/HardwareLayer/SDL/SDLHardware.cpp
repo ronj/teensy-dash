@@ -46,3 +46,8 @@ const HardwareLayer::AnalogPin& HardwareLayer::SDLHardware::GetBatteryVoltagePin
 {
 	return m_BatteryVoltagePin;
 }
+
+HardwareLayer::AnalogPin& HardwareLayer::SDLHardware::GetBacklightPin()
+{
+    return m_BacklightPin;
+}

@@ -25,6 +25,7 @@ namespace HardwareLayer
 		virtual DigitalPin& GetVSSPin();
 		virtual DigitalPin& GetRPMPin();
 		virtual const AnalogPin& GetBatteryVoltagePin();
+		virtual AnalogPin& GetBacklightPin();
 
 	private:
 		SDLPlatform m_Platform;
@@ -34,6 +35,7 @@ namespace HardwareLayer
 		SDLAnalogPin m_Z;
 
 		const SDLAnalogPin m_BatteryVoltagePin;
+		SDLAnalogPin m_BacklightPin;
 
 		SDLDigitalPin m_VSSPin;
 		SDLDigitalPin m_RPMPin;

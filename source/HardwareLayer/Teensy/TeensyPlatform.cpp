@@ -11,15 +11,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-void startup_early_hook()
-{
-	/* Enable the watchdog */
-	WDOG_TOVALL = 5000;
-	WDOG_TOVALH = 0;
-	WDOG_PRESC = 0;
-	WDOG_STCTRLH = (WDOG_STCTRLH_ALLOWUPDATE | WDOG_STCTRLH_WDOGEN);
-}
-
 int _kill(int, int)
 {
 	return 0;
@@ -35,6 +26,17 @@ int _getpid()
 
 HardwareLayer::TeensyPlatform::TeensyPlatform()
 {
+	Common::DisableInterruptContext disable;
+
+	WDOG_UNLOCK = WDOG_UNLOCK_SEQ1;
+	WDOG_UNLOCK = WDOG_UNLOCK_SEQ2;
+
+	delayMicroseconds(1);
+
+	WDOG_TOVALL = 5000;
+	WDOG_TOVALH = 0;
+	WDOG_PRESC = 0;
+	WDOG_STCTRLH = (WDOG_STCTRLH_ALLOWUPDATE | WDOG_STCTRLH_WDOGEN);
 }
 
 HardwareLayer::TeensyPlatform::~TeensyPlatform()
@@ -52,6 +54,17 @@ void HardwareLayer::TeensyPlatform::KickWatchdog()
 	Common::DisableInterruptContext disable;
 	WDOG_REFRESH = 0xA602;
 	WDOG_REFRESH = 0xB480;
+}
+
+void HardwareLayer::TeensyPlatform::LowPowerSleep(uint32_t microseconds)
+{
+	m_LowPowerConfiguration.setTimer(1000 * 2);
+	Snooze.deepSleep(m_LowPowerConfiguration);
+}
+
+void HardwareLayer::TeensyPlatform::Idle()
+{
+	Snooze.idle();
 }
 
 void HardwareLayer::TeensyPlatform::LogResetReason() const

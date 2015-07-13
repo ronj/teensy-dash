@@ -4,7 +4,8 @@
 #include "PeripheralLayer/TimeProvider.h"
 
 ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals& peripherals)
-	: m_Models(peripherals)
+	: m_Peripherals(peripherals)
+	, m_Models(peripherals)
 	, m_Views(m_Models)
 	, m_ModelUpdateTask(m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
 	, m_UserEventsTask(peripherals)
@@ -13,8 +14,6 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 	m_Scheduler.Add(m_UserEventsTask);
 	m_Scheduler.Add(m_ModelUpdateTask);
 	m_Scheduler.Add(m_UITask);
-
-	m_Scheduler.GetMillisecondCount = std::bind(&PeripheralLayer::TimeProvider::TickCountMilliseconds, &peripherals.GetTimeProvider());
 
 	m_UserEventsTask.OnNext = std::bind(&ApplicationLayer::UserInterfaceTask::NextScreen, &m_UITask);
 	m_UserEventsTask.OnPrevious = std::bind(&ApplicationLayer::UserInterfaceTask::PreviousScreen, &m_UITask);
@@ -28,5 +27,26 @@ bool ApplicationLayer::DashApplication::IsRunning()
 
 void ApplicationLayer::DashApplication::Eventloop()
 {
-	m_Scheduler.Run();
+	uint32_t now = m_Peripherals.GetTimeProvider().TickCountMilliseconds();
+
+	if (!m_Scheduler.Run(now))
+	{
+		m_Peripherals.GetPowerManagement().Idle();
+	}
+
+	if (m_Models.GetRPMModel().GetRawValue() == 0)
+	{
+		m_IsPoweredDown = true;
+
+		m_Peripherals.GetPowerManagement().PowerDownPeripherals();
+		m_Peripherals.GetPowerManagement().LowPowerSleep();
+	}
+	else if (m_Models.GetRPMModel().GetRawValue() > 0 && m_IsPoweredDown)
+	{
+		m_IsPoweredDown = false;
+
+		m_Peripherals.GetPowerManagement().PowerUpPeripherals();
+	}
+
+	m_Peripherals.GetTimeProvider().Sleep(25);
 }

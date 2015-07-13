@@ -2,6 +2,8 @@
 
 #include "Platform.h"
 
+#include "Snooze.h"
+
 namespace HardwareLayer
 {
 	class TeensyPlatform : public Platform
@@ -12,8 +14,13 @@ namespace HardwareLayer
 
 		virtual void Init();
 		virtual void KickWatchdog();
+		virtual void LowPowerSleep(uint32_t microseconds);
+		virtual void Idle();
 
 	private:
 		void LogResetReason() const;
+
+	private:
+		SnoozeBlock m_LowPowerConfiguration;
 	};
 }

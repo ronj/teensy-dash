@@ -21,5 +21,6 @@ namespace HardwareLayer
 		virtual DigitalPin& GetVSSPin() = 0;
 		virtual DigitalPin& GetRPMPin() = 0;
 		virtual const AnalogPin& GetBatteryVoltagePin() = 0;
+		virtual AnalogPin& GetBacklightPin() = 0;
 	};
 }

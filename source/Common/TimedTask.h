@@ -8,8 +8,8 @@ namespace Common
 	{
 	public:
 	    TimedTask(uint32_t when);
+
 	    virtual bool CanRun(uint32_t now);
-	    void SetRunTime(uint32_t when);
 	    void IncrementRunTime(uint32_t inc);
 
 	protected:

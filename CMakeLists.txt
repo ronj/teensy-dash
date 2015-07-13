@@ -252,33 +252,35 @@ target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CU
 #
 
 list(APPEND PERIPHERAL_LAYER_SOURCES
-            source/PeripheralLayer/AccelerationAxis.h
             source/PeripheralLayer/AccelerationAxis.cpp
-            source/PeripheralLayer/Color.h
+            source/PeripheralLayer/AccelerationAxis.h
             source/PeripheralLayer/Color.cpp
-            source/PeripheralLayer/Configuration.h
+            source/PeripheralLayer/Color.h
             source/PeripheralLayer/Configuration.cpp
-            source/PeripheralLayer/EventSource.h
+            source/PeripheralLayer/Configuration.h
             source/PeripheralLayer/EventSource.cpp
+            source/PeripheralLayer/EventSource.h
             source/PeripheralLayer/EventTypes.h
-            source/PeripheralLayer/GraphicContext.h
             source/PeripheralLayer/GraphicContext.cpp
-            source/PeripheralLayer/Peripherals.h
+            source/PeripheralLayer/GraphicContext.h
             source/PeripheralLayer/Peripherals.cpp
-            source/PeripheralLayer/PulseCounter.h
+            source/PeripheralLayer/Peripherals.h
+            source/PeripheralLayer/PowerManagement.cpp
+            source/PeripheralLayer/PowerManagement.h
             source/PeripheralLayer/PulseCounter.cpp
-            source/PeripheralLayer/RotaryEventSource.h
+            source/PeripheralLayer/PulseCounter.h
             source/PeripheralLayer/RotaryEventSource.cpp
-            source/PeripheralLayer/SerialEventSource.h
+            source/PeripheralLayer/RotaryEventSource.h
             source/PeripheralLayer/SerialEventSource.cpp
-            source/PeripheralLayer/TextHelper.h
+            source/PeripheralLayer/SerialEventSource.h
             source/PeripheralLayer/TextHelper.cpp
-            source/PeripheralLayer/TimeProvider.h
+            source/PeripheralLayer/TextHelper.h
             source/PeripheralLayer/TimeProvider.cpp
+            source/PeripheralLayer/TimeProvider.h
             source/PeripheralLayer/VoltageDivider.cpp
             source/PeripheralLayer/VoltageDivider.h
-            source/PeripheralLayer/Voltmeter.h
-            source/PeripheralLayer/Voltmeter.cpp)
+            source/PeripheralLayer/Voltmeter.cpp
+            source/PeripheralLayer/Voltmeter.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.PeripheralLayer ${PERIPHERAL_LAYER_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.PeripheralLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)

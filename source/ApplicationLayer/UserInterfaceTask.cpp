@@ -36,7 +36,7 @@ void ApplicationLayer::UserInterfaceTask::PreviousScreen()
 	if (m_CurrentScreen == nullptr) m_CurrentScreen = m_Views.GetViews().GetLast();
 }
 
-void ApplicationLayer::UserInterfaceTask::Run(uint32_t now)
+void ApplicationLayer::UserInterfaceTask::Run(uint32_t)
 {
 	ASSERT_THAT(m_CurrentScreen != nullptr);
 

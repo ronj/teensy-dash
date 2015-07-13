@@ -26,3 +26,11 @@ void HardwareLayer::SDLPlatform::Init()
 void HardwareLayer::SDLPlatform::KickWatchdog()
 {
 }
+
+void HardwareLayer::SDLPlatform::LowPowerSleep(uint32_t)
+{
+}
+
+void HardwareLayer::SDLPlatform::Idle()
+{
+}

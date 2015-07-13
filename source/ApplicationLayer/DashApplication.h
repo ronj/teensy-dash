@@ -25,6 +25,9 @@ namespace ApplicationLayer
 
 	private:
 		bool m_Running = true;
+		bool m_IsPoweredDown = false;
+
+		PeripheralLayer::Peripherals& m_Peripherals;
 
 		ModelCollection m_Models;
 		ViewCollection m_Views;

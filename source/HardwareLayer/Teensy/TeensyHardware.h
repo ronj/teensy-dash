@@ -25,6 +25,7 @@ namespace HardwareLayer
 		virtual DigitalPin& GetVSSPin();
 		virtual DigitalPin& GetRPMPin();
 		virtual const AnalogPin& GetBatteryVoltagePin();
+		virtual AnalogPin& GetBacklightPin();
 
 	private:
 		TeensyPlatform m_Platform;

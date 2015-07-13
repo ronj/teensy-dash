@@ -1,17 +1,17 @@
 #include "TaskScheduler.h"
 
-void Common::TaskScheduler::Run()
+bool Common::TaskScheduler::Run(uint32_t now)
 {
-    uint32_t now = GetMillisecondCount();
-
 	for (auto&& task : m_Tasks)
     {
     	if (task.CanRun(now))
     	{
     		task.Run(now);
-    		break;
+            return true;
     	}
     }
+
+    return false;
 }
 
 void Common::TaskScheduler::Add(Task& task)

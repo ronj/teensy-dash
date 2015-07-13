@@ -26,7 +26,7 @@ namespace ApplicationLayer
 		void NextScreen();
 		void PreviousScreen();
 
-		void Run(uint32_t now);
+		void Run(uint32_t);
 
 	private:
 		PeripheralLayer::GraphicContext& m_GraphicContext;

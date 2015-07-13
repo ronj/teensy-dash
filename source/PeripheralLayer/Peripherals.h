@@ -3,6 +3,7 @@
 #include "AccelerationAxis.h"
 #include "Configuration.h"
 #include "GraphicContext.h"
+#include "PowerManagement.h"
 #include "PulseCounter.h"
 #include "RotaryEventSource.h"
 #include "SerialEventSource.h"
@@ -23,6 +24,7 @@ namespace PeripheralLayer
 		Peripherals(HardwareLayer::Hardware& hardware);
 
 		const Configuration& GetConfiguration() const;
+		PowerManagement& GetPowerManagement();
 
 		GraphicContext& GetGraphicContext();
 		TimeProvider& GetTimeProvider();
@@ -41,6 +43,7 @@ namespace PeripheralLayer
 
 	private:
 		Configuration m_Configuration;
+		PowerManagement m_PowerManagement;
 
 		GraphicContext m_GraphicContext;
 		TimeProvider m_TimeProvider;

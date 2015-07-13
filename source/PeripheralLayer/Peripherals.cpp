@@ -3,7 +3,8 @@
 #include "HardwareLayer/Hardware.h"
 
 PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
-	: m_GraphicContext(hardware.GetDisplayDriver())
+	: m_PowerManagement(hardware)
+	, m_GraphicContext(hardware.GetDisplayDriver())
 	, m_TimeProvider(hardware.GetTimer())
 	, m_XAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::X)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
@@ -19,6 +20,11 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 const PeripheralLayer::Configuration& PeripheralLayer::Peripherals::GetConfiguration() const
 {
 	return m_Configuration;
+}
+
+PeripheralLayer::PowerManagement& PeripheralLayer::Peripherals::GetPowerManagement()
+{
+	return m_PowerManagement;
 }
 
 PeripheralLayer::GraphicContext& PeripheralLayer::Peripherals::GetGraphicContext()
