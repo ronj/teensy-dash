@@ -26,17 +26,6 @@ int _getpid()
 
 HardwareLayer::TeensyPlatform::TeensyPlatform()
 {
-	Common::DisableInterruptContext disable;
-
-	WDOG_UNLOCK = WDOG_UNLOCK_SEQ1;
-	WDOG_UNLOCK = WDOG_UNLOCK_SEQ2;
-
-	delayMicroseconds(1);
-
-	WDOG_TOVALL = 5000;
-	WDOG_TOVALH = 0;
-	WDOG_PRESC = 0;
-	WDOG_STCTRLH = (WDOG_STCTRLH_ALLOWUPDATE | WDOG_STCTRLH_WDOGEN);
 }
 
 HardwareLayer::TeensyPlatform::~TeensyPlatform()
