@@ -20,3 +20,7 @@ void ApplicationLayer::Views::TripComputerView::OnDraw(ApplicationLayer::DrawEve
 
 	valueText.Write(m_Model.GetFormattedValue());
 }
+
+void ApplicationLayer::Views::TripComputerView::Query()
+{
+}

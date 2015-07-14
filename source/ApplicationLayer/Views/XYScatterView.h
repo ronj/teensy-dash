@@ -21,6 +21,7 @@ namespace ApplicationLayer
 			XYScatterView(int16_t, int16_t, const Models::Model& xModel, const Models::Model& yModel);
 
             void OnDraw(ApplicationLayer::DrawEventArgs& e);
+            void Query();
 
         private:
             const Models::Model& m_XModel;

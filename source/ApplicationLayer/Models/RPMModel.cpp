@@ -2,12 +2,14 @@
 
 #include "ConversionHelper.h"
 
-#include "PeripheralLayer/Configuration.h"
 #include "PeripheralLayer/PulseCounter.h"
+
+//#include "FreqMeasure.h"
 
 ApplicationLayer::Models::RPMModel::RPMModel(PeripheralLayer::PulseCounter& pulseCounter)
 	: m_PulseCounter(pulseCounter)
 {
+	//FreqMeasure.begin();
 }
 
 int32_t ApplicationLayer::Models::RPMModel::GetRawValue() const
@@ -24,11 +26,29 @@ const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::RPMModel::Update(uint32_t now)
 {
-	if (now - m_PreviousTicks >= 1000)
+	static int count = 0;
+	static double sum = 0;
+
+	/*if (FreqMeasure.available())
 	{
-		m_RPM = ConvertPulsesToRPM(m_PulseCounter.GetCount(), now - m_PreviousTicks);
-		m_PreviousTicks = now;
+		sum += FreqMeasure.read();
+		count += 1;
+
+		if (count > 1)
+		{
+			float frequency = FreqMeasure.countToFrequency(sum / count);
+			// Why we read 1/3 too high is sill beyond me.
+			// But in the absence of a logic analyser take if for granted
+			// and introduce this fudge factor.
+			m_RPM = ((frequency) * 60.0f) * (2.f / 3.f);
+			sum = 0;
+			count = 0;
+		}
 	}
+	else
+	{
+		m_RPM = 0;
+	}*/
 }
 
 uint32_t ApplicationLayer::Models::RPMModel::ConvertPulsesToRPM(uint32_t pulses, uint32_t timediff) const

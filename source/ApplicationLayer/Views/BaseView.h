@@ -2,6 +2,8 @@
 
 #include "View.h"
 
+#include "Common/Logger.h"
+
 #include <cinttypes>
 
 namespace ApplicationLayer
@@ -22,6 +24,8 @@ namespace ApplicationLayer
 				, m_Model(model)
 			{
 			}
+
+			void Query() { /*Common::Logger::Get().LogExpectation(GetModel().GetRawValue());*/ }
 
 		protected:
 			int16_t GetX() const { return m_X; }

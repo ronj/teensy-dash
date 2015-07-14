@@ -20,6 +20,7 @@ PeripheralLayer::EventType PeripheralLayer::SerialEventSource::Get()
 	    {
 	        case '+' : return EventType::Next;
 	        case '-' : return EventType::Previous;
+	        case '?' : return EventType::Query;
 	        case 'Q' : return EventType::Quit;
 	    }
 	}

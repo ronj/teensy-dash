@@ -25,6 +25,7 @@ namespace ApplicationLayer
 
 		void NextScreen();
 		void PreviousScreen();
+		void QueryScreen();
 
 		void Run(uint32_t);
 

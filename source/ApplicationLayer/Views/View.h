@@ -13,6 +13,7 @@ namespace ApplicationLayer
 		{
 		public:
 			virtual void OnDraw(DrawEventArgs&) = 0;
+			virtual void Query() = 0;
 
 		protected:
 			View() : Common::List<View>::Element(*this) { }

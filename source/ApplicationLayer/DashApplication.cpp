@@ -18,6 +18,7 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 
 	m_UserEventsTask.OnNext = std::bind(&ApplicationLayer::UserInterfaceTask::NextScreen, &m_UITask);
 	m_UserEventsTask.OnPrevious = std::bind(&ApplicationLayer::UserInterfaceTask::PreviousScreen, &m_UITask);
+	m_UserEventsTask.OnQuery = std::bind(&ApplicationLayer::UserInterfaceTask::QueryScreen, &m_UITask);
 	m_UserEventsTask.OnQuit = [this]() { m_Running = false; };
 }
 
@@ -49,6 +50,13 @@ void ApplicationLayer::DashApplication::Eventloop()
 		m_IsPoweredDown = false;
 
 		m_Peripherals.GetPowerManagement().PowerUpPeripherals();
+	}
+
+	static uint32_t demoScreenSwitchTime = 0;
+	if (now - demoScreenSwitchTime > 60 * 1000)
+	{
+		m_UITask.NextScreen();
+		demoScreenSwitchTime = now;
 	}
 
 	m_Peripherals.GetTimeProvider().Sleep(25);

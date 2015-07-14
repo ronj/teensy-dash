@@ -10,8 +10,6 @@
 
 #include "ApplicationLayer/Models/Model.h"
 
-#include "Common/Logger.h"
-
 #include <cstring>
 
 ApplicationLayer::Views::IconValueRow::IconValueRow(int16_t x, int16_t y, const uint8_t* bitmap, const char* label, const Models::Model& model)
@@ -36,6 +34,4 @@ void ApplicationLayer::Views::IconValueRow::OnDraw(ApplicationLayer::DrawEventAr
 	labelText.Write(m_Label);
 
 	e.graphicContext.DrawHorizontalLine(GetX() + 5, GetY() + 32 + 5 + 5, e.graphicContext.Width() - 10 - std::strlen(m_Label) * 8, e.colorScheme.Foreground);
-
-	Common::Logger::Get().LogExpectation(GetModel().GetRawValue());
 }

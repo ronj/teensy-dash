@@ -19,6 +19,7 @@ namespace ApplicationLayer
 			TripComputerView(const Models::TripComputerModel& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
+			void Query();
 
 		private:
 			const Models::TripComputerModel& m_Model;
