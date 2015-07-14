@@ -9,6 +9,7 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_VSSPin(23, PinType::InputPullUp)
 	, m_RPMPin(22, PinType::InputPullUp)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
+	, m_LedDriver(2)
 {
 	m_Platform.Init();
 	m_BacklightPin.Write(0);
@@ -27,6 +28,11 @@ HardwareLayer::AccelerometerDriver& HardwareLayer::TeensyHardware::GetAccelerome
 HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetDisplayDriver()
 {
 	return m_DisplayDriver;
+}
+
+HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetLedDriver()
+{
+	return m_LedDriver;
 }
 
 HardwareLayer::Timer& HardwareLayer::TeensyHardware::GetTimer()

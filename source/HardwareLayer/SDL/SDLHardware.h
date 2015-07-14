@@ -6,6 +6,7 @@
 #include "SDLAnalogPin.h"
 #include "SDLDigitalPin.h"
 #include "SDLDisplayDriver.h"
+#include "SDLLedDriver.h"
 #include "SDLPlatform.h"
 #include "SDLRotaryEncoder.h"
 #include "SDLTimer.h"
@@ -20,6 +21,7 @@ namespace HardwareLayer
 		virtual Platform& GetPlatform();
 		virtual AccelerometerDriver& GetAccelerometerDriver();
 		virtual DisplayDriver& GetDisplayDriver();
+		virtual DisplayDriver& GetLedDriver();
 		virtual Timer& GetTimer();
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
@@ -43,6 +45,7 @@ namespace HardwareLayer
 		SDLTimer m_Timer;
 		ADXL335Driver m_AccelerometerDriver;
 		SDLDisplayDriver m_DisplayDriver;
+		SDLLedDriver m_LedDriver;
 		SDLRotaryEncoder m_RotaryEncoder;
 	};
 }

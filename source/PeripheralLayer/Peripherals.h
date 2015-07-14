@@ -27,6 +27,7 @@ namespace PeripheralLayer
 		PowerManagement& GetPowerManagement();
 
 		GraphicContext& GetGraphicContext();
+		GraphicContext& GetLedContext();
 		TimeProvider& GetTimeProvider();
 
 		AccelerationAxis& GetXAcceleration();
@@ -46,6 +47,7 @@ namespace PeripheralLayer
 		PowerManagement m_PowerManagement;
 
 		GraphicContext m_GraphicContext;
+		GraphicContext m_LedContext;
 		TimeProvider m_TimeProvider;
 
 		AccelerationAxis m_XAccelerationAxis;

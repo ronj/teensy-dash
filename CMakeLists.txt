@@ -225,20 +225,22 @@ if (${BUILD_FOR_EMULATOR})
               source/HardwareLayer/SDL/SDLTimer.h)
 else()
   list(APPEND HARDWARE_LAYER_SOURCES
-              source/HardwareLayer/Teensy/ST7735DisplayDriver.h
+              source/HardwareLayer/Teensy/NeoPixelLedDriver.cpp
+              source/HardwareLayer/Teensy/NeoPixelLedDriver.h
               source/HardwareLayer/Teensy/ST7735DisplayDriver.cpp
-              source/HardwareLayer/Teensy/TeensyAnalogPin.h
+              source/HardwareLayer/Teensy/ST7735DisplayDriver.h
               source/HardwareLayer/Teensy/TeensyAnalogPin.cpp
-              source/HardwareLayer/Teensy/TeensyDigitalPin.h
+              source/HardwareLayer/Teensy/TeensyAnalogPin.h
               source/HardwareLayer/Teensy/TeensyDigitalPin.cpp
-              source/HardwareLayer/Teensy/TeensyHardware.h
+              source/HardwareLayer/Teensy/TeensyDigitalPin.h
               source/HardwareLayer/Teensy/TeensyHardware.cpp
+              source/HardwareLayer/Teensy/TeensyHardware.h
               source/HardwareLayer/Teensy/TeensyPlatform.cpp
               source/HardwareLayer/Teensy/TeensyPlatform.h
-              source/HardwareLayer/Teensy/TeensyRotaryEncoder.h
               source/HardwareLayer/Teensy/TeensyRotaryEncoder.cpp
-              source/HardwareLayer/Teensy/TeensyTimer.h
-              source/HardwareLayer/Teensy/TeensyTimer.cpp)
+              source/HardwareLayer/Teensy/TeensyRotaryEncoder.h
+              source/HardwareLayer/Teensy/TeensyTimer.cpp
+              source/HardwareLayer/Teensy/TeensyTimer.h)
 endif()
 
 internal_add_library(${CMAKE_PROJECT_NAME}.HardwareLayer ${HARDWARE_LAYER_SOURCES})

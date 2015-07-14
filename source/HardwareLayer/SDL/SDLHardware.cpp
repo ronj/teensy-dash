@@ -22,6 +22,11 @@ HardwareLayer::DisplayDriver& HardwareLayer::SDLHardware::GetDisplayDriver()
 	return m_DisplayDriver;
 }
 
+HardwareLayer::DisplayDriver& HardwareLayer::SDLHardware::GetLedDriver()
+{
+	return m_LedDriver;
+}
+
 HardwareLayer::Timer& HardwareLayer::SDLHardware::GetTimer()
 {
 	return m_Timer;
