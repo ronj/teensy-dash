@@ -25,10 +25,13 @@ const char* ApplicationLayer::Models::SpeedModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 {
-	if (now - m_PreviousTicks >= UPDATE_INTERVAL)
+	m_AccumulatedTicks += m_WheelTicks.GetRawValue();
+
+	if (now - m_PreviousTickTime >= UPDATE_INTERVAL)
 	{
-		m_Speed = ConvertPulsesToSpeed(m_WheelTicks.GetRawValue(), now - m_PreviousTicks);
-		m_PreviousTicks = now;
+		m_Speed = ConvertPulsesToSpeed(m_AccumulatedTicks, now - m_PreviousTickTime);
+		m_PreviousTickTime = now;
+		m_AccumulatedTicks = 0;
 	}
 }
 
