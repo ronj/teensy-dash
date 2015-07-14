@@ -21,6 +21,7 @@ struct SpeedModelTest
 TEST(SpeedModelTest, should_not_calculate_speed_when_period_is_not_yet_elapsed)
 {
 	mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetVSSPulsesPerKm).Return(1000);
+	mocks.ExpectCall(wheelTicks, ApplicationLayer::Models::WheelTickModel::GetRawValue).Return(0);
 	ApplicationLayer::Models::SpeedModel speed(*configuration, *wheelTicks);
 
 	EXPECT_EQ(0, speed.GetRawValue());
@@ -41,7 +42,7 @@ TEST(SpeedModelTest, should_calculate_common_speeds_from_vss_pulses)
 
 	for (auto i : { 10, 20, 30, 50, 60, 70, 80, 90, 100, 120, 150, 220 })
 	{
-		mocks.ExpectCall(wheelTicks, ApplicationLayer::Models::SpeedModel::GetRawValue).Return(i);
+		mocks.ExpectCall(wheelTicks, ApplicationLayer::Models::WheelTickModel::GetRawValue).Return(i);
 		speed.Update(timestamp += DEFAULT_SPEED_PERIOD);
 
 		EXPECT_EQ(i * 10, speed.GetRawValue());
@@ -60,7 +61,7 @@ TEST(SpeedModelTest, should_calculate_speed_for_period_longer_than_default)
 
 	for (auto i : { 15, 25, 35, 55, 65, 75, 85, 95, 105, 125, 155, 225 })
 	{
-		mocks.ExpectCall(wheelTicks, ApplicationLayer::Models::SpeedModel::GetRawValue).Return(i);
+		mocks.ExpectCall(wheelTicks, ApplicationLayer::Models::WheelTickModel::GetRawValue).Return(i);
 		speed.Update(timestamp += static_cast<unsigned long>(longerPeriod));
 
 		EXPECT_EQ((i * (DEFAULT_SPEED_PERIOD / longerPeriod)) * 10, speed.GetRawValue());
