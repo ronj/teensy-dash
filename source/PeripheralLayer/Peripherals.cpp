@@ -11,7 +11,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
 	, m_ZAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Z)
 	, m_VSSPulseCounter(hardware.GetVSSPin())
-	, m_RPMPulseCounter(hardware.GetRPMPin())
+	, m_RPMFrequencyCounter()
 	, m_RotaryEventSource(hardware.GetRotaryEncoder())
 	, m_BatteryVoltageDivider(120000, 33000, 3.3f)
 	, m_BatteryVoltageMeter(hardware.GetBatteryVoltagePin(), m_BatteryVoltageDivider)
@@ -63,9 +63,9 @@ PeripheralLayer::PulseCounter& PeripheralLayer::Peripherals::GetVSSPulseCounter(
 	return m_VSSPulseCounter;
 }
 
-PeripheralLayer::PulseCounter& PeripheralLayer::Peripherals::GetRPMPulseCounter()
+PeripheralLayer::FrequencyCounter& PeripheralLayer::Peripherals::GetRPMFrequencyCounter()
 {
-	return m_RPMPulseCounter;
+	return m_RPMFrequencyCounter;
 }
 
 PeripheralLayer::RotaryEventSource& PeripheralLayer::Peripherals::GetRotaryEventSource()

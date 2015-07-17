@@ -5,7 +5,7 @@
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
 	: m_WheelTickModel(peripherals.GetVSSPulseCounter())
 	, m_SpeedModel(peripherals.GetConfiguration(), m_WheelTickModel)
-	, m_RPMModel(peripherals.GetRPMPulseCounter())
+	, m_RPMModel(peripherals.GetRPMFrequencyCounter())
 	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
 	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel)
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())

@@ -2,11 +2,10 @@
 
 #include "ConversionHelper.h"
 
-#include "PeripheralLayer/Configuration.h"
-#include "PeripheralLayer/PulseCounter.h"
+#include "PeripheralLayer/FrequencyCounter.h"
 
-ApplicationLayer::Models::RPMModel::RPMModel(PeripheralLayer::PulseCounter& pulseCounter)
-	: m_PulseCounter(pulseCounter)
+ApplicationLayer::Models::RPMModel::RPMModel(PeripheralLayer::FrequencyCounter& frequencyCounter)
+	: m_FrequencyCounter(frequencyCounter)
 {
 }
 
@@ -24,14 +23,14 @@ const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::RPMModel::Update(uint32_t now)
 {
-	if (now - m_PreviousTicks >= 1000)
-	{
-		m_RPM = ConvertPulsesToRPM(m_PulseCounter.GetCount(), now - m_PreviousTicks);
-		m_PreviousTicks = now;
-	}
+
+	m_RPM = ConvertFrequencyToRPM(m_FrequencyCounter.GetFrequency());
 }
 
-uint32_t ApplicationLayer::Models::RPMModel::ConvertPulsesToRPM(uint32_t pulses, uint32_t timediff) const
+uint32_t ApplicationLayer::Models::RPMModel::ConvertFrequencyToRPM(float frequency) const
 {
-	return static_cast<uint32_t>(pulses * (60.0f / (timediff / 1000.0f)));
+	// Why we read 1/3 too high is sill beyond me.
+	// But in the absence of a logic analyser take if for granted
+	// and introduce this fudge factor.
+	return static_cast<uint32_t>(((frequency) * 60.f) * (2.f / 3.f));
 }

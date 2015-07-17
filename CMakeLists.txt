@@ -263,6 +263,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/EventSource.cpp
             source/PeripheralLayer/EventSource.h
             source/PeripheralLayer/EventTypes.h
+            source/PeripheralLayer/FrequencyCounter.cpp
+            source/PeripheralLayer/FrequencyCounter.h
             source/PeripheralLayer/GraphicContext.cpp
             source/PeripheralLayer/GraphicContext.h
             source/PeripheralLayer/Peripherals.cpp
