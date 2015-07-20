@@ -6,6 +6,7 @@ namespace HardwareLayer
 	class AnalogPin;
 	class DigitalPin;
 	class DisplayDriver;
+	class FrequencyCounter;
 	class Platform;
 	class RotaryEncoder;
 	class Timer;
@@ -20,7 +21,7 @@ namespace HardwareLayer
 		virtual Timer& GetTimer() = 0;
 		virtual RotaryEncoder& GetRotaryEncoder() = 0;
 		virtual DigitalPin& GetVSSPin() = 0;
-		virtual DigitalPin& GetRPMPin() = 0;
+		virtual FrequencyCounter& GetRPMFrequencyCounter() = 0;
 		virtual const AnalogPin& GetBatteryVoltagePin() = 0;
 		virtual AnalogPin& GetBacklightPin() = 0;
 	};

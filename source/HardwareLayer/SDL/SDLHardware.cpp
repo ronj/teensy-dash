@@ -42,9 +42,9 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetVSSPin()
     return m_VSSPin;
 }
 
-HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetRPMPin()
+HardwareLayer::FrequencyCounter& HardwareLayer::SDLHardware::GetRPMFrequencyCounter()
 {
-    return m_RPMPin;
+	return m_RPMFrequencyCounter;
 }
 
 const HardwareLayer::AnalogPin& HardwareLayer::SDLHardware::GetBatteryVoltagePin()

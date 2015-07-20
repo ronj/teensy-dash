@@ -7,7 +7,6 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_BacklightPin(6)
 	, m_BatteryVoltagePin(22)
 	, m_VSSPin(23, PinType::InputPullUp)
-	, m_RPMPin(22, PinType::InputPullUp)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
 	, m_LedDriver(2)
 {
@@ -50,9 +49,9 @@ HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetVSSPin()
     return m_VSSPin;
 }
 
-HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetRPMPin()
+HardwareLayer::FrequencyCounter& HardwareLayer::TeensyHardware::GetRPMFrequencyCounter()
 {
-    return m_RPMPin;
+	return m_RPMFrequencyCounter;
 }
 
 const HardwareLayer::AnalogPin& HardwareLayer::TeensyHardware::GetBatteryVoltagePin()

@@ -192,6 +192,7 @@ set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/DigitalPin.h
                            source/HardwareLayer/DisplayDriver.h
+						   source/HardwareLayer/FrequencyCounter.h
                            source/HardwareLayer/Hardware.h
                            source/HardwareLayer/Platform.h
                            source/HardwareLayer/RotaryEncoder.h
@@ -215,6 +216,8 @@ if (${BUILD_FOR_EMULATOR})
               source/HardwareLayer/SDL/SDLDigitalPin.h
               source/HardwareLayer/SDL/SDLDisplayDriver.cpp
               source/HardwareLayer/SDL/SDLDisplayDriver.h
+			  source/HardwareLayer/SDL/SDLFrequencyCounter.cpp
+			  source/HardwareLayer/SDL/SDLFrequencyCounter.h
               source/HardwareLayer/SDL/SDLHardware.cpp
               source/HardwareLayer/SDL/SDLHardware.h
               source/HardwareLayer/SDL/SDLPlatform.cpp
@@ -233,6 +236,8 @@ else()
               source/HardwareLayer/Teensy/TeensyAnalogPin.h
               source/HardwareLayer/Teensy/TeensyDigitalPin.cpp
               source/HardwareLayer/Teensy/TeensyDigitalPin.h
+			  source/HardwareLayer/Teensy/TeensyFrequencyCounter.cpp
+			  source/HardwareLayer/Teensy/TeensyFrequencyCounter.h
               source/HardwareLayer/Teensy/TeensyHardware.cpp
               source/HardwareLayer/Teensy/TeensyHardware.h
               source/HardwareLayer/Teensy/TeensyPlatform.cpp

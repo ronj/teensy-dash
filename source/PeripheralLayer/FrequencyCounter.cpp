@@ -1,29 +1,31 @@
 #include "FrequencyCounter.h"
 
-#include "FreqMeasure.h"
+#include "HardwareLayer/FrequencyCounter.h"
 
-PeripheralLayer::FrequencyCounter::FrequencyCounter()
+PeripheralLayer::FrequencyCounter::FrequencyCounter(HardwareLayer::FrequencyCounter& counter)
+	: m_Counter(counter)
 {
-	FreqMeasure.begin();
 }
 
 float PeripheralLayer::FrequencyCounter::GetFrequency()
 {
-	float frequency = 0.f;
-
-	if (FreqMeasure.available())
+	if (m_Counter.Available())
 	{
-		m_Sum += FreqMeasure.read();
+		m_Sum += m_Counter.Read();
 		m_Count++;
 
 		if (m_Count > NUMBER_OF_ITERATIONS)
 		{
-			frequency = FreqMeasure.countToFrequency(m_Sum / m_Count);
+			m_Frequency = m_Counter.CountToFrequency(m_Sum / m_Count);
 
 			m_Sum = 0;
 			m_Count = 0;
 		}
 	}
+	else
+	{
+		m_Frequency = 0.f;
+	}
 
-	return frequency;
+	return m_Frequency;
 }
