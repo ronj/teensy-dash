@@ -4,6 +4,8 @@
 #include "Common/TimedTask.h"
 #include "Common/TaskScheduler.h"
 
+#include <functional>
+
 // Not using hippomocks here since hippomocks won't call
 // the constructor for us.
 class TaskImpl : public Common::Task
