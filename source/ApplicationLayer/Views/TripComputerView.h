@@ -21,7 +21,12 @@ namespace ApplicationLayer
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 
 		private:
+			void UpdatePagination(uint8_t activePage, ApplicationLayer::DrawEventArgs& e);
+			void UpdateTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e);
+
+		private:
 			const Models::TripComputerModel& m_Model;
+			uint8_t m_ActivePage = 0;
 		};
 	}
 }

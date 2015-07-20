@@ -15,6 +15,10 @@ namespace ApplicationLayer
 
 			void Update(uint32_t wheelTicks, uint32_t speed, uint32_t now);
 
+			uint32_t GetTripWheelTicks() const;
+			uint32_t GetTripTime() const;
+			uint32_t GetTripMaxSpeed() const;
+
 		private:
 			uint32_t m_TripWheelTicks = 0;
 			uint32_t m_TripTime = 0;

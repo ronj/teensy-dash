@@ -25,14 +25,18 @@ namespace ApplicationLayer
 			virtual const char* GetFormattedValue() const;
 			virtual void Update(uint32_t now);
 
+			uint32_t GetTripDistance(uint8_t index) const;
+			uint32_t GetTripTime(uint8_t index) const;
+
 		private:
+			const TripData& GetTrip(uint8_t index) const;
 			uint32_t TicksToDistance(uint64_t wheelTicks) const;
 
 		private:
 			const WheelTickModel& m_WheelTicks;
 
 			TripData m_TripA;
-			Common::List<TripData> m_TripData;
+			mutable Common::List<TripData> m_TripDataList;
 
 			uint64_t m_TotalWheelTicks = 0;
 			float m_TicksToMeterFactor = 0.f;
