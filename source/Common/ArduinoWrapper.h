@@ -6,5 +6,6 @@
 	#undef max
 	#undef abs
 	#undef swap
+	#undef round
 	#undef PI
 #endif

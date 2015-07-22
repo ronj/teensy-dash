@@ -268,6 +268,9 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/EventSource.cpp
             source/PeripheralLayer/EventSource.h
             source/PeripheralLayer/EventTypes.h
+			source/PeripheralLayer/Font.h
+			source/PeripheralLayer/Fonts.cpp
+			source/PeripheralLayer/Fonts.h
             source/PeripheralLayer/FrequencyCounter.cpp
             source/PeripheralLayer/FrequencyCounter.h
             source/PeripheralLayer/GraphicContext.cpp
@@ -303,7 +306,6 @@ list(APPEND APPLICATION_LAYER_SOURCES
             source/ApplicationLayer/DashApplication.cpp
             source/ApplicationLayer/DashApplication.h
             source/ApplicationLayer/DrawEventArgs.h
-            source/ApplicationLayer/Fonts.h
             source/ApplicationLayer/Images.h
             source/ApplicationLayer/ModelCollection.cpp
             source/ApplicationLayer/ModelCollection.h

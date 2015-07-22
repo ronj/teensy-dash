@@ -1,9 +1,10 @@
 #include "TextHelper.h"
 #include "GraphicContext.h"
+#include "Font.h"
 
 #include <cstring>
 
-PeripheralLayer::TextHelper::TextHelper(GraphicContext& context, int16_t x, int16_t y, const uint8_t* font, uint32_t fgcolor, uint32_t bgcolor, uint8_t size)
+PeripheralLayer::TextHelper::TextHelper(GraphicContext& context, int16_t x, int16_t y, const Fonts::Font& font, uint32_t fgcolor, uint32_t bgcolor, uint8_t size)
 	: m_Context(context)
 	, m_CursorX(x)
 	, m_CursorY(y)
@@ -19,7 +20,7 @@ void PeripheralLayer::TextHelper::Write(uint8_t c)
 {
 	if (c == '\n')
 	{
-		m_CursorY += m_Size * 8;
+		m_CursorY += m_Size * m_Font.descriptor[c].height;
 		m_CursorX = 0;
 	}
 	else if (c == '\r')
@@ -29,9 +30,20 @@ void PeripheralLayer::TextHelper::Write(uint8_t c)
 	else
 	{
 		m_Context.DrawChar(m_CursorX, m_CursorY, c, m_Fgcolor, m_Bgcolor, m_Font, m_Size);
-		m_CursorX += m_Size * 6;
-		if (m_Wrap && (m_CursorX > (m_Context.Width() - m_Size * 6))) {
-			m_CursorY += m_Size * 8;
+
+		uint16_t w = m_Font.descriptor[c].width;
+		uint16_t h = m_Font.descriptor[c].height;
+
+		if (m_Font.kerning > 0 && m_Fgcolor != m_Bgcolor)
+		{
+			m_Context.FillRect(m_CursorX + w * m_Size, m_CursorY, m_Font.kerning * m_Size, h * m_Size, m_Bgcolor);
+		}
+
+		m_CursorX += m_Size * (w + m_Font.kerning);
+
+		if (m_Wrap && (m_CursorX > (m_Context.Width() - m_Size * w)))
+		{
+			m_CursorY += m_Size * h;
 			m_CursorX = 0;
 		}
 	}

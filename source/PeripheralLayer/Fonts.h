@@ -1,16 +1,26 @@
 #pragma once
 
-#include <cinttypes>
+#include "Font.h"
+
+#ifdef __AVR__
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#else
+#define PROGMEM
+#endif
 
 namespace PeripheralLayer
 {
-	struct FontDescriptor
+	namespace Fonts
 	{
-		uint8_t width;
-		uint8_t height;
-		uint16_t offset;
-	};
+		extern const uint8_t TimesNewRoman_8PT_Data[];
+		extern const Descriptor TimesNewRoman_8PT_Descriptor[];
 
-	extern const uint8_t arial_8ptBitmaps[];
-	extern const FontDescriptor arial_8ptDescriptors[];
+		static const Font TimesNewRoman = { TimesNewRoman_8PT_Descriptor, TimesNewRoman_8PT_Data, 1 };
+
+		extern const uint8_t GLCDFont_Data[];
+		extern const Descriptor GLCDFont_Descriptor[];
+
+		static const Font LCDFont = { GLCDFont_Descriptor, GLCDFont_Data, 1 };
+	}
 }

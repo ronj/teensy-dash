@@ -2,10 +2,10 @@
 
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
+#include "PeripheralLayer/Fonts.h"
 
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
-#include "ApplicationLayer/Fonts.h"
 
 #include "ApplicationLayer/Models/Model.h"
 
@@ -44,9 +44,9 @@ void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y
 	}
 	previousWidth = textWidthValue;
 
-	PeripheralLayer::TextHelper valueText(e.graphicContext, xposValue, y + 10, Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
+	PeripheralLayer::TextHelper valueText(e.graphicContext, xposValue, y + 10, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
 	valueText.Write(value);
 
-	PeripheralLayer::TextHelper labelText(e.graphicContext, xposLabel, y + 15 + PeripheralLayer::TextHelper::TextHeight(value, textSize), Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, xposLabel, y + 15 + PeripheralLayer::TextHelper::TextHeight(value, textSize), PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
 	labelText.Write(label);
 }

@@ -2,10 +2,10 @@
 
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
+#include "PeripheralLayer/Fonts.h"
 
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
-#include "ApplicationLayer/Fonts.h"
 
 #include "ApplicationLayer/Models/TripComputerModel.h"
 
@@ -25,9 +25,9 @@ void ApplicationLayer::Views::TripComputerView::OnDraw(ApplicationLayer::DrawEve
 
 void ApplicationLayer::Views::TripComputerView::UpdatePagination(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
 {
-	PeripheralLayer::TextHelper paginationAText(e.graphicContext, 28, 138, Fonts::LCDFont, activePage == 0 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 0 ? e.colorScheme.Text : e.colorScheme.Background, 2);
-	PeripheralLayer::TextHelper paginationBText(e.graphicContext, 58, 138, Fonts::LCDFont, activePage == 1 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 1 ? e.colorScheme.Text : e.colorScheme.Background, 2);
-	PeripheralLayer::TextHelper paginationCText(e.graphicContext, 87, 138, Fonts::LCDFont, activePage == 2 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 2 ? e.colorScheme.Text : e.colorScheme.Background, 2);
+	PeripheralLayer::TextHelper paginationAText(e.graphicContext, 28, 138, PeripheralLayer::Fonts::LCDFont, activePage == 0 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 0 ? e.colorScheme.Text : e.colorScheme.Background, 2);
+	PeripheralLayer::TextHelper paginationBText(e.graphicContext, 58, 138, PeripheralLayer::Fonts::LCDFont, activePage == 1 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 1 ? e.colorScheme.Text : e.colorScheme.Background, 2);
+	PeripheralLayer::TextHelper paginationCText(e.graphicContext, 87, 138, PeripheralLayer::Fonts::LCDFont, activePage == 2 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 2 ? e.colorScheme.Text : e.colorScheme.Background, 2);
 
 	uint8_t i = 0;
 
@@ -56,7 +56,7 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 
 	sprintf(scratchpad, "%d.%d", km, m);
 
-	PeripheralLayer::TextHelper distanceText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), 0 + 5, Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
+	PeripheralLayer::TextHelper distanceText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), 0 + 5, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
 	distanceText.Write(scratchpad);
 
 	uint32_t milliseconds = m_Model.GetTripTime(m_ActivePage);
@@ -66,6 +66,6 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 
 	sprintf(scratchpad, "%d:%02d:%02d", hours, minutes, seconds);
 
-	PeripheralLayer::TextHelper timeText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), PeripheralLayer::TextHelper::TextHeight(scratchpad, 3) + 15, Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
+	PeripheralLayer::TextHelper timeText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), PeripheralLayer::TextHelper::TextHeight(scratchpad, 3) + 15, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
 	timeText.Write(scratchpad);
 }

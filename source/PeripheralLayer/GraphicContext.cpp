@@ -1,5 +1,7 @@
 #include "GraphicContext.h"
 
+#include "Font.h"
+
 #include "HardwareLayer/DisplayDriver.h"
 
 #include <algorithm>
@@ -224,35 +226,54 @@ void PeripheralLayer::GraphicContext::DrawBitmap(int16_t x, int16_t y, const uin
 	}
 }
 
-void PeripheralLayer::GraphicContext::DrawChar(int16_t x, int16_t y, unsigned char c, uint32_t fgcolor, uint32_t bgcolor, const uint8_t* font, uint8_t size)
+void PeripheralLayer::GraphicContext::DrawChar(int16_t x, int16_t y, unsigned char c, uint32_t fgcolor, uint32_t bgcolor, const Fonts::Font& font, uint8_t size)
 {
+	if (c < font.StartCharacter() || c > font.EndCharacter())
+	{
+		c = 0;
+	}
+	else
+	{
+		c -= font.StartCharacter();
+	}
+
 	if ((x >= m_Display.Width()) ||   // Clip right
 		(y >= m_Display.Height()) ||  // Clip bottom
-		((x + 6 * size - 1) < 0) ||   // Clip left
-		((y + 8 * size - 1) < 0))     // Clip top
+		((x + font.descriptor[c].width * size - 1) < 0) ||   // Clip left
+		((y + font.descriptor[c].height * size - 1) < 0))    // Clip top
 	{
 		return;
 	}
 
-	for (int8_t i = 0; i < 6; ++i)
-	{
-		uint8_t line = (i == 5) ? 0x00 : pgm_read_byte(font + (c * 5) + i);
+	uint16_t fontIndex = font.descriptor[c].offset + 2;
+	uint8_t bitCount = 0;
 
-		for (int8_t j = 0; j < 8; ++j)
+	for (int8_t i = 0; i < font.descriptor[c].height; ++i)
+	{
+		uint8_t line = 0;
+
+		for (int8_t j = 0; j < font.descriptor[c].width; ++j)
 		{
-			if (line & 0x1)
+			if (bitCount++ % 8 == 0)
 			{
-				(size == 1) ? DrawPixel(x + i, y + j, fgcolor) :
-					FillRect(x + (i * size), y + (j * size), size, size, fgcolor);
+				line = pgm_read_byte(font.data + fontIndex++);
+			}
+
+			if (line & 0x80)
+			{
+				(size == 1) ? DrawPixel(x + j, y + i, fgcolor) :
+					FillRect(x + (j * size), y + (i * size), size, size, fgcolor);
 			}
 			else if (bgcolor != fgcolor)
 			{
-				(size == 1) ? DrawPixel(x + i, y + j, bgcolor) :
-					FillRect(x + i*size, y + j*size, size, size, bgcolor);
+				(size == 1) ? DrawPixel(x + j, y + i, bgcolor) :
+					FillRect(x + (j * size), y + (i * size), size, size, bgcolor);
 			}
 
-			line >>= 1;
+			line <<= 1;
 		}
+
+		bitCount = 0;
 	}
 }
 
