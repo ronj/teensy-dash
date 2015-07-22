@@ -43,7 +43,7 @@ void ApplicationLayer::Views::TripComputerView::UpdatePagination(uint8_t activeP
 
 	for (auto x : { 32, 62, 92 })
 	{
-		e.graphicContext.DrawCircle(x, 145, 11, e.colorScheme.Text);
+		e.graphicContext.DrawWuCircle(x, 145, 11, e.colorScheme.Text);
 	}
 }
 
