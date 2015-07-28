@@ -11,7 +11,7 @@ PeripheralLayer::Configuration::Configuration()
 	, m_RimSize(17)
 	, m_FinalDrive(4.06f)
 	, m_GearRatios({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, UnavailableGear() } })
-	, m_VSSPulsesPerKm(4500)
+	, m_VSSPulsesPerKm(4971)
 {
 }
 
