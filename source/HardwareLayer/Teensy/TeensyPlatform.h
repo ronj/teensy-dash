@@ -14,7 +14,7 @@ namespace HardwareLayer
 
 		virtual void Init();
 		virtual void KickWatchdog();
-		virtual void LowPowerSleep(uint32_t microseconds);
+		virtual void LowPowerSleep(uint32_t milliseconds);
 		virtual void Idle();
 
 	private:

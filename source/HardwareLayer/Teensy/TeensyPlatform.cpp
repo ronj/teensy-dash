@@ -45,10 +45,10 @@ void HardwareLayer::TeensyPlatform::KickWatchdog()
 	WDOG_REFRESH = 0xB480;
 }
 
-void HardwareLayer::TeensyPlatform::LowPowerSleep(uint32_t microseconds)
+void HardwareLayer::TeensyPlatform::LowPowerSleep(uint32_t milliseconds)
 {
-	m_LowPowerConfiguration.setTimer(1000 * 2);
-	Snooze.deepSleep(m_LowPowerConfiguration);
+	m_LowPowerConfiguration.setTimer(milliseconds);
+	Snooze.hibernate(m_LowPowerConfiguration);
 }
 
 void HardwareLayer::TeensyPlatform::Idle()
