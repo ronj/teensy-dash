@@ -22,10 +22,13 @@ void ApplicationLayer::Views::LargeValueView::OnDraw(ApplicationLayer::DrawEvent
 
 	int16_t xpos = e.graphicContext.Width() / 2 - (textSize * 3) + 5;
 
-	PeripheralLayer::TextHelper valueText(e.graphicContext, xpos, GetY() + 15, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
+	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
 
+	valueText.SetCursor(xpos, GetY() + 15);
 	valueText.Write(GetModel().GetFormattedValue());
 
-	PeripheralLayer::TextHelper labelText(e.graphicContext, xpos, GetY() + 15 + 10 + textSize * 8, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+
+	labelText.SetCursor(xpos, GetY() + 15 + 10 + textSize * 8);
 	labelText.Write(m_Label);
 }

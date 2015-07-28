@@ -1,10 +1,10 @@
 #include "ViewCollection.h"
 
-#include "Images.h"
+#include "PeripheralLayer/Bitmaps.h"
 #include "ModelCollection.h"
 
 ApplicationLayer::ViewCollection::ViewCollection(ModelCollection& models)
-	: m_BatteryVoltage(0, 0, Images::Battery, "Volt", models.GetBatteryVoltageModel())
+	: m_BatteryVoltage(0, 0, PeripheralLayer::Bitmaps::Battery, "Volt", models.GetBatteryVoltageModel())
 	, m_SpeedRPMView(0, 0, "KM/H", models.GetSpeedModel(), "RPM", models.GetRPMModel())
 	, m_GearView(0, 0, "Gear", models.GetGearModel())
 	, m_TripComputerView(models.GetTripComputerModel())

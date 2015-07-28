@@ -1,5 +1,6 @@
 #include "TripComputerView.h"
 
+#include "PeripheralLayer/Bitmaps.h"
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
 #include "PeripheralLayer/Fonts.h"
@@ -20,52 +21,70 @@ ApplicationLayer::Views::TripComputerView::TripComputerView(const ApplicationLay
 void ApplicationLayer::Views::TripComputerView::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
 	UpdateTripData(m_ActivePage, e);
-	UpdatePagination(m_ActivePage, e);
-}
-
-void ApplicationLayer::Views::TripComputerView::UpdatePagination(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
-{
-	PeripheralLayer::TextHelper paginationAText(e.graphicContext, 28, 138, PeripheralLayer::Fonts::LCDFont, activePage == 0 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 0 ? e.colorScheme.Text : e.colorScheme.Background, 2);
-	PeripheralLayer::TextHelper paginationBText(e.graphicContext, 58, 138, PeripheralLayer::Fonts::LCDFont, activePage == 1 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 1 ? e.colorScheme.Text : e.colorScheme.Background, 2);
-	PeripheralLayer::TextHelper paginationCText(e.graphicContext, 87, 138, PeripheralLayer::Fonts::LCDFont, activePage == 2 ? e.colorScheme.Background : e.colorScheme.Text, activePage == 2 ? e.colorScheme.Text : e.colorScheme.Background, 2);
-
-	uint8_t i = 0;
-
-	for (auto x : { 32, 62, 92 })
-	{
-		activePage == i++ ? e.graphicContext.FillCircle(x, 145, 11, e.colorScheme.Text) :
-			                e.graphicContext.DrawCircle(x, 145, 11, e.colorScheme.Text);
-	}
-
-	paginationAText.Write("A");
-	paginationBText.Write("B");
-	paginationCText.Write("C");
-
-	for (auto x : { 32, 62, 92 })
-	{
-		e.graphicContext.DrawWuCircle(x, 145, 11, e.colorScheme.Text);
-	}
 }
 
 void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
 {
-	char scratchpad[50] = { 0 };
+	char scratchpad[15] = { 0 };
+
+	const uint8_t xmargin = 5;
+	const uint8_t ymargin = 5;
+
+	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::Peugeot_20pt, e.colorScheme.Text, e.colorScheme.Background);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::peugeot_8pt, e.colorScheme.Text, e.colorScheme.Background);
 
 	uint32_t km = m_Model.GetTripDistance(m_ActivePage) / 1000;
 	uint32_t m = (m_Model.GetTripDistance(m_ActivePage) % 1000) / 100;
 
 	sprintf(scratchpad, "%d.%d", km, m);
 
-	PeripheralLayer::TextHelper distanceText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), 0 + 5, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
-	distanceText.Write(scratchpad);
+	e.graphicContext.DrawBitmap(0 + xmargin, 0 + ymargin, PeripheralLayer::Bitmaps::TripDistance, e.colorScheme.Foreground);
 
+	valueText.SetCursor(e.graphicContext.Width() - valueText.TextWidth(scratchpad) - xmargin, 0 + ymargin);
+	valueText.Write(scratchpad);
+
+	labelText.SetCursor(e.graphicContext.Width() - labelText.TextWidth("KM") - xmargin, valueText.TextHeight(scratchpad) + 6);
+	labelText.Write("KM");
+
+	e.graphicContext.DrawHorizontalLine(0 + xmargin, 0 + valueText.TextHeight(scratchpad) + (2 * ymargin), e.graphicContext.Width() - labelText.TextWidth("KM") - (3 * xmargin), e.colorScheme.Foreground);
+
+
+	sprintf(scratchpad, "5.87");
+
+	e.graphicContext.DrawBitmap(0 + xmargin, 40 + ymargin, PeripheralLayer::Bitmaps::FuelPump, e.colorScheme.Foreground);
+
+	valueText.SetCursor(e.graphicContext.Width() - valueText.TextWidth(scratchpad) - xmargin, 45 + ymargin);
+	valueText.Write(scratchpad);
+
+	labelText.SetCursor(e.graphicContext.Width() - labelText.TextWidth("L/100 KM") - xmargin, 45 + valueText.TextHeight(scratchpad) + 6);
+	labelText.Write("L/100 KM");
+
+	e.graphicContext.DrawHorizontalLine(0 + xmargin, 45 + valueText.TextHeight(scratchpad) + (2 * ymargin), e.graphicContext.Width() - labelText.TextWidth("L/100 KM") - (3 * xmargin), e.colorScheme.Foreground);
+
+
+	sprintf(scratchpad, "%d", 58);
+
+	//e.graphicContext.DrawBitmap(0 + xmargin, 40 + ymargin, PeripheralLayer::Bitmaps::FuelPump, e.colorScheme.Foreground);
+
+	valueText.SetCursor(e.graphicContext.Width() - valueText.TextWidth(scratchpad) - xmargin, 90 + ymargin);
+	valueText.Write(scratchpad);
+
+	labelText.SetCursor(e.graphicContext.Width() - labelText.TextWidth("KM/H") - xmargin, 90 + valueText.TextHeight(scratchpad) + 6);
+	labelText.Write("KM/H");
+
+	e.graphicContext.DrawHorizontalLine(0 + xmargin, 90 + valueText.TextHeight(scratchpad) + (2 * ymargin), e.graphicContext.Width() - labelText.TextWidth("KM/H") - (3 * xmargin), e.colorScheme.Foreground);
+
+
+
+
+	PeripheralLayer::TextHelper smallerFont(e.graphicContext, PeripheralLayer::Fonts::peugeot_18pt, e.colorScheme.Text, e.colorScheme.Background);
 	uint32_t milliseconds = m_Model.GetTripTime(m_ActivePage);
 	uint32_t seconds = (milliseconds / 1000) % 60;
 	uint32_t minutes = (milliseconds / (1000 * 60)) % 60;
 	uint32_t hours = (milliseconds / (1000 * 60 * 60));
 
-	sprintf(scratchpad, "%d:%02d:%02d", hours, minutes, seconds);
+	sprintf(scratchpad, "%02d:%02d:%02d", hours, minutes, seconds);
 
-	PeripheralLayer::TextHelper timeText(e.graphicContext, e.graphicContext.Width() - PeripheralLayer::TextHelper::TextWidth(scratchpad, 3), PeripheralLayer::TextHelper::TextHeight(scratchpad, 3) + 15, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, 3);
-	timeText.Write(scratchpad);
+	smallerFont.SetCursor(e.graphicContext.Width() / 2 - smallerFont.TextWidth(scratchpad) / 2, e.graphicContext.Height() - smallerFont.TextHeight(scratchpad));
+	smallerFont.Write(scratchpad);
 }

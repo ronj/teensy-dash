@@ -261,6 +261,9 @@ target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CU
 list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/AccelerationAxis.cpp
             source/PeripheralLayer/AccelerationAxis.h
+			source/PeripheralLayer/Bitmap.h
+			source/PeripheralLayer/Bitmaps.cpp
+			source/PeripheralLayer/Bitmaps.h
             source/PeripheralLayer/Color.cpp
             source/PeripheralLayer/Color.h
             source/PeripheralLayer/Configuration.cpp
@@ -306,7 +309,6 @@ list(APPEND APPLICATION_LAYER_SOURCES
             source/ApplicationLayer/DashApplication.cpp
             source/ApplicationLayer/DashApplication.h
             source/ApplicationLayer/DrawEventArgs.h
-            source/ApplicationLayer/Images.h
             source/ApplicationLayer/ModelCollection.cpp
             source/ApplicationLayer/ModelCollection.h
             source/ApplicationLayer/ModelUpdateTask.cpp

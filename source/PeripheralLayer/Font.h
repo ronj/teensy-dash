@@ -15,11 +15,13 @@ namespace PeripheralLayer
 
 		struct Font
 		{
+			const uint8_t startCharacter;
+			const uint8_t endCharacter;
+			int8_t kerning;
 			const Descriptor* descriptor;
 			const uint8_t* data;
-			int16_t kerning;
-			uint8_t StartCharacter() const { return data[0]; }
-			uint8_t EndCharacter() const { return data[1]; }
+			uint8_t StartCharacter() const { return startCharacter; }
+			uint8_t EndCharacter() const { return endCharacter; }
 		};
 	}
 }

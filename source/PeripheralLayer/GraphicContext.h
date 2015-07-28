@@ -21,6 +21,11 @@ namespace HardwareLayer
 
 namespace PeripheralLayer
 {
+	namespace Bitmaps
+	{
+		struct Bitmap;
+	}
+
 	namespace Fonts
 	{
 		struct Font;
@@ -50,7 +55,8 @@ namespace PeripheralLayer
     	void FillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint32_t color);
 		void FillScreen(uint32_t color);
 
-		void DrawBitmap(int16_t x, int16_t y, const uint8_t* bitmap, int16_t w, int16_t h, uint32_t color);
+		void DrawBitmap(int16_t x, int16_t y, const Bitmaps::Bitmap& bitmap, uint32_t color);
+
 		void DrawChar(int16_t x, int16_t y, unsigned char c, uint32_t fgcolor, uint32_t bgcolor, const Fonts::Font& font, uint8_t size);
 
 		int16_t Width();

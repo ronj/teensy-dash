@@ -32,21 +32,24 @@ void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y
 {
 	const uint8_t labelSize = 2;
 
+	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+
 	const char* value = model.GetFormattedValue();
-	uint16_t textWidthValue = PeripheralLayer::TextHelper::TextWidth(value, textSize);
+	uint16_t textWidthValue = valueText.TextWidth(value);
 
 	int16_t xposValue = e.graphicContext.Width() / 2 - textWidthValue / 2 + x + 3;
-	int16_t xposLabel = e.graphicContext.Width() / 2 - PeripheralLayer::TextHelper::TextWidth(label, labelSize) / 2 + x;
+	int16_t xposLabel = e.graphicContext.Width() / 2 - labelText.TextWidth(label) / 2 + x;
 
 	if (textWidthValue < previousWidth)
 	{
-		e.graphicContext.FillRect(x, y + 10, e.graphicContext.Width(), PeripheralLayer::TextHelper::TextHeight(value, textSize), e.colorScheme.Background);
+		e.graphicContext.FillRect(x, y + 10, e.graphicContext.Width(), valueText.TextHeight(value), e.colorScheme.Background);
 	}
 	previousWidth = textWidthValue;
 
-	PeripheralLayer::TextHelper valueText(e.graphicContext, xposValue, y + 10, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
+	valueText.SetCursor(xposValue, y + 10);
 	valueText.Write(value);
 
-	PeripheralLayer::TextHelper labelText(e.graphicContext, xposLabel, y + 15 + PeripheralLayer::TextHelper::TextHeight(value, textSize), PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+	labelText.SetCursor(xposLabel, y + 15 + valueText.TextHeight(value));
 	labelText.Write(label);
 }

@@ -1,5 +1,6 @@
 #include "GraphicContext.h"
 
+#include "Bitmap.h"
 #include "Color.h"
 #include "Font.h"
 
@@ -66,9 +67,9 @@ void PeripheralLayer::GraphicContext::DrawHorizontalLine(int16_t x, int16_t y, i
 uint32_t Brightness(uint32_t color, float brightness)
 {
 	PeripheralLayer::Color::RGB c(color >> 8);
-	c.r = std::round((double)c.r * brightness);
-	c.g = std::round((double)c.g * brightness);
-	c.b = std::round((double)c.b * brightness);
+	c.r = std::round((float)c.r * brightness);
+	c.g = std::round((float)c.g * brightness);
+	c.b = std::round((float)c.b * brightness);
 
 	return c.ToRGBA(0xff);
 }
@@ -266,15 +267,15 @@ void PeripheralLayer::GraphicContext::FillScreen(uint32_t color)
 	FillRect(0, 0, m_Display.Width(), m_Display.Height(), color);
 }
 
-void PeripheralLayer::GraphicContext::DrawBitmap(int16_t x, int16_t y, const uint8_t* bitmap, int16_t w, int16_t h, uint32_t color)
+void PeripheralLayer::GraphicContext::DrawBitmap(int16_t x, int16_t y, const Bitmaps::Bitmap& bitmap, uint32_t color)
 {
-	const int16_t byteWidth = (w + 7) / 8;
+	const int16_t byteWidth = (bitmap.width + 7) / 8;
 
-	for (int16_t j = 0; j < h; ++j)
+	for (int16_t j = 0; j < bitmap.height; ++j)
 	{
-		for (int16_t i = 0; i < w; ++i)
+		for (int16_t i = 0; i < bitmap.width; ++i)
 		{
-			if (pgm_read_byte(bitmap + j * byteWidth + i / 8) & (128 >> (i & 7)))
+			if (pgm_read_byte(bitmap.data + j * byteWidth + i / 8) & (128 >> (i & 7)))
 			{
 				DrawPixel(x + i, y + j, color);
 			}
@@ -284,15 +285,6 @@ void PeripheralLayer::GraphicContext::DrawBitmap(int16_t x, int16_t y, const uin
 
 void PeripheralLayer::GraphicContext::DrawChar(int16_t x, int16_t y, unsigned char c, uint32_t fgcolor, uint32_t bgcolor, const Fonts::Font& font, uint8_t size)
 {
-	if (c < font.StartCharacter() || c > font.EndCharacter())
-	{
-		c = 0;
-	}
-	else
-	{
-		c -= font.StartCharacter();
-	}
-
 	if ((x >= m_Display.Width()) ||   // Clip right
 		(y >= m_Display.Height()) ||  // Clip bottom
 		((x + font.descriptor[c].width * size - 1) < 0) ||   // Clip left
@@ -301,7 +293,7 @@ void PeripheralLayer::GraphicContext::DrawChar(int16_t x, int16_t y, unsigned ch
 		return;
 	}
 
-	uint16_t fontIndex = font.descriptor[c].offset + 2;
+	uint16_t fontIndex = font.descriptor[c].offset;
 	uint8_t bitCount = 0;
 
 	for (int8_t i = 0; i < font.descriptor[c].height; ++i)
