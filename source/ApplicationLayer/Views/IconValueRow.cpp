@@ -10,8 +10,6 @@
 
 #include "ApplicationLayer/Models/Model.h"
 
-#include "Common/Logger.h"
-
 #include <cstring>
 
 ApplicationLayer::Views::IconValueRow::IconValueRow(int16_t x, int16_t y, const PeripheralLayer::Bitmaps::Bitmap& bitmap, const char* label, const Models::Model& model)

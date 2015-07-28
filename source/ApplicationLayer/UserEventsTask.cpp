@@ -36,6 +36,9 @@ void ApplicationLayer::UserEventsTask::Run(uint32_t)
 		case PeripheralLayer::EventType::LongPress:
 			CallWrapper(OnLongPress);
 			break;
+		case PeripheralLayer::EventType::Query:
+			CallWrapper(OnQuery);
+			break;
 		case PeripheralLayer::EventType::Quit:
 			CallWrapper(OnQuit);
 			break;

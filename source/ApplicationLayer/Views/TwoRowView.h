@@ -21,6 +21,7 @@ namespace ApplicationLayer
 				                             const char* labelTwo, const Models::Model& modelTwo);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
+			void Query();
 
 		private:
 			void DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint8_t textSize, uint16_t& previousWidth);

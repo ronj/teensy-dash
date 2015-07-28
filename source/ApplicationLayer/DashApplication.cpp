@@ -18,6 +18,7 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 
 	m_UserEventsTask.OnNext = std::bind(&ApplicationLayer::UserInterfaceTask::NextScreen, &m_UITask);
 	m_UserEventsTask.OnPrevious = std::bind(&ApplicationLayer::UserInterfaceTask::PreviousScreen, &m_UITask);
+	m_UserEventsTask.OnQuery = std::bind(&ApplicationLayer::UserInterfaceTask::QueryScreen, &m_UITask);
 	m_UserEventsTask.OnQuit = [this]() { m_Running = false; };
 }
 

@@ -19,6 +19,7 @@ namespace ApplicationLayer
 			TripComputerView(const Models::TripComputerModel& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
+			void Query();
 
 		private:
 			void UpdatePagination(uint8_t activePage, ApplicationLayer::DrawEventArgs& e);

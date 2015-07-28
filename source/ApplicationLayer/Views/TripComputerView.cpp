@@ -88,3 +88,7 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 	smallerFont.SetCursor(e.graphicContext.Width() / 2 - smallerFont.TextWidth(scratchpad) / 2, e.graphicContext.Height() - smallerFont.TextHeight(scratchpad));
 	smallerFont.Write(scratchpad);
 }
+
+void ApplicationLayer::Views::TripComputerView::Query()
+{
+}
