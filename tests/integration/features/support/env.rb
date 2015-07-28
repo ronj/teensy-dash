@@ -8,7 +8,7 @@ class TeensyWorld
 
 	def reset_teensy_cpu()
 		@devicePort.write 'Q'
-		sleep 4 # Should read firmware version and log iso sleep!
+		sleep 10 # Should read firmware version and log iso sleep!
 		@devicePort.close
 		@devicePort = open_port("/dev/tty.usbmodem743881")
 	end
