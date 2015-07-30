@@ -1,4 +1,4 @@
-const unsigned long PULSES_PER_KM = 4500;
+const unsigned long PULSES_PER_KM = 4971;
 
 const int speedOutPin = 2;
 const int rpmOutPin = 3;
@@ -35,7 +35,7 @@ void loop()
     else if (command == "R")
     {
       int rpm = Serial.parseInt();
-      float rpmFrequency = rpm / 60.0f;
+      float rpmFrequency = ((rpm * 3.f) / 2.f) / 60.0f;
       rpmDelayMicroSeconds = (1.0f / rpmFrequency) * 1000000;
       halfRpmDelayMicroSeconds = rpmDelayMicroSeconds / 2;
     }
