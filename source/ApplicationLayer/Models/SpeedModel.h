@@ -26,7 +26,7 @@ namespace ApplicationLayer
 			uint32_t ConvertPulsesToSpeed(uint32_t pulses, uint32_t timediff) const;
 
 		public:
-			static const uint16_t UPDATE_INTERVAL = 500;
+			static const uint16_t UPDATE_INTERVAL = 750;
 
 		private:
 			WheelTickModel& m_WheelTicks;

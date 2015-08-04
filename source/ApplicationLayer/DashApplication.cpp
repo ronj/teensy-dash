@@ -31,12 +31,9 @@ void ApplicationLayer::DashApplication::Eventloop()
 {
 	uint32_t now = m_Peripherals.GetTimeProvider().TickCountMilliseconds();
 
-	if (!m_Scheduler.Run(now))
-	{
-		m_Peripherals.GetPowerManagement().Idle();
-	}
-
 	m_Shiftlight.Update(now);
+
+	m_Scheduler.Run(now);
 
 	if (m_Models.GetRPMModel().GetRawValue() == 0)
 	{
@@ -52,5 +49,8 @@ void ApplicationLayer::DashApplication::Eventloop()
 		m_Peripherals.GetPowerManagement().PowerUpPeripherals();
 	}
 
-	m_Peripherals.GetTimeProvider().Sleep(25);
+	if (m_IsPoweredDown)
+	{
+		m_Peripherals.GetTimeProvider().Sleep(25);
+	}
 }
