@@ -1,16 +1,20 @@
 require 'serialport'
+require 'yaml'
 
 class TeensyWorld
 	def initialize()
-		@simulatorPort = open_port("/dev/tty.usbserial-A700eU6X")
-		@devicePort = open_port("/dev/tty.usbmodem743881")
+		@config = YAML.load_file("features/config.yml")
+
+		@simulatorPort = open_port(@config["serialports"]["simulator"])
+		@devicePort = open_port(@config["serialports"]["device"])
 	end
 
 	def reset_teensy_cpu()
 		@devicePort.write 'Q'
 		sleep 10 # Should read firmware version and log iso sleep!
 		@devicePort.close
-		@devicePort = open_port("/dev/tty.usbmodem743881")
+		@devicePort = open_port(@config["serialports"]["device"])
+		@devicePort.readline
 	end
 
 	def next_screen()

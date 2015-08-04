@@ -14,6 +14,7 @@ namespace ApplicationLayer
 			LargeValueView(int16_t x, int16_t y, const char* label, const Models::Model& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
+			void Query();
 
 		private:
 			const char* m_Label;

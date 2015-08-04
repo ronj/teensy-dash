@@ -1,5 +1,7 @@
 #include "LargeValueView.h"
 
+#include "Common/Logger.h"
+
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
 #include "PeripheralLayer/Fonts.h"
@@ -31,4 +33,9 @@ void ApplicationLayer::Views::LargeValueView::OnDraw(ApplicationLayer::DrawEvent
 
 	labelText.SetCursor(xpos, GetY() + 15 + 10 + textSize * 8);
 	labelText.Write(m_Label);
+}
+
+void ApplicationLayer::Views::LargeValueView::Query()
+{
+	Common::Logger::Get().LogExpectation(GetModel().GetFormattedValue());
 }

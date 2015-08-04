@@ -1,0 +1,10 @@
+---
+# Configuration file for specflow integration tests.
+
+# Change these to match the serial ports your target device and
+# simulator are connected to.
+#
+# Can be in the form of /dev/ttyUSB0 or COM5
+serialports:
+  device: /dev/tty.usbmodem743881
+  simulator: /dev/tty.usbserial-A700eU6X
