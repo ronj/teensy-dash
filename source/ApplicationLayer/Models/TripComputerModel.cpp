@@ -49,6 +49,22 @@ uint32_t ApplicationLayer::Models::TripComputerModel::GetTripTime(uint8_t index)
 	return GetTrip(index).GetTripTime();
 }
 
+uint32_t ApplicationLayer::Models::TripComputerModel::GetTripAverageSpeed(uint8_t index) const
+{
+	uint32_t timeMilliSeconds = GetTripTime(index);
+	uint32_t distanceMeter = GetTripDistance(index);
+
+	float timeHours = timeMilliSeconds / 1000.f / 60.f / 60.f;
+	float distanceKilometer = distanceMeter / 1000.f;
+
+	return static_cast<uint32_t>(distanceKilometer / timeHours);
+}
+
+uint32_t ApplicationLayer::Models::TripComputerModel::GetTripMaxSpeed(uint8_t index) const
+{
+	return GetTrip(index).GetTripMaxSpeed();
+}
+
 const ApplicationLayer::Models::TripData& ApplicationLayer::Models::TripComputerModel::GetTrip(uint8_t index) const
 {
 	TripData* trip = m_TripDataList.GetFirst();

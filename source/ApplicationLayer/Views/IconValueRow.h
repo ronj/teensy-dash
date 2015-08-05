@@ -21,11 +21,15 @@ namespace ApplicationLayer
 		public:
 			IconValueRow(int16_t x, int16_t y, const PeripheralLayer::Bitmaps::Bitmap& bitmap, const char* label, const Models::Model& model);
 
+			void SetValue(const char* value);
+
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 
 		private:
 			const PeripheralLayer::Bitmaps::Bitmap& m_Bitmap;
+
 			const char* m_Label;
+			const char* m_Value;
 		};
 	}
 }

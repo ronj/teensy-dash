@@ -17,13 +17,12 @@ int32_t ApplicationLayer::Models::RPMModel::GetRawValue() const
 const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 {
 	static char formatted[4] = { 0 };
-	itoa2(GetRawValue(), formatted, 10);
+	sprintf(formatted, "%d", (GetRawValue() / 100) * 100);
 	return formatted;
 }
 
 void ApplicationLayer::Models::RPMModel::Update(uint32_t now)
 {
-
 	m_RPM = ConvertFrequencyToRPM(m_FrequencyCounter.GetFrequency());
 }
 

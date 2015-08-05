@@ -27,6 +27,8 @@ namespace ApplicationLayer
 
 			uint32_t GetTripDistance(uint8_t index) const;
 			uint32_t GetTripTime(uint8_t index) const;
+			uint32_t GetTripAverageSpeed(uint8_t index) const;
+			uint32_t GetTripMaxSpeed(uint8_t index) const;
 
 		private:
 			const TripData& GetTrip(uint8_t index) const;

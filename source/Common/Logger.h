@@ -52,8 +52,6 @@ namespace Common
 		{
 			Log("Assertion failed: ");
 			LogLine(toLog);
-
-			assert(false);
 		}
 
 	private:
@@ -88,7 +86,7 @@ namespace Common
 }
 
 #if !(defined(__PRETTY_FUNCTION__))
-	#define __PRETTY_FUNCTION__ __FUNCTION__
+#define __PRETTY_FUNCTION__ __FUNCTION__
 #endif
 
 #define INTERNAL_FILE_LINE_DECORATOR Common::LogDecorator(__FILE__, __LINE__, __PRETTY_FUNCTION__).GetLogger()
@@ -96,4 +94,8 @@ namespace Common
 #define LOG_METHOD_ENTRY INTERNAL_FILE_LINE_DECORATOR.Log('\n');
 
 #define ASSERT_THAT(boolean_expression) \
-	if (false == (boolean_expression)) INTERNAL_FILE_LINE_DECORATOR.LogBrokenContract(#boolean_expression)
+	if (false == (boolean_expression)) \
+	{ \
+		INTERNAL_FILE_LINE_DECORATOR.LogBrokenContract(#boolean_expression); \
+		assert(boolean_expression); \
+	}

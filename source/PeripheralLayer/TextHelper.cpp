@@ -2,6 +2,8 @@
 #include "GraphicContext.h"
 #include "Font.h"
 
+#include "Common/Logger.h"
+
 #include <cstring>
 
 PeripheralLayer::TextHelper::TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background)
@@ -37,14 +39,8 @@ void PeripheralLayer::TextHelper::Write(uint8_t c)
 	}
 	else
 	{
-		if (c < m_Font.StartCharacter() || c > m_Font.EndCharacter())
-		{
-			c = 0;
-		}
-		else
-		{
-			c -= m_Font.StartCharacter();
-		}
+		ASSERT_THAT(c >= m_Font.StartCharacter() && c <= m_Font.EndCharacter());
+		c -= m_Font.StartCharacter();
 
 		m_Context.DrawChar(m_CursorX, m_CursorY, c, m_Foreground, m_Background, m_Font, m_Scaling);
 

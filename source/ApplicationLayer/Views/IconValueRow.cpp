@@ -19,22 +19,28 @@ ApplicationLayer::Views::IconValueRow::IconValueRow(int16_t x, int16_t y, const 
 {
 }
 
+void ApplicationLayer::Views::IconValueRow::SetValue(const char* value)
+{
+	m_Value = value;
+}
+
 void ApplicationLayer::Views::IconValueRow::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
 	const uint8_t xmargin = 5;
 	const uint8_t ymargin = 5;
 
-	e.graphicContext.DrawBitmap(GetX() + xmargin, GetY() + ymargin, m_Bitmap, e.colorScheme.Foreground);
+	const char* value = GetModel().GetFormattedValue();
 
 	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::Peugeot_20pt, e.colorScheme.Text, e.colorScheme.Background);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::Peugeot_8pt, e.colorScheme.Text, e.colorScheme.Background);
 
-	valueText.SetCursor(GetX() + 32 + 15, GetY() + 12);
-	valueText.Write(GetModel().GetFormattedValue());
+	e.graphicContext.DrawBitmap(GetX() + xmargin, GetY() + ymargin, m_Bitmap, e.colorScheme.Foreground);
 
-	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background);
+	valueText.SetCursor(e.graphicContext.Width() - valueText.TextWidth(value) - xmargin, 0 + ymargin);
+	valueText.Write(value);
 
-	labelText.SetCursor(e.graphicContext.Width() - 10 - std::strlen(m_Label) * 8 + 10, GetY() + 32 + 5 + 2);
+	labelText.SetCursor(e.graphicContext.Width() - labelText.TextWidth(m_Label) - xmargin, valueText.TextHeight(value) + 6);
 	labelText.Write(m_Label);
 
-	e.graphicContext.DrawHorizontalLine(GetX() + 5, GetY() + 32 + 5 + 5, e.graphicContext.Width() - 10 - std::strlen(m_Label) * 8, e.colorScheme.Foreground);
+	e.graphicContext.DrawHorizontalLine(0 + xmargin, 0 + valueText.TextHeight(value) + (2 * ymargin), e.graphicContext.Width() - labelText.TextWidth(m_Label) - (3 * xmargin), e.colorScheme.Foreground);
 }
