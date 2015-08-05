@@ -7,7 +7,7 @@ namespace
 	uint32_t ISR(uint32_t interval, void* data)
 	{
 		HardwareLayer::SDLDigitalPin& pin = *static_cast<HardwareLayer::SDLDigitalPin*>(data);
-		pin.m_ISR();
+		pin.OnInterrupt();
 
 		return interval;
 	}
@@ -15,11 +15,15 @@ namespace
 
 HardwareLayer::SDLDigitalPin::~SDLDigitalPin()
 {
-	SDL_RemoveTimer(m_TimerID);
+	DisableInterrupt();
 }
 
-void HardwareLayer::SDLDigitalPin::EnableInterrupt(InterruptType mode, std::function<void()> isr)
+void HardwareLayer::SDLDigitalPin::EnableInterrupt(InterruptType)
 {
-	m_ISR = isr;
 	m_TimerID = SDL_AddTimer(10, ISR, this);
+}
+
+void HardwareLayer::SDLDigitalPin::DisableInterrupt()
+{
+	SDL_RemoveTimer(m_TimerID);
 }

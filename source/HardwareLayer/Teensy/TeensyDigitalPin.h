@@ -13,7 +13,8 @@ namespace HardwareLayer
 
         virtual ~TeensyDigitalPin();
 
-        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr);
+        virtual void EnableInterrupt(InterruptType mode);
+		virtual void DisableInterrupt();
 
     private:
         const uint8_t m_Pin;

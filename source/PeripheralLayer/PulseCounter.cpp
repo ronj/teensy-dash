@@ -7,7 +7,8 @@
 PeripheralLayer::PulseCounter::PulseCounter(HardwareLayer::DigitalPin& pin)
 	: m_Counter(0)
 {
-	pin.EnableInterrupt(HardwareLayer::InterruptType::Rising, [this]() { ++m_Counter; });
+	pin.OnInterrupt = [this]() { ++m_Counter; };
+	pin.EnableInterrupt(HardwareLayer::InterruptType::Rising);
 }
 
 uint32_t PeripheralLayer::PulseCounter::GetCount()

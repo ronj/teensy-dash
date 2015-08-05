@@ -13,6 +13,9 @@ namespace HardwareLayer
         : public Common::NonCopyable
 	{
 	public:
-        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr) = 0;
+        virtual void EnableInterrupt(InterruptType mode) = 0;
+		virtual void DisableInterrupt() = 0;
+
+		std::function<void()> OnInterrupt;
 	};
 }

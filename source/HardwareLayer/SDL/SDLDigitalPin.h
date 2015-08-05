@@ -12,9 +12,9 @@ namespace HardwareLayer
     {
     public:
 		virtual ~SDLDigitalPin();
-        virtual void EnableInterrupt(InterruptType mode, std::function<void()> isr);
 
-        std::function<void()> m_ISR;
+        virtual void EnableInterrupt(InterruptType);
+		virtual void DisableInterrupt();
 
 	private:
 		SDL_TimerID m_TimerID;

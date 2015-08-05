@@ -87,17 +87,22 @@ HardwareLayer::TeensyDigitalPin::TeensyDigitalPin(const uint8_t pin, PinType typ
 
 HardwareLayer::TeensyDigitalPin::~TeensyDigitalPin()
 {
-    detachInterrupt2(m_Pin);
+	DisableInterrupt();
 }
 
-void HardwareLayer::TeensyDigitalPin::EnableInterrupt(InterruptType mode, std::function<void()> isr)
+void HardwareLayer::TeensyDigitalPin::EnableInterrupt(InterruptType mode)
 {
     switch (mode)
     {
-        case InterruptType::Rising: attachInterrupt2(m_Pin, isr, RISING); break;
-        case InterruptType::Falling: attachInterrupt2(m_Pin, isr, FALLING); break;
-        case InterruptType::Change: attachInterrupt2(m_Pin, isr, CHANGE); break;
-        case InterruptType::Low: attachInterrupt2(m_Pin, isr, LOW); break;
-        case InterruptType::High: attachInterrupt2(m_Pin, isr, HIGH); break;
+        case InterruptType::Rising: attachInterrupt2(m_Pin, OnInterrupt, RISING); break;
+		case InterruptType::Falling: attachInterrupt2(m_Pin, OnInterrupt, FALLING); break;
+		case InterruptType::Change: attachInterrupt2(m_Pin, OnInterrupt, CHANGE); break;
+		case InterruptType::Low: attachInterrupt2(m_Pin, OnInterrupt, LOW); break;
+		case InterruptType::High: attachInterrupt2(m_Pin, OnInterrupt, HIGH); break;
     }
+}
+
+void HardwareLayer::TeensyDigitalPin::DisableInterrupt()
+{
+	detachInterrupt2(m_Pin);
 }
