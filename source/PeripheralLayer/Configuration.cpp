@@ -9,7 +9,7 @@ PeripheralLayer::Configuration::Configuration()
 	, m_TireWidth(205)
 	, m_TireAspect(40)
 	, m_RimSize(17)
-	, m_FinalDrive(60.f / 14.f)
+	, m_FinalDrive(59.f / 13.f)
 	, m_GearRatios({ { 41.f / 12.f, 38.f / 21.f, 37.f / 29.f, 39.f / 40.f, 33.f / 43.f, UnavailableGear() } })
 	, m_VSSPulsesPerKm(4971)
 {
