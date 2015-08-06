@@ -13,6 +13,8 @@ namespace HardwareLayer
     public:
 		virtual ~SDLDigitalPin();
 
+		virtual uint8_t Read();
+
         virtual void EnableInterrupt(InterruptType);
 		virtual void DisableInterrupt();
 

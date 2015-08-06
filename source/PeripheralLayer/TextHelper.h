@@ -14,6 +14,7 @@ namespace PeripheralLayer
 	class TextHelper
 	{
 	public:
+		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground);
 		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background);
 		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background, uint8_t scaling);
 

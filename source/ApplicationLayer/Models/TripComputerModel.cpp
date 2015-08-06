@@ -67,6 +67,8 @@ uint32_t ApplicationLayer::Models::TripComputerModel::GetTripMaxSpeed(uint8_t in
 
 const ApplicationLayer::Models::TripData& ApplicationLayer::Models::TripComputerModel::GetTrip(uint8_t index) const
 {
+	ASSERT_THAT(!m_TripDataList.IsEmpty());
+
 	TripData* trip = m_TripDataList.GetFirst();
 
 	for (int i = 0; i < index; i++)

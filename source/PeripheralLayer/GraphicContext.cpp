@@ -102,13 +102,13 @@ void PeripheralLayer::GraphicContext::DrawWuLine(int16_t x0, int16_t y0, int16_t
 
 	if (steep)
 	{
-		DrawPixel(xpxl1, ypxl1, Brightness(color, rfpart(yend) * xgap));
-		DrawPixel(xpxl1, ypxl1 + 1, Brightness(color, fpart(yend) * xgap));
+		DrawPixel(ypxl1, xpxl1, Brightness(color, rfpart(yend) * xgap));
+		DrawPixel(ypxl1 + 1, xpxl1, Brightness(color, fpart(yend) * xgap));
 	}
 	else
 	{
-		DrawPixel(ypxl1, xpxl1, Brightness(color, rfpart(yend) * xgap));
-		DrawPixel(ypxl1 + 1, xpxl1, Brightness(color, fpart(yend) * xgap));
+		DrawPixel(xpxl1, ypxl1, Brightness(color, rfpart(yend) * xgap));
+		DrawPixel(xpxl1, ypxl1 + 1, Brightness(color, fpart(yend) * xgap));
 	}
 	float intery = yend + gradient; // first y-intersection for the main loop
 
@@ -120,13 +120,13 @@ void PeripheralLayer::GraphicContext::DrawWuLine(int16_t x0, int16_t y0, int16_t
 	int ypxl2 = ipart(yend);
 	if (steep)
 	{
-		DrawPixel(xpxl2, ypxl2, Brightness(color, rfpart(yend) * xgap));
-		DrawPixel(xpxl2, ypxl2 + 1, Brightness(color, fpart(yend) * xgap));
+		DrawPixel(ypxl2, xpxl2, Brightness(color, rfpart(yend) * xgap));
+		DrawPixel(ypxl2 + 1, xpxl2 + 1, Brightness(color, fpart(yend) * xgap));
 	}
 	else
 	{
-		DrawPixel(ypxl2, xpxl2, Brightness(color, rfpart(yend) * xgap));
-		DrawPixel(ypxl2 + 1, xpxl2 + 1, Brightness(color, fpart(yend) * xgap));
+		DrawPixel(xpxl2, ypxl2, Brightness(color, rfpart(yend) * xgap));
+		DrawPixel(xpxl2, ypxl2 + 1, Brightness(color, fpart(yend) * xgap));
 	}
 
 	// main loop
@@ -134,13 +134,13 @@ void PeripheralLayer::GraphicContext::DrawWuLine(int16_t x0, int16_t y0, int16_t
 	{
 		if (steep)
 		{
-			DrawPixel(x, ipart(intery), Brightness(color, rfpart(intery)));
-			DrawPixel(x, ipart(intery) + 1, Brightness(color, fpart(intery)));
+			DrawPixel(ipart(intery), x, Brightness(color, rfpart(intery)));
+			DrawPixel(ipart(intery) + 1, x, Brightness(color, fpart(intery)));
 		}
 		else
 		{
-			DrawPixel(ipart(intery), x, Brightness(color, rfpart(intery)));
-			DrawPixel(ipart(intery) + 1, x, Brightness(color, fpart(intery)));
+			DrawPixel(x, ipart(intery), Brightness(color, rfpart(intery)));
+			DrawPixel(x, ipart(intery) + 1, Brightness(color, fpart(intery)));
 		}
 		intery = intery + gradient;
 	}
@@ -235,6 +235,16 @@ void PeripheralLayer::GraphicContext::DrawTriangle(int16_t x0, int16_t y0, int16
 	DrawLine(x2, y2, x0, y0, color);
 }
 
+void PeripheralLayer::GraphicContext::DrawPolygon(Point points[], uint16_t count, uint32_t color)
+{
+	for (int i = 0; i < count - 1; ++i)
+	{
+		DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y, color);
+	}
+
+	DrawLine(points[count - 1].x, points[count - 1].y, points[0].x, points[0].y, color);
+}
+
 void PeripheralLayer::GraphicContext::FillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint32_t color)
 {
 	if (!m_Display.FillRect(x, y, w, h, color))
@@ -325,12 +335,12 @@ void PeripheralLayer::GraphicContext::DrawChar(int16_t x, int16_t y, unsigned ch
 	}
 }
 
-int16_t PeripheralLayer::GraphicContext::Width()
+int16_t PeripheralLayer::GraphicContext::Width() const
 {
 	return m_Display.Width();
 }
 
-int16_t PeripheralLayer::GraphicContext::Height()
+int16_t PeripheralLayer::GraphicContext::Height() const
 {
 	return m_Display.Height();
 }

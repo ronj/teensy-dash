@@ -33,7 +33,7 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 	uint32_t km = m_Model.GetTripDistance(m_ActivePage) / 1000;
 	uint32_t m = (m_Model.GetTripDistance(m_ActivePage) % 1000) / 100;
 
-	sprintf(scratchpad, "%d.%d", km, m);
+	sprintf(scratchpad, "%lu.%lu", km, m);
 
 	m_Distance.SetValue(scratchpad);
 	m_Distance.OnDraw(e);
@@ -43,7 +43,7 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 	m_AverageFuelConsumption.SetValue(scratchpad);
 	m_AverageFuelConsumption.OnDraw(e);
 
-	sprintf(scratchpad, "%d", m_Model.GetTripAverageSpeed(m_ActivePage));
+	sprintf(scratchpad, "%lu", m_Model.GetTripAverageSpeed(m_ActivePage));
 
 	m_AverageSpeed.SetValue(scratchpad);
 	m_AverageSpeed.OnDraw(e);
@@ -54,7 +54,7 @@ void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePag
 	uint32_t minutes = (milliseconds / (1000 * 60)) % 60;
 	uint32_t hours = (milliseconds / (1000 * 60 * 60));
 
-	sprintf(scratchpad, "%02d:%02d:%02d", hours, minutes, seconds);
+	sprintf(scratchpad, "%02lu:%02lu:%02lu", hours, minutes, seconds);
 
 	smallerFont.SetCursor(e.graphicContext.Width() / 2 - smallerFont.TextWidth(scratchpad) / 2, e.graphicContext.Height() - smallerFont.TextHeight(scratchpad));
 	smallerFont.Write(scratchpad);

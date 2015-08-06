@@ -31,6 +31,12 @@ namespace PeripheralLayer
 		struct Font;
 	}
 
+	struct Point
+	{
+		int16_t x;
+		int16_t y;
+	};
+
 	class GraphicContext
 	{
 	public:
@@ -48,6 +54,7 @@ namespace PeripheralLayer
 		void DrawCircle(int16_t x, int16_t y, int16_t r, uint32_t color);
 		void DrawWuCircle(int16_t xc, int16_t yc, int16_t r, uint32_t color);
     	void DrawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint32_t color);
+		void DrawPolygon(Point points[], uint16_t count, uint32_t color);
 
 		void FillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint32_t color);
     	void FillRoundRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t radius, uint32_t color);
@@ -59,8 +66,8 @@ namespace PeripheralLayer
 
 		void DrawChar(int16_t x, int16_t y, unsigned char c, uint32_t fgcolor, uint32_t bgcolor, const Fonts::Font& font, uint8_t size);
 
-		int16_t Width();
-		int16_t Height();
+		int16_t Width() const;
+		int16_t Height() const;
 
 		void Update();
 

@@ -6,6 +6,11 @@
 
 #include <cstring>
 
+PeripheralLayer::TextHelper::TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground)
+: TextHelper(context, font, foreground, foreground, 1)
+{
+}
+
 PeripheralLayer::TextHelper::TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background)
 	: TextHelper(context, font, foreground, background, 1)
 {

@@ -13,6 +13,8 @@ namespace HardwareLayer
 
         virtual ~TeensyDigitalPin();
 
+		virtual uint8_t Read();
+
         virtual void EnableInterrupt(InterruptType mode);
 		virtual void DisableInterrupt();
 

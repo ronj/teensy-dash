@@ -90,6 +90,11 @@ HardwareLayer::TeensyDigitalPin::~TeensyDigitalPin()
 	DisableInterrupt();
 }
 
+uint8_t HardwareLayer::TeensyDigitalPin::Read()
+{
+	return digitalRead(m_Pin);
+}
+
 void HardwareLayer::TeensyDigitalPin::EnableInterrupt(InterruptType mode)
 {
     switch (mode)

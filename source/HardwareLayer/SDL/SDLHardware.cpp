@@ -42,6 +42,11 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetVSSPin()
     return m_VSSPin;
 }
 
+HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetParkingSensorPin()
+{
+	return m_ParkingSensorPin;
+}
+
 HardwareLayer::FrequencyCounter& HardwareLayer::SDLHardware::GetRPMFrequencyCounter()
 {
 	return m_RPMFrequencyCounter;

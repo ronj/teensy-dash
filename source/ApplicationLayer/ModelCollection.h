@@ -4,6 +4,7 @@
 
 #include "Models/AccelerationModel.h"
 #include "Models/CalculatedGearModel.h"
+#include "Models/ParkDistanceModel.h"
 #include "Models/PitchModel.h"
 #include "Models/RandomValueModel.h"
 #include "Models/RollModel.h"
@@ -32,6 +33,8 @@ namespace ApplicationLayer
 
 		const Models::TripComputerModel& GetTripComputerModel() const;
 
+		const Models::ParkDistanceModel& GetParkDistanceModel() const;
+
 		const Models::Model& GetBatteryVoltageModel() const;
 		const Models::Model& GetOilPressureModel() const;
 		const Models::Model& GetOilTemperatureModel() const;
@@ -53,6 +56,8 @@ namespace ApplicationLayer
 		Models::CalculatedGearModel m_GearModel;
 
 		Models::TripComputerModel m_TripComputerModel;
+
+		Models::ParkDistanceModel m_ParkDistanceModel;
 
 		Models::VoltageModel m_BatteryVoltageModel;
 		Models::RandomValueModel m_OilPressureModel;

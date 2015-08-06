@@ -4,6 +4,7 @@
 #include "Configuration.h"
 #include "FrequencyCounter.h"
 #include "GraphicContext.h"
+#include "ParkDistanceDecoder.h"
 #include "PowerManagement.h"
 #include "PulseCounter.h"
 #include "RotaryEventSource.h"
@@ -36,6 +37,7 @@ namespace PeripheralLayer
 		AccelerationAxis& GetZAcceleration();
 
 		PulseCounter& GetVSSPulseCounter();
+		ParkDistanceDecoder& GetParkDistanceDecoder();
 		FrequencyCounter& GetRPMFrequencyCounter();
 
 		RotaryEventSource& GetRotaryEventSource();
@@ -56,6 +58,7 @@ namespace PeripheralLayer
 		AccelerationAxis m_ZAccelerationAxis;
 
 		PulseCounter m_VSSPulseCounter;
+		ParkDistanceDecoder m_ParkDistanceDecoder;
 		FrequencyCounter m_RPMFrequencyCounter;
 
 		RotaryEventSource m_RotaryEventSource;

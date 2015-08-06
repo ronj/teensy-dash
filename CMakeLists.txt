@@ -278,6 +278,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/FrequencyCounter.h
             source/PeripheralLayer/GraphicContext.cpp
             source/PeripheralLayer/GraphicContext.h
+			source/PeripheralLayer/ParkDistanceDecoder.cpp
+			source/PeripheralLayer/ParkDistanceDecoder.h
             source/PeripheralLayer/Peripherals.cpp
             source/PeripheralLayer/Peripherals.h
             source/PeripheralLayer/PowerManagement.cpp
@@ -329,6 +331,8 @@ list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/IconValueRow.h
             source/ApplicationLayer/Views/LargeValueView.cpp
             source/ApplicationLayer/Views/LargeValueView.h
+			source/ApplicationLayer/Views/ParkDistanceView.cpp
+			source/ApplicationLayer/Views/ParkDistanceView.h
             source/ApplicationLayer/Views/TripComputerView.cpp
             source/ApplicationLayer/Views/TripComputerView.h
             source/ApplicationLayer/Views/TwoRowView.cpp
@@ -346,6 +350,8 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/ConversionHelper.h
             source/ApplicationLayer/Models/Model.cpp
             source/ApplicationLayer/Models/Model.h
+			source/ApplicationLayer/Models/ParkDistanceModel.cpp
+			source/ApplicationLayer/Models/ParkDistanceModel.h
             source/ApplicationLayer/Models/PitchModel.cpp
             source/ApplicationLayer/Models/PitchModel.h
             source/ApplicationLayer/Models/RandomValueModel.cpp

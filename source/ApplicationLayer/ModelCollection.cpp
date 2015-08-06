@@ -8,6 +8,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	, m_RPMModel(peripherals.GetRPMFrequencyCounter())
 	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
 	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel)
+	, m_ParkDistanceModel(peripherals.GetParkDistanceDecoder())
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())
 	, m_OilPressureModel(4, 6)
 	, m_OilTemperatureModel(25, 125)
@@ -25,6 +26,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	m_ModelList.Add(m_RPMModel);
 	m_ModelList.Add(m_GearModel);
 	m_ModelList.Add(m_TripComputerModel);
+	m_ModelList.Add(m_ParkDistanceModel);
 	m_ModelList.Add(m_BatteryVoltageModel);
 	m_ModelList.Add(m_OilPressureModel);
 	m_ModelList.Add(m_OilTemperatureModel);
@@ -53,6 +55,11 @@ const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetGea
 const ApplicationLayer::Models::TripComputerModel& ApplicationLayer::ModelCollection::GetTripComputerModel() const
 {
 	return m_TripComputerModel;
+}
+
+const ApplicationLayer::Models::ParkDistanceModel& ApplicationLayer::ModelCollection::GetParkDistanceModel() const
+{
+	return m_ParkDistanceModel;
 }
 
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const
