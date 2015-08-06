@@ -8,12 +8,11 @@
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
 
-#include "ApplicationLayer/Models/Model.h"
-
 #include <cstring>
 
-ApplicationLayer::Views::IconValueRow::IconValueRow(int16_t x, int16_t y, const PeripheralLayer::Bitmaps::Bitmap& bitmap, const char* label, const Models::Model& model)
-	: BaseView(x, y, model)
+ApplicationLayer::Views::IconValueRow::IconValueRow(int16_t x, int16_t y, const PeripheralLayer::Bitmaps::Bitmap& bitmap, const char* label)
+    : m_X(x)
+    , m_Y(y)
 	, m_Bitmap(bitmap)
 	, m_Label(label)
 {
@@ -29,18 +28,16 @@ void ApplicationLayer::Views::IconValueRow::OnDraw(ApplicationLayer::DrawEventAr
 	const uint8_t xmargin = 5;
 	const uint8_t ymargin = 5;
 
-	const char* value = GetModel().GetFormattedValue();
-
 	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::Peugeot_20pt, e.colorScheme.Text, e.colorScheme.Background);
 	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::Peugeot_8pt, e.colorScheme.Text, e.colorScheme.Background);
 
-	e.graphicContext.DrawBitmap(GetX() + xmargin, GetY() + ymargin, m_Bitmap, e.colorScheme.Foreground);
+	e.graphicContext.DrawBitmap(m_X + xmargin, m_Y + ymargin, m_Bitmap, e.colorScheme.Foreground);
 
-	valueText.SetCursor(e.graphicContext.Width() - valueText.TextWidth(value) - xmargin, 0 + ymargin);
-	valueText.Write(value);
+	valueText.SetCursor(m_X + e.graphicContext.Width() - valueText.TextWidth(m_Value) - xmargin, m_Y + ymargin);
+	valueText.Write(m_Value);
 
-	labelText.SetCursor(e.graphicContext.Width() - labelText.TextWidth(m_Label) - xmargin, valueText.TextHeight(value) + 6);
+	labelText.SetCursor(m_X + e.graphicContext.Width() - labelText.TextWidth(m_Label) - xmargin, m_Y + valueText.TextHeight(m_Value) + 6);
 	labelText.Write(m_Label);
 
-	e.graphicContext.DrawHorizontalLine(0 + xmargin, 0 + valueText.TextHeight(value) + (2 * ymargin), e.graphicContext.Width() - labelText.TextWidth(m_Label) - (3 * xmargin), e.colorScheme.Foreground);
+	e.graphicContext.DrawHorizontalLine(m_X + xmargin, m_Y + valueText.TextHeight(m_Value) + (2 * ymargin) + 2, e.graphicContext.Width() - labelText.TextWidth(m_Label) - (3 * xmargin), e.colorScheme.Foreground);
 }

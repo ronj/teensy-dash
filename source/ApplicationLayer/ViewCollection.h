@@ -21,7 +21,7 @@ namespace ApplicationLayer
 		Common::List<Views::View>& GetViews();
 
 	private:
-		Views::IconValueRow m_BatteryVoltage;
+		//Views::IconValueRow m_BatteryVoltage;
 		Views::TwoRowView m_SpeedRPMView;
 		Views::LargeValueView m_GearView;
 		Views::TripComputerView m_TripComputerView;
