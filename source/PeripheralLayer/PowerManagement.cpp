@@ -1,5 +1,7 @@
 #include "PowerManagement.h"
 
+#include "Common/Logger.h"
+
 #include "HardwareLayer/AnalogPin.h"
 #include "HardwareLayer/DigitalPin.h"
 #include "HardwareLayer/Hardware.h"
@@ -12,22 +14,23 @@ PeripheralLayer::PowerManagement::PowerManagement(HardwareLayer::Hardware& hardw
 
 void PeripheralLayer::PowerManagement::PowerDownPeripherals()
 {
+	LOG_METHOD_ENTRY;
+
 	m_Hardware.GetBacklightPin().Write(0);
 	m_Hardware.GetVSSPin().DisableInterrupt();
 }
 
 void PeripheralLayer::PowerManagement::PowerUpPeripherals()
 {
+	LOG_METHOD_ENTRY;
+
 	m_Hardware.GetVSSPin().EnableInterrupt(HardwareLayer::InterruptType::Rising);
 	m_Hardware.GetBacklightPin().Write(100);
 }
 
 void PeripheralLayer::PowerManagement::LowPowerSleep()
 {
-	m_Hardware.GetPlatform().LowPowerSleep(1000 * 2);
-}
+	LOG_METHOD_ENTRY;
 
-void PeripheralLayer::PowerManagement::Idle()
-{
-	m_Hardware.GetPlatform().Idle();
+	m_Hardware.GetPlatform().LowPowerSleep(1000 * 2);
 }

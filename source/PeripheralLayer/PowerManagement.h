@@ -15,7 +15,6 @@ namespace PeripheralLayer
 		void PowerDownPeripherals();
 		void PowerUpPeripherals();
 		void LowPowerSleep();
-		void Idle();
 
 	private:
 		HardwareLayer::Hardware& m_Hardware;
