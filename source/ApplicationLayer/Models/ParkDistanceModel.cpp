@@ -2,7 +2,10 @@
 
 #include "PeripheralLayer/ParkDistanceDecoder.h"
 
+#include "Common/Logger.h"
+
 #include <algorithm>
+#include <limits>
 
 ApplicationLayer::Models::ParkDistanceModel::ParkDistanceModel(const PeripheralLayer::ParkDistanceDecoder& parkDistanceDecoder)
 	: m_ParkDistanceDecoder(parkDistanceDecoder)
@@ -22,12 +25,20 @@ const char* ApplicationLayer::Models::ParkDistanceModel::GetFormattedValue() con
 	UnpackValues(m_PackedValues, a, b, c, d);
 
 	uint8_t minDistance = std::min({ a, b, c, d });
-	sprintf(formatted, "%d.%02d", minDistance / 100, minDistance % 100);
+
+	if (minDistance < std::numeric_limits<uint8_t>::max())
+	{
+		sprintf(formatted, "%d.%02d", minDistance / 100, minDistance % 100);
+	}
+	else
+	{
+		sprintf(formatted, "-.--");
+	}
 
 	return formatted;
 }
 
-void ApplicationLayer::Models::ParkDistanceModel::Update(uint32_t now)
+void ApplicationLayer::Models::ParkDistanceModel::Update(uint32_t)
 {
 	m_PackedValues = m_ParkDistanceDecoder.GetPackedDistances();
 }
