@@ -1,13 +1,13 @@
 #include "SpeedModel.h"
 
 #include "ConversionHelper.h"
+#include "WheelTickModel.h"
 
 #include "PeripheralLayer/Configuration.h"
-#include "PeripheralLayer/PulseCounter.h"
 
-ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, PeripheralLayer::PulseCounter& pulseCounter)
-	: m_PulseFactor(configuration.GetVSSPulsesPerKm() / 3600000.f)
-	, m_PulseCounter(pulseCounter)
+ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, WheelTickModel& wheelTicks)
+	: m_WheelTicks(wheelTicks)
+	, m_PulseFactor(configuration.GetVSSPulsesPerKm() / 3600000.f)
 {
 }
 
@@ -25,14 +25,17 @@ const char* ApplicationLayer::Models::SpeedModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::SpeedModel::Update(uint32_t now)
 {
-	if (now - m_PreviousTicks >= 1000)
+	m_AccumulatedTicks += m_WheelTicks.GetRawValue();
+
+	if (now - m_PreviousTickTime >= UPDATE_INTERVAL)
 	{
-		m_Speed = ConvertPulsesToSpeed(m_PulseCounter.GetCount(), now - m_PreviousTicks);
-		m_PreviousTicks = now;
+		m_Speed = ConvertPulsesToSpeed(m_AccumulatedTicks, now - m_PreviousTickTime);
+		m_PreviousTickTime = now;
+		m_AccumulatedTicks = 0;
 	}
 }
 
 uint32_t ApplicationLayer::Models::SpeedModel::ConvertPulsesToSpeed(uint32_t pulses, uint32_t timediff) const
 {
-	return (pulses / (m_PulseFactor * timediff)) * 10;
+	return static_cast<uint32_t>((pulses / (m_PulseFactor * timediff)) * 10);
 }

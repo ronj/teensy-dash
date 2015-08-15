@@ -22,12 +22,13 @@ namespace PeripheralLayer
 		const MinMaxCalibration<int16_t>& GetAccelerometerYCalibration() const;
 		const MinMaxCalibration<int16_t>& GetAccelerometerZCalibration() const;
 
-		uint16_t GetTireWidth() const;
-		uint8_t GetTireAspect() const;
-		uint8_t GetRimSize() const;
+		virtual uint16_t GetTireWidth() const;
+		virtual uint8_t GetTireAspect() const;
+		virtual uint8_t GetRimSize() const;
 
-		float GetFinalDriveRatio() const;
-		const std::array<float, 6>& GetGearRatios() const;
+		virtual float GetFinalDriveRatio() const;
+		virtual const std::array<float, 6>& GetGearRatios() const;
+		static float UnavailableGear();
 
 		virtual uint16_t GetVSSPulsesPerKm() const;
 

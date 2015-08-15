@@ -2,10 +2,16 @@
 
 #include "AccelerationAxis.h"
 #include "Configuration.h"
+#include "FrequencyCounter.h"
 #include "GraphicContext.h"
+#include "ParkDistanceDecoder.h"
+#include "PowerManagement.h"
 #include "PulseCounter.h"
 #include "RotaryEventSource.h"
+#include "SerialEventSource.h"
 #include "TimeProvider.h"
+#include "VoltageDivider.h"
+#include "Voltmeter.h"
 
 namespace HardwareLayer
 {
@@ -20,8 +26,10 @@ namespace PeripheralLayer
 		Peripherals(HardwareLayer::Hardware& hardware);
 
 		const Configuration& GetConfiguration() const;
+		PowerManagement& GetPowerManagement();
 
 		GraphicContext& GetGraphicContext();
+		GraphicContext& GetLedContext();
 		TimeProvider& GetTimeProvider();
 
 		AccelerationAxis& GetXAcceleration();
@@ -29,13 +37,20 @@ namespace PeripheralLayer
 		AccelerationAxis& GetZAcceleration();
 
 		PulseCounter& GetVSSPulseCounter();
+		ParkDistanceDecoder& GetParkDistanceDecoder();
+		FrequencyCounter& GetRPMFrequencyCounter();
 
 		RotaryEventSource& GetRotaryEventSource();
+		SerialEventSource& GetSerialEventSource();
+
+		Voltmeter& GetBatteryVoltageMeter();
 
 	private:
 		Configuration m_Configuration;
+		PowerManagement m_PowerManagement;
 
 		GraphicContext m_GraphicContext;
+		GraphicContext m_LedContext;
 		TimeProvider m_TimeProvider;
 
 		AccelerationAxis m_XAccelerationAxis;
@@ -43,7 +58,13 @@ namespace PeripheralLayer
 		AccelerationAxis m_ZAccelerationAxis;
 
 		PulseCounter m_VSSPulseCounter;
+		ParkDistanceDecoder m_ParkDistanceDecoder;
+		FrequencyCounter m_RPMFrequencyCounter;
 
 		RotaryEventSource m_RotaryEventSource;
+		SerialEventSource m_SerialEventSource;
+
+		VoltageDivider m_BatteryVoltageDivider;
+		Voltmeter m_BatteryVoltageMeter;
 	};
 }

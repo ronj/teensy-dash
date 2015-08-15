@@ -1,41 +1,16 @@
 #pragma once
 
+#include "List.h"
+#include "NonCopyable.h"
 #include "Task.h"
-
-#include "Common/NonCopyable.h"
-#include "Common/List.h"
-
-#undef swap
-#undef min
-#undef max
-
-#include <functional>
 
 namespace Common
 {
 	class TaskScheduler : public NonCopyable
 	{
 	public:
-	    void Run()
-    	{
-	        uint32_t now = GetMillisecondCount();
-
-			for (auto&& task : m_Tasks)
-	        {
-	        	if (task.CanRun(now))
-	        	{
-	        		task.Run(now);
-	        		//break;
-	        	}
-	        }
-		}
-
-		void Add(Task& task)
-		{
-			m_Tasks.Add(task);
-		}
-
-	    std::function<uint32_t()> GetMillisecondCount;
+	    bool Run(uint32_t now);
+		void Add(Task& task);
 
 	private:
 		List<Task> m_Tasks;

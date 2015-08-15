@@ -1,12 +1,23 @@
 #include "TeensyHardware.h"
 
 HardwareLayer::TeensyHardware::TeensyHardware()
-	: m_XPin(A2)
-	, m_YPin(A3)
-	, m_ZPin(A4)
+	: m_XPin(A0)
+	, m_YPin(A1)
+	, m_ZPin(A2)
+	, m_BacklightPin(6)
+	, m_BatteryVoltagePin(22)
+	, m_VSSPin(23, PinType::InputPullUp)
+	, m_ParkingSensorPin(5, PinType::Input)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
+	, m_LedDriver(2)
 {
 	m_Platform.Init();
+	m_BacklightPin.Write(0);
+}
+
+HardwareLayer::Platform& HardwareLayer::TeensyHardware::GetPlatform()
+{
+	return m_Platform;
 }
 
 HardwareLayer::AccelerometerDriver& HardwareLayer::TeensyHardware::GetAccelerometerDriver()
@@ -19,6 +30,11 @@ HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetDisplayDriver()
 	return m_DisplayDriver;
 }
 
+HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetLedDriver()
+{
+	return m_LedDriver;
+}
+
 HardwareLayer::Timer& HardwareLayer::TeensyHardware::GetTimer()
 {
 	return m_Timer;
@@ -27,4 +43,29 @@ HardwareLayer::Timer& HardwareLayer::TeensyHardware::GetTimer()
 HardwareLayer::RotaryEncoder& HardwareLayer::TeensyHardware::GetRotaryEncoder()
 {
 	return m_RotaryEncoder;
+}
+
+HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetVSSPin()
+{
+    return m_VSSPin;
+}
+
+HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetParkingSensorPin()
+{
+	return m_ParkingSensorPin;
+}
+
+HardwareLayer::FrequencyCounter& HardwareLayer::TeensyHardware::GetRPMFrequencyCounter()
+{
+	return m_RPMFrequencyCounter;
+}
+
+const HardwareLayer::AnalogPin& HardwareLayer::TeensyHardware::GetBatteryVoltagePin()
+{
+    return m_BatteryVoltagePin;
+}
+
+HardwareLayer::AnalogPin& HardwareLayer::TeensyHardware::GetBacklightPin()
+{
+    return m_BacklightPin;
 }

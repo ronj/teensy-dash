@@ -5,6 +5,7 @@
 ApplicationLayer::UserEventsTask::UserEventsTask(PeripheralLayer::Peripherals& peripherals)
 {
 	m_EventSources.Add(peripherals.GetRotaryEventSource());
+	m_EventSources.Add(peripherals.GetSerialEventSource());
 }
 
 bool ApplicationLayer::UserEventsTask::CanRun(uint32_t)
@@ -34,6 +35,9 @@ void ApplicationLayer::UserEventsTask::Run(uint32_t)
 			break;
 		case PeripheralLayer::EventType::LongPress:
 			CallWrapper(OnLongPress);
+			break;
+		case PeripheralLayer::EventType::Query:
+			CallWrapper(OnQuery);
 			break;
 		case PeripheralLayer::EventType::Quit:
 			CallWrapper(OnQuit);

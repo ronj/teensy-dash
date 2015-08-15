@@ -13,6 +13,14 @@ namespace Common
 		{
 		}
 
+		~List()
+		{
+			for (T* it = GetFirst(); it != nullptr; it = GetNext())
+			{
+				Remove(it);
+			}
+		}
+
 		class Element
 		{
 			friend class List<T>;
@@ -127,13 +135,13 @@ namespace Common
 			if (m_Tail)
 			{
 				m_Iterator = m_Tail;
-				return GetPrev();
+				return GetPrevious();
 			}
 
 			return nullptr;
 		}
 
-		T* GetPrev()
+		T* GetPrevious()
 		{
 			if (m_Iterator)
 			{

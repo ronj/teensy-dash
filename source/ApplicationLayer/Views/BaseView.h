@@ -23,6 +23,8 @@ namespace ApplicationLayer
 			{
 			}
 
+			void Query() {}
+
 		protected:
 			int16_t GetX() const { return m_X; }
 			int16_t GetY() const { return m_Y; }

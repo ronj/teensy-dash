@@ -16,5 +16,5 @@ void ApplicationLayer::ModelUpdateTask::Run(uint32_t now)
 		model.Update(now);
 	}
 
-	IncrementRunTime(250);
+	IncrementRunTime(50);
 }

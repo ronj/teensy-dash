@@ -3,7 +3,7 @@
 #include "Common/Math.h"
 
 HardwareLayer::TeensyRotaryEncoder::TeensyRotaryEncoder()
-    : m_Encoder(3, 4)
+    : m_Encoder(8, 12)
 {
 }
 

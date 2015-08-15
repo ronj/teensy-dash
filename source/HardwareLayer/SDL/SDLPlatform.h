@@ -11,5 +11,8 @@ namespace HardwareLayer
 		virtual ~SDLPlatform();
 
 		virtual void Init();
+		virtual void KickWatchdog();
+		virtual void LowPowerSleep(uint32_t);
+		virtual void Idle();
 	};
 }

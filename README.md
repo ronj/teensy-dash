@@ -1,4 +1,4 @@
-teensy-dash [![Build Status](https://travis-ci.org/ronj/teensy-dash.svg?branch=master)](https://travis-ci.org/ronj/teensy-dash)
+teensy-dash [![Build Status](https://travis-ci.org/ronj/teensy-dash.svg?branch=develop)](https://travis-ci.org/ronj/teensy-dash) [![Coverage Status](https://coveralls.io/repos/ronj/teensy-dash/badge.svg?branch=develop)](https://coveralls.io/r/ronj/teensy-dash?branch=develop)
 ===========
 
 Circuit / code information and documentation.
@@ -66,3 +66,12 @@ Setting up the integration test environment
 2. Install ruby-serialport
    * # sudo gem install serialport
 
+
+Contributing
+============
+
+1. Fork it (https://github.com/ronj/teensy-dash/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request

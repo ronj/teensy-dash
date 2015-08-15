@@ -48,3 +48,7 @@ void ApplicationLayer::Views::XYScatterView::OnDraw(ApplicationLayer::DrawEventA
 		e.graphicContext.FillCircle(point.x, point.y, 5, currentColor.ToRGBA(0xFF));
 	}
 }
+
+void ApplicationLayer::Views::XYScatterView::Query()
+{
+}

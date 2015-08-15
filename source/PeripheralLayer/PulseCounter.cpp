@@ -1,29 +1,23 @@
 #include "PulseCounter.h"
 
-#include "Common/ArduinoWrapper.h"
 #include "Common/DisableInterruptContext.h"
 
-static volatile unsigned long counter = 0;
+#include "HardwareLayer/DigitalPin.h"
 
-void isrCounter()
+PeripheralLayer::PulseCounter::PulseCounter(HardwareLayer::DigitalPin& pin)
+	: m_Counter(0)
 {
-	++counter;
-}
-
-PeripheralLayer::PulseCounter::PulseCounter()
-{
-	//pinMode(23, INPUT);
-	//attachInterrupt(23, isrCounter, RISING);
+	pin.OnInterrupt = [this]() { ++m_Counter; };
+	pin.EnableInterrupt(HardwareLayer::InterruptType::Rising);
 }
 
 uint32_t PeripheralLayer::PulseCounter::GetCount()
 {
 	uint32_t count = 0;
-
-	Common::DisableInterruptContext disableInterrupts;
 	{
-		count = counter;
-		counter = 0;
+		Common::DisableInterruptContext disableInterrupts;
+		count = m_Counter;
+		m_Counter = 0;
 	}
 
 	return count;

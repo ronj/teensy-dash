@@ -1,15 +1,31 @@
+#include "TeensyPlatform.h"
+
+#include "Common/ArduinoWrapper.h"
+#include "Common/DisableInterruptContext.h"
+#include "Common/Logger.h"
+
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004
 #define CPU_RESTART (*CPU_RESTART_ADDR = CPU_RESTART_VAL);
 
-#include "TeensyPlatform.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+int _kill(int, int)
+{
+	return 0;
+}
 
-#include "Common/ArduinoWrapper.h"
-#include "Common/Logger.h"
+int _getpid()
+{
+	return 0;
+}
+#ifdef __cplusplus
+}
+#endif
 
 HardwareLayer::TeensyPlatform::TeensyPlatform()
 {
-	Serial.begin(57600);
 }
 
 HardwareLayer::TeensyPlatform::~TeensyPlatform()
@@ -20,6 +36,24 @@ HardwareLayer::TeensyPlatform::~TeensyPlatform()
 void HardwareLayer::TeensyPlatform::Init()
 {
 	LogResetReason();
+}
+
+void HardwareLayer::TeensyPlatform::KickWatchdog()
+{
+	Common::DisableInterruptContext disable;
+	WDOG_REFRESH = 0xA602;
+	WDOG_REFRESH = 0xB480;
+}
+
+void HardwareLayer::TeensyPlatform::LowPowerSleep(uint32_t milliseconds)
+{
+	m_LowPowerConfiguration.setTimer(milliseconds);
+	Snooze.hibernate(m_LowPowerConfiguration);
+}
+
+void HardwareLayer::TeensyPlatform::Idle()
+{
+	Snooze.idle();
 }
 
 void HardwareLayer::TeensyPlatform::LogResetReason() const

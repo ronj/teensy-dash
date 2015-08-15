@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ApplicationLayer/Palette.h"
-
 #include "Common/TimedTask.h"
 
 namespace PeripheralLayer
@@ -11,22 +9,30 @@ namespace PeripheralLayer
 
 namespace ApplicationLayer
 {
-	class ModelCollection;
+	struct PaletteEntry;
+	class ViewCollection;
 
-	class UserInterfaceTask : public Common::TimedTask
+	namespace Views
+	{
+		class View;
+	}
+
+	class UserInterfaceTask
+		: public Common::TimedTask
 	{
 	public:
-		UserInterfaceTask(PeripheralLayer::GraphicContext& context, ApplicationLayer::ModelCollection& models, uint32_t now);
+		UserInterfaceTask(PeripheralLayer::GraphicContext& context, ViewCollection& views, uint32_t now);
 
 		void NextScreen();
 		void PreviousScreen();
+		void QueryScreen();
 
-		void Run(uint32_t now);
+		void Run(uint32_t);
 
 	private:
 		PeripheralLayer::GraphicContext& m_GraphicContext;
-		ApplicationLayer::ModelCollection& m_Models;
-		ApplicationLayer::PaletteEntry m_Palette;
-		uint8_t m_CurrentScreen;
+		const PaletteEntry& m_Palette;
+		ViewCollection& m_Views;
+		Views::View* m_CurrentScreen;
 	};
 }

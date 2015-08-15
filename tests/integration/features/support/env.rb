@@ -1,31 +1,48 @@
 require 'serialport'
-
-simulatorPort = SerialPort.new "/dev/tty.usbserial-A700eU6X", 57600
-simulatorPort.sync = true
-
-devicePort = SerialPort.new "/dev/tty.usbmodem743881", 57600
-devicePort.sync = true
-devicePort.read_timeout = 1000
-
-at_exit do
-	simulatorPort.close
-	devicePort.close
-end
+require 'yaml'
 
 class TeensyWorld
-	def initialize(simulatorPort, devicePort)
-		@simulatorPort = simulatorPort
-		@devicePort = devicePort
+	def initialize()
+		@config = YAML.load_file("features/config.yml")
+
+		@simulatorPort = open_port(@config["serialports"]["simulator"])
+		@devicePort = open_port(@config["serialports"]["device"])
 	end
 
 	def reset_teensy_cpu()
-		@devicePort.write 'R'
-		sleep 4 # Should read firmware version and log iso sleep!
+		@devicePort.write 'Q'
+		sleep 10 # Should read firmware version and log iso sleep!
 		@devicePort.close
-		@devicePort = SerialPort.new "/dev/tty.usbmodem743881", 57600
-		@devicePort.sync = true
-		@devicePort.read_timeout = 1000
+		@devicePort = open_port(@config["serialports"]["device"])
+		@devicePort.readline
+	end
+
+	def next_screen()
+		@devicePort.write '+'
+	end
+
+	def previous_screen()
+		@devicePort.write '-'
+	end
+
+	def query_screen()
+		@devicePort.write '?'
+	end
+
+	def open_port(name)
+		port = SerialPort.new name, 115200
+		port.sync = true
+		port.read_timeout = 1000
+		return port
+	end
+
+	def set_simulator_speed(kmh)
+		@simulatorPort.write "S:#{kmh}"
+	end
+
+	def set_simulator_rpm(rpm)
+		@simulatorPort.write "R:#{rpm}"
 	end
 end
 
-World { TeensyWorld.new(simulatorPort, devicePort) }
+World { TeensyWorld.new }

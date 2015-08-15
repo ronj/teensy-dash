@@ -27,6 +27,7 @@ namespace ApplicationLayer
 		std::function<void()> OnPrevious;
 		std::function<void()> OnShortPress;
 		std::function<void()> OnLongPress;
+		std::function<void()> OnQuery;
 		std::function<void()> OnQuit;
 
 	private:

@@ -46,7 +46,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 # Additional C and CPP files for Arduino support
 #
 
-file(GLOB TEENSY_C_FILES ${COREPATH}*.c)
+file(GLOB TEENSY_C_FILES ${COREPATH}*.c ${LIBRARYPATH}*/utility/*.c)
 file(GLOB TEENSY_CPP_FILES ${COREPATH}*.cpp)
 file(GLOB LIBRARY_CPP_FILES ${LIBRARYPATH}*/*.cpp ${LIBRARYPATH}*/utility/*.cpp)
 set(TEENSY_SOURCES ${TEENSY_C_FILES} ${TEENSY_CPP_FILES} ${LIBRARY_CPP_FILES})
@@ -68,7 +68,7 @@ macro(get_directorylist RESULT DIR)
 endmacro()
 
 get_directorylist(ARDUINO_LIBRARY_INCLUDES ${LIBRARYPATH})
-set(ARDUINO_INCLUDES ${ARDUINO_LIBRARY_INCLUDES};${COREPATH};${LIBRARYPATH}Ethernet/utility;${LIBRARYPATH}SD/utility;${LIBRARYPATH}Wire/utility)
+set(ARDUINO_INCLUDES ${ARDUINO_LIBRARY_INCLUDES};${COREPATH};${LIBRARYPATH}Ethernet/utility;${LIBRARYPATH}SD/utility;${LIBRARYPATH}Wire/utility;${LIBRARYPATH}Snooze/utility)
 
 
 # Teensy 3.0 and 3.1 differentiation

@@ -1,5 +1,7 @@
 #include "Configuration.h"
 
+#include <limits>
+
 PeripheralLayer::Configuration::Configuration()
 	: m_AccelerometerXCalibration(403, 604)
 	, m_AccelerometerYCalibration(401, 599)
@@ -7,8 +9,8 @@ PeripheralLayer::Configuration::Configuration()
 	, m_TireWidth(205)
 	, m_TireAspect(40)
 	, m_RimSize(17)
-	, m_FinalDrive(4.05f)
-	, m_GearRatios({ { 2.92f, 1.87f, 1.41f, 1.15f, 0.92f, 0.79f } })
+	, m_FinalDrive(59.f / 13.f)
+	, m_GearRatios({ { 41.f / 12.f, 38.f / 21.f, 37.f / 29.f, 39.f / 40.f, 33.f / 43.f, UnavailableGear() } })
 	, m_VSSPulsesPerKm(4971)
 {
 }
@@ -51,6 +53,11 @@ float PeripheralLayer::Configuration::GetFinalDriveRatio() const
 const std::array<float, 6>& PeripheralLayer::Configuration::GetGearRatios() const
 {
 	return m_GearRatios;
+}
+
+float PeripheralLayer::Configuration::UnavailableGear()
+{
+	return std::numeric_limits<float>::quiet_NaN();
 }
 
 uint16_t PeripheralLayer::Configuration::GetVSSPulsesPerKm() const

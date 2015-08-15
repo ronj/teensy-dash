@@ -1,15 +1,15 @@
 #include "LargeValueView.h"
 
+#include "Common/Logger.h"
+
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
+#include "PeripheralLayer/Fonts.h"
 
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
-#include "ApplicationLayer/Fonts.h"
 
 #include "ApplicationLayer/Models/Model.h"
-
-#include <cstring>
 
 ApplicationLayer::Views::LargeValueView::LargeValueView(int16_t x, int16_t y, const char* label, const Models::Model& model)
 	: BaseView(x, y, model)
@@ -24,10 +24,18 @@ void ApplicationLayer::Views::LargeValueView::OnDraw(ApplicationLayer::DrawEvent
 
 	int16_t xpos = e.graphicContext.Width() / 2 - (textSize * 3) + 5;
 
-	PeripheralLayer::TextHelper valueText(e.graphicContext, xpos, GetY() + 15, Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
+	PeripheralLayer::TextHelper valueText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, textSize);
 
+	valueText.SetCursor(xpos, GetY() + 15);
 	valueText.Write(GetModel().GetFormattedValue());
 
-	PeripheralLayer::TextHelper labelText(e.graphicContext, xpos, GetY() + 15 + 10 + textSize * 8, Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+	PeripheralLayer::TextHelper labelText(e.graphicContext, PeripheralLayer::Fonts::LCDFont, e.colorScheme.Text, e.colorScheme.Background, labelSize);
+
+	labelText.SetCursor(xpos, GetY() + 15 + 10 + textSize * 8);
 	labelText.Write(m_Label);
+}
+
+void ApplicationLayer::Views::LargeValueView::Query()
+{
+	Common::Logger::Get().LogExpectation(GetModel().GetFormattedValue());
 }

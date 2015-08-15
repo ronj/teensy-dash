@@ -1,26 +1,30 @@
 Given /^I drive (\d+) kilometer per hour/ do |speed|
-	@simulatorPort.write "speed:#{speed}"
+	set_simulator_speed speed
 end
 
-When /^I have selected the speed display/ do
-	4.times do
-		@devicePort.write 'N'
+And /^I rev the engine to (\d+) RPM/ do |rpm|
+    set_simulator_rpm rpm
+end
+
+When /^I have selected the (.*) display/ do |screen|
+	screen_map = {"speed" => 0, "gear" => 2}
+
+	screen_map[screen].times do
+		next_screen
+		@devicePort.readline
 	end
 end
 
 Then /^the speed should be (\d+) on the screen/ do |speed|
-	avgspeed = 0
-	samples = 5
+	query_screen
+	response = @devicePort.readline
 
-	for i in 1..50
-		@devicePort.readline
-	end
+	expect(response.to_i / 10).to be_within(1).of(speed.to_i)
+end
 
-	for i in 1..samples
-		response = @devicePort.readline
-		print "#{response}"
-		avgspeed += response.to_i / 10
-	end
+Then /^the gear should be (.*) on the screen/ do |gear|
+    query_screen
+    response = @devicePort.readline
 
-	expect(avgspeed.to_i / samples).to equal(speed.to_i)
+    expect(response).to eq(gear)
 end

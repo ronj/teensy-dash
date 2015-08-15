@@ -6,22 +6,35 @@ namespace PeripheralLayer
 {
 	class GraphicContext;
 
+	namespace Fonts
+	{
+		struct Font;
+	}
+
 	class TextHelper
 	{
 	public:
-		TextHelper(GraphicContext& context, int16_t x, int16_t y, const uint8_t* font, uint32_t fgcolor, uint32_t bgcolor, uint8_t size);
+		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground);
+		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background);
+		TextHelper(GraphicContext& context, const Fonts::Font& font, uint32_t foreground, uint32_t background, uint8_t scaling);
+
+		void SetCursor(int16_t x, int16_t y);
 
 		void Write(uint8_t c);
 		void Write(const char* str);
 
+		uint16_t TextWidth(const char* str) const;
+		uint16_t TextHeight(const char* str) const;
+
 	private:
 		GraphicContext& m_Context;
-		int16_t m_CursorX;
-		int16_t m_CursorY;
-		const uint8_t* m_Font;
-		uint32_t m_Fgcolor;
-		uint32_t m_Bgcolor;
-		uint8_t m_Size;
-		bool m_Wrap;
+		const Fonts::Font& m_Font;
+
+		int16_t m_CursorX = 0;
+		int16_t m_CursorY = 0;
+		uint32_t m_Foreground = 0;
+		uint32_t m_Background = 0;
+		const uint8_t m_Scaling = 1;
+		bool m_Wrap = false;
 	};
 }
