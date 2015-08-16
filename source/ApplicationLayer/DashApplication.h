@@ -38,11 +38,11 @@ namespace ApplicationLayer
 			}
 			else if (m_RpmModel.GetRawValue() > 7000)
 			{
-				if (now - m_PreviousBlink > 250)
+				if (now - m_PreviousBlink > 125)
 				{
 					for (int i = 0; i < m_Leds.Width(); i++)
 					{
-						m_Leds.DrawPixel(i, 0, m_BlinkState ? PeripheralLayer::Color::RGB(20, 0, 0).ToRGB() : 0);
+						m_Leds.DrawPixel(i, 0, m_BlinkState ? PeripheralLayer::Color::RGB(50, 0, 0).ToRGB() : 0);
 					}
 
 					m_BlinkState = !m_BlinkState;
@@ -54,36 +54,43 @@ namespace ApplicationLayer
 				if (m_RpmModel.GetRawValue() > 6000)
 				{
 					m_Leds.DrawPixel(0, 0, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
+					ClearFrom(1);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6200)
 				{
 					m_Leds.DrawPixel(1, 0, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
+					ClearFrom(2);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6400)
 				{
 					m_Leds.DrawPixel(2, 0, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
+					ClearFrom(3);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6500)
 				{
 					m_Leds.DrawPixel(3, 0, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
+					ClearFrom(4);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6600)
 				{
 					m_Leds.DrawPixel(4, 0, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
+					ClearFrom(5);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6700)
 				{
 					m_Leds.DrawPixel(5, 0, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
+					ClearFrom(6);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6800)
 				{
 					m_Leds.DrawPixel(6, 0, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
+					ClearFrom(7);
 				}
 
 				if (m_RpmModel.GetRawValue() > 6900)
@@ -93,6 +100,15 @@ namespace ApplicationLayer
 			}
 
 			m_Leds.Update();
+		}
+
+	private:
+		void ClearFrom(int n)
+		{
+			for (int i = n; i < m_Leds.Width(); ++i)
+			{
+				m_Leds.DrawPixel(i, 0, 0);
+			}
 		}
 
 	private:
