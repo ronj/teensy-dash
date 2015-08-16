@@ -1,5 +1,7 @@
 #include "DashApplication.h"
 
+#include "Common/Logger.h"
+
 #include "PeripheralLayer/Peripherals.h"
 #include "PeripheralLayer/TimeProvider.h"
 
@@ -12,6 +14,8 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 	, m_UITask(peripherals.GetGraphicContext(), m_Views, peripherals.GetTimeProvider().TickCountMilliseconds())
 	, m_Shiftlight(peripherals.GetLedContext(), m_Models.GetRPMModel())
 {
+	LOG_METHOD_ENTRY;
+
 	m_Scheduler.Add(m_UserEventsTask);
 	m_Scheduler.Add(m_ModelUpdateTask);
 	m_Scheduler.Add(m_UITask);
@@ -35,18 +39,35 @@ void ApplicationLayer::DashApplication::Eventloop()
 
 	m_Scheduler.Run(now);
 
-	if (m_Models.GetRPMModel().GetRawValue() == 0)
+	HandlePowerMode(now);
+}
+
+void ApplicationLayer::DashApplication::HandlePowerMode(uint32_t now)
+{
+	uint32_t rpm = m_Models.GetRPMModel().GetRawValue();
+
+	if ((rpm == 0) && (m_RPMLossTimestamp == 0))
+	{
+		m_RPMLossTimestamp = now;
+	}
+	else if (rpm > 0)
+	{
+		m_RPMLossTimestamp = 0;
+
+		if (m_IsPoweredDown)
+		{
+			m_IsPoweredDown = false;
+			m_Peripherals.GetPowerManagement().PowerUpPeripherals();
+		}
+	}
+
+	if (m_RPMLossTimestamp &&
+	   (now - m_RPMLossTimestamp > SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS))
 	{
 		m_IsPoweredDown = true;
 
 		m_Peripherals.GetPowerManagement().PowerDownPeripherals();
 		m_Peripherals.GetPowerManagement().LowPowerSleep();
-	}
-	else if (m_Models.GetRPMModel().GetRawValue() > 0 && m_IsPoweredDown)
-	{
-		m_IsPoweredDown = false;
-
-		m_Peripherals.GetPowerManagement().PowerUpPeripherals();
 	}
 
 	if (m_IsPoweredDown)

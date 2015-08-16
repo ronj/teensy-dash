@@ -114,8 +114,14 @@ namespace ApplicationLayer
 		void Eventloop();
 
 	private:
+		void HandlePowerMode(uint32_t now);
+
+	private:
+		static const uint32_t SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS = 3000;
+
 		bool m_Running = true;
-		bool m_IsPoweredDown = false;
+		bool m_IsPoweredDown = true;
+		uint32_t m_RPMLossTimestamp = 0;
 
 		PeripheralLayer::Peripherals& m_Peripherals;
 
