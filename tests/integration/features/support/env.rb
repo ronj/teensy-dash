@@ -11,10 +11,9 @@ class TeensyWorld
 
 	def reset_teensy_cpu()
 		@devicePort.write 'Q'
-		sleep 10 # Should read firmware version and log iso sleep!
+		sleep 5 # Should read firmware version and log iso sleep!
 		@devicePort.close
 		@devicePort = open_port(@config["serialports"]["device"])
-		@devicePort.readline
 	end
 
 	def next_screen()
@@ -27,6 +26,15 @@ class TeensyWorld
 
 	def query_screen()
 		@devicePort.write '?'
+		response = ""
+
+		loop do
+			response = @devicePort.readline
+			break if response.include? "?:"
+		end
+
+		response.slice! "?:"
+		return response
 	end
 
 	def open_port(name)

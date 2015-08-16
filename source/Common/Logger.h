@@ -44,6 +44,7 @@ namespace Common
 		template <typename T>
 		void LogExpectation(const T& toLog) const
 		{
+			Log("?:");
 			LogLine(toLog);
 		}
 
