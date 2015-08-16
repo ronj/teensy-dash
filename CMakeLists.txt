@@ -192,7 +192,7 @@ set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/Common/ADXL335Driver.h
                            source/HardwareLayer/DigitalPin.h
                            source/HardwareLayer/DisplayDriver.h
-						   source/HardwareLayer/FrequencyCounter.h
+                           source/HardwareLayer/FrequencyCounter.h
                            source/HardwareLayer/Hardware.h
                            source/HardwareLayer/Platform.h
                            source/HardwareLayer/RotaryEncoder.h
@@ -216,8 +216,8 @@ if (${BUILD_FOR_EMULATOR})
               source/HardwareLayer/SDL/SDLDigitalPin.h
               source/HardwareLayer/SDL/SDLDisplayDriver.cpp
               source/HardwareLayer/SDL/SDLDisplayDriver.h
-			  source/HardwareLayer/SDL/SDLFrequencyCounter.cpp
-			  source/HardwareLayer/SDL/SDLFrequencyCounter.h
+              source/HardwareLayer/SDL/SDLFrequencyCounter.cpp
+              source/HardwareLayer/SDL/SDLFrequencyCounter.h
               source/HardwareLayer/SDL/SDLHardware.cpp
               source/HardwareLayer/SDL/SDLHardware.h
               source/HardwareLayer/SDL/SDLPlatform.cpp
@@ -236,8 +236,8 @@ else()
               source/HardwareLayer/Teensy/TeensyAnalogPin.h
               source/HardwareLayer/Teensy/TeensyDigitalPin.cpp
               source/HardwareLayer/Teensy/TeensyDigitalPin.h
-			  source/HardwareLayer/Teensy/TeensyFrequencyCounter.cpp
-			  source/HardwareLayer/Teensy/TeensyFrequencyCounter.h
+              source/HardwareLayer/Teensy/TeensyFrequencyCounter.cpp
+              source/HardwareLayer/Teensy/TeensyFrequencyCounter.h
               source/HardwareLayer/Teensy/TeensyHardware.cpp
               source/HardwareLayer/Teensy/TeensyHardware.h
               source/HardwareLayer/Teensy/TeensyPlatform.cpp
@@ -261,9 +261,9 @@ target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CU
 list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/AccelerationAxis.cpp
             source/PeripheralLayer/AccelerationAxis.h
-			source/PeripheralLayer/Bitmap.h
-			source/PeripheralLayer/Bitmaps.cpp
-			source/PeripheralLayer/Bitmaps.h
+            source/PeripheralLayer/Bitmap.h
+            source/PeripheralLayer/Bitmaps.cpp
+            source/PeripheralLayer/Bitmaps.h
             source/PeripheralLayer/Color.cpp
             source/PeripheralLayer/Color.h
             source/PeripheralLayer/Configuration.cpp
@@ -271,15 +271,15 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/EventSource.cpp
             source/PeripheralLayer/EventSource.h
             source/PeripheralLayer/EventTypes.h
-			source/PeripheralLayer/Font.h
-			source/PeripheralLayer/Fonts.cpp
-			source/PeripheralLayer/Fonts.h
+            source/PeripheralLayer/Font.h
+            source/PeripheralLayer/Fonts.cpp
+            source/PeripheralLayer/Fonts.h
             source/PeripheralLayer/FrequencyCounter.cpp
             source/PeripheralLayer/FrequencyCounter.h
             source/PeripheralLayer/GraphicContext.cpp
             source/PeripheralLayer/GraphicContext.h
-			source/PeripheralLayer/ParkDistanceDecoder.cpp
-			source/PeripheralLayer/ParkDistanceDecoder.h
+            source/PeripheralLayer/ParkDistanceDecoder.cpp
+            source/PeripheralLayer/ParkDistanceDecoder.h
             source/PeripheralLayer/Peripherals.cpp
             source/PeripheralLayer/Peripherals.h
             source/PeripheralLayer/PowerManagement.cpp
@@ -331,8 +331,8 @@ list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/IconValueRow.h
             source/ApplicationLayer/Views/LargeValueView.cpp
             source/ApplicationLayer/Views/LargeValueView.h
-			source/ApplicationLayer/Views/ParkDistanceView.cpp
-			source/ApplicationLayer/Views/ParkDistanceView.h
+            source/ApplicationLayer/Views/ParkDistanceView.cpp
+            source/ApplicationLayer/Views/ParkDistanceView.h
             source/ApplicationLayer/Views/TripComputerView.cpp
             source/ApplicationLayer/Views/TripComputerView.h
             source/ApplicationLayer/Views/TwoRowView.cpp
@@ -350,8 +350,8 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/ConversionHelper.h
             source/ApplicationLayer/Models/Model.cpp
             source/ApplicationLayer/Models/Model.h
-			source/ApplicationLayer/Models/ParkDistanceModel.cpp
-			source/ApplicationLayer/Models/ParkDistanceModel.h
+            source/ApplicationLayer/Models/ParkDistanceModel.cpp
+            source/ApplicationLayer/Models/ParkDistanceModel.h
             source/ApplicationLayer/Models/PitchModel.cpp
             source/ApplicationLayer/Models/PitchModel.h
             source/ApplicationLayer/Models/RandomValueModel.cpp
