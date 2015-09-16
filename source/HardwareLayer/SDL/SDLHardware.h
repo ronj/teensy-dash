@@ -26,6 +26,7 @@ namespace HardwareLayer
 		virtual Timer& GetTimer();
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
+		virtual DigitalPin& GetInjectorPin();
 		virtual DigitalPin& GetParkingSensorPin();
 		virtual FrequencyCounter& GetRPMFrequencyCounter();
 		virtual const AnalogPin& GetBatteryVoltagePin();
@@ -42,6 +43,7 @@ namespace HardwareLayer
 		SDLAnalogPin m_BacklightPin;
 
 		SDLDigitalPin m_VSSPin;
+		SDLDigitalPin m_InjectorPin;
 		SDLDigitalPin m_ParkingSensorPin;
 		SDLFrequencyCounter m_RPMFrequencyCounter;
 

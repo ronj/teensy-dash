@@ -18,6 +18,7 @@ namespace PeripheralLayer
 
 		virtual uint32_t GetCount();
 		virtual uint32_t GetDuration();
+		void GetCountAndDuration(uint32_t& count, uint32_t& duration);
 
 	private:
 		void Process();

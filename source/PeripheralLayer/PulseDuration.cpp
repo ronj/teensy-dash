@@ -29,6 +29,17 @@ uint32_t PeripheralLayer::PulseDuration::GetDuration()
 	return Common::Atomic::CopyAndResetValue(m_Duration);
 }
 
+void PeripheralLayer::PulseDuration::GetCountAndDuration(uint32_t& count, uint32_t& duration)
+{
+	Common::DisableInterruptContext disable;
+
+	count = m_Count;
+	duration = m_Duration;
+
+	m_Count = 0;
+	m_Duration = 0;
+}
+
 void PeripheralLayer::PulseDuration::Process()
 {
 	if (m_Pin.Read() == 1)
