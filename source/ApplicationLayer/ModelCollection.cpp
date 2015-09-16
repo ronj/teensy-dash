@@ -4,6 +4,7 @@
 
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
 	: m_WheelTickModel(peripherals.GetVSSPulseCounter())
+	, m_InjectorModel(peripherals.GetInjectorPulseDurationCounter())
 	, m_SpeedModel(peripherals.GetConfiguration(), m_WheelTickModel)
 	, m_RPMModel(peripherals.GetRPMFrequencyCounter())
 	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
@@ -22,6 +23,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	// the sequence of the Models in the list matter. Do not
 	// change carelessly.
 	m_ModelList.Add(m_WheelTickModel);
+	m_ModelList.Add(m_InjectorModel);
 	m_ModelList.Add(m_SpeedModel);
 	m_ModelList.Add(m_RPMModel);
 	m_ModelList.Add(m_GearModel);

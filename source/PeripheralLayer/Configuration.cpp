@@ -1,5 +1,6 @@
 #include "Configuration.h"
 
+#include <cmath>
 #include <limits>
 
 PeripheralLayer::Configuration::Configuration()
@@ -12,6 +13,9 @@ PeripheralLayer::Configuration::Configuration()
 	, m_FinalDrive(59.f / 13.f)
 	, m_GearRatios({ { 41.f / 12.f, 38.f / 21.f, 37.f / 29.f, 39.f / 40.f, 33.f / 43.f, UnavailableGear() } })
 	, m_VSSPulsesPerKm(4971)
+	, m_InjectorFlow(1493)
+	, m_InjectorCount(4)
+	, m_FuelPressure(3000)
 {
 }
 
@@ -63,4 +67,29 @@ float PeripheralLayer::Configuration::UnavailableGear()
 uint16_t PeripheralLayer::Configuration::GetVSSPulsesPerKm() const
 {
 	return m_VSSPulsesPerKm;
+}
+
+uint16_t PeripheralLayer::Configuration::GetInjectorFlow() const
+{
+	return m_InjectorFlow;
+}
+
+uint8_t PeripheralLayer::Configuration::GetInjectorCount() const
+{
+	return m_InjectorCount;
+}
+
+uint16_t PeripheralLayer::Configuration::GetFuelPressure() const
+{
+	return m_FuelPressure;
+}
+
+uint32_t PeripheralLayer::Configuration::GetMicrosecondsPerLiter() const
+{
+	const uint16_t injectorFlowAtPressure = 3000;
+
+	float injectorFlowLiterPerMinute = GetInjectorFlow() / 1000.f;
+	float microsecondsPerLiter = (60.f * 1000000.f) / injectorFlowLiterPerMinute;
+
+	return static_cast<uint32_t>(std::sqrt(GetFuelPressure() / injectorFlowAtPressure) * microsecondsPerLiter);
 }

@@ -7,6 +7,7 @@
 #include "ParkDistanceDecoder.h"
 #include "PowerManagement.h"
 #include "PulseCounter.h"
+#include "PulseDuration.h"
 #include "RotaryEventSource.h"
 #include "SerialEventSource.h"
 #include "TimeProvider.h"
@@ -37,6 +38,7 @@ namespace PeripheralLayer
 		AccelerationAxis& GetZAcceleration();
 
 		PulseCounter& GetVSSPulseCounter();
+		PulseDuration& GetInjectorPulseDurationCounter();
 		ParkDistanceDecoder& GetParkDistanceDecoder();
 		FrequencyCounter& GetRPMFrequencyCounter();
 
@@ -58,6 +60,7 @@ namespace PeripheralLayer
 		AccelerationAxis m_ZAccelerationAxis;
 
 		PulseCounter m_VSSPulseCounter;
+		PulseDuration m_InjectorPulseDurationCounter;
 		ParkDistanceDecoder m_ParkDistanceDecoder;
 		FrequencyCounter m_RPMFrequencyCounter;
 

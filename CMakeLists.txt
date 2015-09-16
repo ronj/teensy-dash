@@ -350,6 +350,8 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/CalculatedGearModel.h
             source/ApplicationLayer/Models/ConversionHelper.cpp
             source/ApplicationLayer/Models/ConversionHelper.h
+			source/ApplicationLayer/Models/InjectorModel.cpp
+            source/ApplicationLayer/Models/InjectorModel.h
             source/ApplicationLayer/Models/Model.cpp
             source/ApplicationLayer/Models/Model.h
             source/ApplicationLayer/Models/ParkDistanceModel.cpp
