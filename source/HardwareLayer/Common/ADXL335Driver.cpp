@@ -31,8 +31,6 @@ int32_t HardwareLayer::ADXL335Driver::ReadAxis(const AnalogPin& pin) const
 	int32_t reading = 0;
 	pin.Read();
 
-	m_Timer.Sleep(1);
-
 	for (int8_t i = 0; i < m_SampleSize; ++i)
 	{
 		reading += pin.Read();

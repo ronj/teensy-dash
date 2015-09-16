@@ -190,11 +190,11 @@ void PeripheralLayer::GraphicContext::DrawCircle(int16_t xc, int16_t yc, int16_t
 void PeripheralLayer::GraphicContext::DrawWuCircle(int16_t xc, int16_t yc, int16_t r, uint32_t color)
 {
 	int x = 0;
-	double yprev = r;
+	float yprev = r;
 	int y1 = r;
-	double ynew = r;
-	double fparttmp = 0;
-	double fpartptmp = 0;
+	float ynew = r;
+	float fparttmp = 0;
+	float fpartptmp = 0;
 	int ynewint = 0;
 	int yprevint = 0;
 
@@ -214,7 +214,7 @@ void PeripheralLayer::GraphicContext::DrawWuCircle(int16_t xc, int16_t yc, int16
 			ynewint = (int)std::ceil(ynew);
 			yprevint = (int)std::ceil(yprev);
 			fparttmp = (fpart(ynew) == 0) ? 1 : fpart(ynew);
-			fpartptmp = (fpart(yprev) == 0) ? 0.01 : fpart(yprev);
+			fpartptmp = (fpart(yprev) == 0) ? 0.01f : fpart(yprev);
 
 			WuCircleHelper(xc, yc, x, ynewint, color, fparttmp);
 			WuCircleHelper(xc, yc, x, yprevint, color, fpartptmp);
