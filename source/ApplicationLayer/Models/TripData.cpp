@@ -10,6 +10,10 @@ void ApplicationLayer::Models::TripData::Update(uint32_t wheelTicks, uint32_t sp
 		m_TripTime += (now - m_PreviousTime);
 		m_TripMaxSpeed = std::max(speed, m_TripMaxSpeed);
 	}
+	else
+	{
+		m_TripIdleTime += (now - m_PreviousTime);
+	}
 
 	m_PreviousTime = now;
 }
