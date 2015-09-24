@@ -15,6 +15,7 @@ PeripheralLayer::Configuration::Configuration()
 	, m_VSSPulsesPerKm(4971)
 	, m_InjectorFlow(1493)
 	, m_InjectorCount(4)
+	, m_InjectorMechanicalDelay(50)
 	, m_FuelPressure(3000)
 {
 }
@@ -77,6 +78,11 @@ uint16_t PeripheralLayer::Configuration::GetInjectorFlow() const
 uint8_t PeripheralLayer::Configuration::GetInjectorCount() const
 {
 	return m_InjectorCount;
+}
+
+uint8_t PeripheralLayer::Configuration::GetInjectorMechanicalDelay() const
+{
+	return m_InjectorMechanicalDelay;
 }
 
 uint16_t PeripheralLayer::Configuration::GetFuelPressure() const

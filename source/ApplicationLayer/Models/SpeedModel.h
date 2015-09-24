@@ -16,7 +16,7 @@ namespace ApplicationLayer
 		class SpeedModel : public Model
 		{
 		public:
-			SpeedModel(const PeripheralLayer::Configuration& configuration, WheelTickModel& wheelTicks);
+			SpeedModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks);
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
@@ -29,7 +29,7 @@ namespace ApplicationLayer
 			static const uint16_t UPDATE_INTERVAL = 750;
 
 		private:
-			WheelTickModel& m_WheelTicks;
+			const WheelTickModel& m_WheelTicks;
 
 			float m_PulseFactor = 0.f;
 			uint32_t m_Speed = 0;

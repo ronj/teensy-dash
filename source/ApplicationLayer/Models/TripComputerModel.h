@@ -15,11 +15,12 @@ namespace ApplicationLayer
 	namespace Models
 	{
 		class WheelTickModel;
+		class InjectorModel;
 
 		class TripComputerModel : public Model
 		{
 		public:
-			TripComputerModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks);
+			TripComputerModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks, const InjectorModel& injectorDuration);
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
@@ -36,8 +37,12 @@ namespace ApplicationLayer
 
 		private:
 			const WheelTickModel& m_WheelTicks;
+			const InjectorModel& m_InjectorDuration;
 
 			TripData m_TripA;
+			TripData m_TripB;
+			TripData m_TripC;
+
 			mutable Common::List<TripData> m_TripDataList;
 
 			uint64_t m_TotalWheelTicks = 0;

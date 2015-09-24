@@ -5,14 +5,18 @@
 #include "PeripheralLayer/Configuration.h"
 
 #include "WheelTickModel.h"
+#include "InjectorModel.h"
 
 #include "ConversionHelper.h"
 
-ApplicationLayer::Models::TripComputerModel::TripComputerModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks)
+ApplicationLayer::Models::TripComputerModel::TripComputerModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks, const InjectorModel& injectorDuration)
 	: m_WheelTicks(wheelTicks)
+	, m_InjectorDuration(injectorDuration)
 	, m_TicksToMeterFactor(configuration.GetVSSPulsesPerKm() / 1000.f)
 {
 	m_TripDataList.Add(m_TripA);
+	m_TripDataList.Add(m_TripB);
+	m_TripDataList.Add(m_TripC);
 }
 
 int32_t ApplicationLayer::Models::TripComputerModel::GetRawValue() const

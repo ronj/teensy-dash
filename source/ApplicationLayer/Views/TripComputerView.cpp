@@ -23,17 +23,24 @@ ApplicationLayer::Views::TripComputerView::TripComputerView(const ApplicationLay
 
 void ApplicationLayer::Views::TripComputerView::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
-	UpdateTripData(m_ActivePage, e);
+	DrawTripData(m_ActivePage, e);
 }
 
-void ApplicationLayer::Views::TripComputerView::UpdateTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
+void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
 {
 	char scratchpad[15] = { 0 };
 
 	uint32_t km = m_Model.GetTripDistance(m_ActivePage) / 1000;
 	uint32_t m = (m_Model.GetTripDistance(m_ActivePage) % 1000) / 100;
 
-	sprintf(scratchpad, "%lu.%lu", km, m);
+	if (km < 1000)
+	{
+		sprintf(scratchpad, "%lu.%lu", km, m);
+	}
+	else
+	{
+		sprintf(scratchpad, "%lu", km);
+	}
 
 	m_Distance.SetValue(scratchpad);
 	m_Distance.OnDraw(e);

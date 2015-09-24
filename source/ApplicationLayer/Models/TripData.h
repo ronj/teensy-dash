@@ -14,6 +14,7 @@ namespace ApplicationLayer
 			TripData() : Common::List<TripData>::Element(*this) {}
 
 			void Update(uint32_t wheelTicks, uint32_t speed, uint32_t now);
+			void Reset();
 
 			uint32_t GetTripWheelTicks() const;
 			uint32_t GetTripTime() const;

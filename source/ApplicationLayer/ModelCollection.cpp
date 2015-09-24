@@ -4,11 +4,11 @@
 
 ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals& peripherals)
 	: m_WheelTickModel(peripherals.GetVSSPulseCounter())
-	, m_InjectorModel(peripherals.GetInjectorPulseDurationCounter())
+	, m_InjectorModel(peripherals.GetInjectorPulseDurationCounter(), peripherals.GetConfiguration())
 	, m_SpeedModel(peripherals.GetConfiguration(), m_WheelTickModel)
 	, m_RPMModel(peripherals.GetRPMFrequencyCounter())
 	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
-	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel)
+	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel, m_InjectorModel)
 	, m_ParkDistanceModel(peripherals.GetParkDistanceDecoder())
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())
 	, m_OilPressureModel(4, 6)

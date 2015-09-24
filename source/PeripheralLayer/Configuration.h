@@ -34,6 +34,7 @@ namespace PeripheralLayer
 
 		virtual uint16_t GetInjectorFlow() const;
 		virtual uint8_t GetInjectorCount() const;
+		virtual uint8_t GetInjectorMechanicalDelay() const;
 		virtual uint16_t GetFuelPressure() const;
 		virtual uint32_t GetMicrosecondsPerLiter() const;
 
@@ -53,6 +54,7 @@ namespace PeripheralLayer
 
 		uint16_t m_InjectorFlow; /* In cm3/min * 10 i.e. 149.3 cc/min = 1493 */
 		uint8_t m_InjectorCount;
+		uint8_t m_InjectorMechanicalDelay; /* In uSec */
 		uint16_t m_FuelPressure; /* In mBar */
 	};
 }

@@ -14,6 +14,13 @@ void ApplicationLayer::Models::TripData::Update(uint32_t wheelTicks, uint32_t sp
 	m_PreviousTime = now;
 }
 
+void ApplicationLayer::Models::TripData::Reset()
+{
+	m_TripWheelTicks = 0;
+	m_TripTime = 0;
+	m_TripMaxSpeed = 0;
+}
+
 uint32_t ApplicationLayer::Models::TripData::GetTripWheelTicks() const
 {
 	return m_TripWheelTicks;

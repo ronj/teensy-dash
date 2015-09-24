@@ -1,9 +1,11 @@
 #include "InjectorModel.h"
 
+#include "PeripheralLayer/Configuration.h"
 #include "PeripheralLayer/PulseDuration.h"
 
-ApplicationLayer::Models::InjectorModel::InjectorModel(PeripheralLayer::PulseDuration& pulseDuration)
-	: m_PulseDuration(pulseDuration)
+ApplicationLayer::Models::InjectorModel::InjectorModel(PeripheralLayer::PulseDuration& pulseDuration, const PeripheralLayer::Configuration& configuration)
+	: m_Configuration(configuration)
+	, m_PulseDuration(pulseDuration)
 {
 }
 
@@ -19,5 +21,10 @@ const char* ApplicationLayer::Models::InjectorModel::GetFormattedValue() const
 
 void ApplicationLayer::Models::InjectorModel::Update(uint32_t)
 {
-	m_InjectorOpen = m_PulseDuration.GetDuration();
+	uint32_t count = 0;
+	uint32_t duration = 0;
+
+	m_PulseDuration.GetCountAndDuration(count, duration);
+
+	m_InjectorOpen = duration - (count * m_Configuration.GetInjectorMechanicalDelay());
 }
