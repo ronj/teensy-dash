@@ -45,7 +45,8 @@ void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage,
 	m_Distance.SetValue(scratchpad);
 	m_Distance.OnDraw(e);
 
-	sprintf(scratchpad, "5.87");
+	sprintf(scratchpad, "%lu.%lu", m_Model.GetTripAverageFuelConsumption(m_ActivePage) / 100,
+		                           m_Model.GetTripAverageFuelConsumption(m_ActivePage) % 100);
 
 	m_AverageFuelConsumption.SetValue(scratchpad);
 	m_AverageFuelConsumption.OnDraw(e);

@@ -13,6 +13,7 @@ ApplicationLayer::Models::TripComputerModel::TripComputerModel(const PeripheralL
 	: m_WheelTicks(wheelTicks)
 	, m_InjectorDuration(injectorDuration)
 	, m_TicksToMeterFactor(configuration.GetVSSPulsesPerKm() / 1000.f)
+	, m_MicrosecondsPerLiter(configuration.GetMicrosecondsPerLiter())
 {
 	m_TripDataList.Add(m_TripA);
 	m_TripDataList.Add(m_TripB);
@@ -39,7 +40,7 @@ void ApplicationLayer::Models::TripComputerModel::Update(uint32_t now)
 
 	for (auto&& trip : m_TripDataList)
 	{
-		trip.Update(m_WheelTicks.GetRawValue(), 0, now);
+		trip.Update(m_WheelTicks.GetRawValue(), 0, m_InjectorDuration.GetRawValue(), now);
 	}
 }
 
@@ -67,6 +68,16 @@ uint32_t ApplicationLayer::Models::TripComputerModel::GetTripAverageSpeed(uint8_
 uint32_t ApplicationLayer::Models::TripComputerModel::GetTripMaxSpeed(uint8_t index) const
 {
 	return GetTrip(index).GetTripMaxSpeed();
+}
+
+uint32_t ApplicationLayer::Models::TripComputerModel::GetTripAverageFuelConsumption(uint8_t index) const
+{
+	uint64_t injectorOpen = GetTrip(index).GetTripInjectorOpenDuration();
+	uint32_t distance = GetTripDistance(index);
+
+	float liters = injectorOpen / m_MicrosecondsPerLiter;
+
+	return static_cast<uint32_t>(liters * 100.f);
 }
 
 const ApplicationLayer::Models::TripData& ApplicationLayer::Models::TripComputerModel::GetTrip(uint8_t index) const

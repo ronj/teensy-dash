@@ -30,6 +30,7 @@ namespace ApplicationLayer
 			uint32_t GetTripTime(uint8_t index) const;
 			uint32_t GetTripAverageSpeed(uint8_t index) const;
 			uint32_t GetTripMaxSpeed(uint8_t index) const;
+			uint32_t GetTripAverageFuelConsumption(uint8_t index) const;
 
 		private:
 			const TripData& GetTrip(uint8_t index) const;
@@ -47,6 +48,7 @@ namespace ApplicationLayer
 
 			uint64_t m_TotalWheelTicks = 0;
 			float m_TicksToMeterFactor = 0.f;
+			uint32_t m_MicrosecondsPerLiter = 0;
 		};
 	}
 }
