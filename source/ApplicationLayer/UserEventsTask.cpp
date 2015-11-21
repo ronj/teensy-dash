@@ -24,10 +24,10 @@ void ApplicationLayer::UserEventsTask::Run(uint32_t)
 	{
 		switch (e.Get())
 		{
-		case PeripheralLayer::EventType::Next :
+		case PeripheralLayer::EventType::Next:
 			CallWrapper(OnNext);
 			break;
-		case PeripheralLayer::EventType::Previous :
+		case PeripheralLayer::EventType::Previous:
 			CallWrapper(OnPrevious);
 			break;
 		case PeripheralLayer::EventType::ShortPress:

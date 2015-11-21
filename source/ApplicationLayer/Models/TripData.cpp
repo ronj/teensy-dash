@@ -11,6 +11,10 @@ void ApplicationLayer::Models::TripData::Update(uint32_t wheelTicks, uint32_t sp
 		m_TripMaxSpeed = std::max(speed, m_TripMaxSpeed);
 		m_TripInjectorOpenDuration += injectorDuration;
 	}
+	else
+	{
+		m_TripIdleTime += (now - m_PreviousTime);
+	}
 
 	m_PreviousTime = now;
 }

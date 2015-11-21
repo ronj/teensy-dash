@@ -24,6 +24,7 @@ namespace ApplicationLayer
 		private:
 			uint32_t m_TripWheelTicks = 0;
 			uint32_t m_TripTime = 0;
+			uint32_t m_TripIdleTime = 0;
 			uint32_t m_TripMaxSpeed = 0;
 			uint64_t m_TripInjectorOpenDuration = 0;
 			uint32_t m_PreviousTime = 0;

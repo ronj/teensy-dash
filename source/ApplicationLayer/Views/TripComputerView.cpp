@@ -10,7 +10,6 @@
 
 #include "ApplicationLayer/Models/TripComputerModel.h"
 
-#include <initializer_list>
 #include <cstdio>
 
 ApplicationLayer::Views::TripComputerView::TripComputerView(const ApplicationLayer::Models::TripComputerModel& model)

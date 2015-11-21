@@ -81,6 +81,7 @@ void toggle_bit(T& x)
 template <uint8_t bit, typename T>
 bool check_bit(T x)
 {
+	static_assert(std::is_unsigned<T>::value, "T should be unsigned");
 	return (x >> bit) & static_cast<uintmax_t>(1);
 }
 

@@ -2,8 +2,6 @@
 
 #include "PeripheralLayer/PulseCounter.h"
 
-#include "ConversionHelper.h"
-
 ApplicationLayer::Models::WheelTickModel::WheelTickModel(PeripheralLayer::PulseCounter& pulseCounter)
 	: m_PulseCounter(pulseCounter)
 {
