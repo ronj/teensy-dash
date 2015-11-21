@@ -11,6 +11,9 @@ HardwareLayer::SDLDisplayDriver::SDLDisplayDriver()
 
 	m_Window = std::unique_ptr<SDL_Window, std::function<void(SDL_Window*)>>(rawWindow, SDL_DestroyWindow);
 	m_Renderer = std::unique_ptr<SDL_Renderer, std::function<void(SDL_Renderer*)>>(rawRenderer, SDL_DestroyRenderer);
+
+    SDL_SetRenderDrawColor(m_Renderer.get(), 0, 0, 0, 255);
+    SDL_RenderClear(m_Renderer.get());
 }
 
 void HardwareLayer::SDLDisplayDriver::DrawPixel(int16_t x, int16_t y, uint32_t color)
