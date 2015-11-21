@@ -51,11 +51,30 @@ Inspiration
 *	MPGuino and derivatives: http://ecomodder.com/wiki/index.php/MPGuino and http://mpguino.wiseman.ee/eng
 
 
+
+Contributing
+============
+
+1. Fork it (https://github.com/ronj/teensy-dash/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+
+Building teensy-dash
+====================
+
+1. Get a local copy of the repository
+2. 
+
 Testing
 =======
 
 Setting up the integration test environment
 -------------------------------------------
+
+On OSX and Linux
 
 1. Install Cucumber
    * # sudo gem update --system
@@ -67,11 +86,12 @@ Setting up the integration test environment
    * # sudo gem install serialport
 
 
-Contributing
-============
+Running the integration tests
+-----------------------------
 
-1. Fork it (https://github.com/ronj/teensy-dash/fork)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+1. Build and upload the Car Simulator (under tests\car_simulator\car_simulator.ino) Arduino Sketch for your favorite Arduino
+2. Upload the sketch
+3. Connect the Car Simulator as follows:
+   * Pin 2 of the Arduino running the Car Simulator to the VSS input test-pin on Teensy
+   * Pin 3 of the Arduino running the Car Simulator to the RPM input test-pin on Teensy
+   * Connect the Arduino and Teensy grounds together
