@@ -24,7 +24,7 @@ namespace ApplicationLayer
 			void Query();
 
 		private:
-			void UpdateTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e);
+			void DrawTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e);
 
 		private:
 			const Models::TripComputerModel& m_Model;

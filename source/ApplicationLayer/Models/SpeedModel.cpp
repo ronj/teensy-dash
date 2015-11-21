@@ -5,7 +5,7 @@
 
 #include "PeripheralLayer/Configuration.h"
 
-ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, WheelTickModel& wheelTicks)
+ApplicationLayer::Models::SpeedModel::SpeedModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks)
 	: m_WheelTicks(wheelTicks)
 	, m_PulseFactor(configuration.GetVSSPulsesPerKm() / 3600000.f)
 {

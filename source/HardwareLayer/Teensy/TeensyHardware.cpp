@@ -7,6 +7,7 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_BacklightPin(6)
 	, m_BatteryVoltagePin(22)
 	, m_VSSPin(23, PinType::InputPullUp)
+	, m_InjectorPin(21, PinType::Input)
 	, m_ParkingSensorPin(5, PinType::Input)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
 	, m_LedDriver(2)
@@ -48,6 +49,11 @@ HardwareLayer::RotaryEncoder& HardwareLayer::TeensyHardware::GetRotaryEncoder()
 HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetVSSPin()
 {
     return m_VSSPin;
+}
+
+HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetInjectorPin()
+{
+    return m_InjectorPin;
 }
 
 HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetParkingSensorPin()

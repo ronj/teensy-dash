@@ -4,6 +4,7 @@
 
 #include "Models/AccelerationModel.h"
 #include "Models/CalculatedGearModel.h"
+#include "Models/InjectorModel.h"
 #include "Models/ParkDistanceModel.h"
 #include "Models/PitchModel.h"
 #include "Models/RandomValueModel.h"
@@ -50,6 +51,7 @@ namespace ApplicationLayer
 
 	private:
 		Models::WheelTickModel m_WheelTickModel;
+		Models::InjectorModel m_InjectorModel;
 		Models::SpeedModel m_SpeedModel;
 		Models::RPMModel m_RPMModel;
 

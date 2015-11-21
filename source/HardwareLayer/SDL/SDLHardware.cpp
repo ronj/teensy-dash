@@ -42,6 +42,11 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetVSSPin()
     return m_VSSPin;
 }
 
+HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetInjectorPin()
+{
+    return m_InjectorPin;
+}
+
 HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetParkingSensorPin()
 {
 	return m_ParkingSensorPin;

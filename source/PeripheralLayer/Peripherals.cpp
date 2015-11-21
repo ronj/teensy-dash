@@ -11,6 +11,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
 	, m_ZAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Z)
 	, m_VSSPulseCounter(hardware.GetVSSPin())
+	, m_InjectorPulseDurationCounter(hardware.GetInjectorPin(), m_TimeProvider)
 	, m_ParkDistanceDecoder(hardware.GetParkingSensorPin(), m_TimeProvider)
 	, m_RPMFrequencyCounter(hardware.GetRPMFrequencyCounter())
 	, m_RotaryEventSource(hardware.GetRotaryEncoder())
@@ -62,6 +63,11 @@ PeripheralLayer::AccelerationAxis& PeripheralLayer::Peripherals::GetZAcceleratio
 PeripheralLayer::PulseCounter& PeripheralLayer::Peripherals::GetVSSPulseCounter()
 {
 	return m_VSSPulseCounter;
+}
+
+PeripheralLayer::PulseDuration& PeripheralLayer::Peripherals::GetInjectorPulseDurationCounter()
+{
+	return m_InjectorPulseDurationCounter;
 }
 
 PeripheralLayer::ParkDistanceDecoder& PeripheralLayer::Peripherals::GetParkDistanceDecoder()
