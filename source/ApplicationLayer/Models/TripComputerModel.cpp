@@ -72,12 +72,13 @@ uint32_t ApplicationLayer::Models::TripComputerModel::GetTripMaxSpeed(uint8_t in
 
 uint32_t ApplicationLayer::Models::TripComputerModel::GetTripAverageFuelConsumption(uint8_t index) const
 {
-	uint64_t injectorOpen = GetTrip(index).GetTripInjectorOpenDuration();
-	uint32_t distance = GetTripDistance(index);
+	uint64_t injectorOpenMicroseconds = GetTrip(index).GetTripInjectorOpenDuration();
+	uint32_t distanceMeter = GetTripDistance(index);
 
-	float liters = injectorOpen / m_MicrosecondsPerLiter;
+	float liters = injectorOpenMicroseconds / static_cast<float>(m_MicrosecondsPerLiter);
+	float distanceKilometer = distanceMeter / 1000.f;
 
-	return static_cast<uint32_t>(liters * 100.f);
+	return static_cast<uint32_t>((liters / distanceKilometer) * 100.f);
 }
 
 const ApplicationLayer::Models::TripData& ApplicationLayer::Models::TripComputerModel::GetTrip(uint8_t index) const

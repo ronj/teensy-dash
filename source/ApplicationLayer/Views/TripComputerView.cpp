@@ -31,6 +31,7 @@ void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage,
 
 	uint32_t km = m_Model.GetTripDistance(m_ActivePage) / 1000;
 	uint32_t m = (m_Model.GetTripDistance(m_ActivePage) % 1000) / 100;
+	uint32_t l_100km = m_Model.GetTripAverageFuelConsumption(m_ActivePage);
 
 	if (km < 1000)
 	{
@@ -44,8 +45,8 @@ void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage,
 	m_Distance.SetValue(scratchpad);
 	m_Distance.OnDraw(e);
 
-	sprintf(scratchpad, "%lu.%lu", m_Model.GetTripAverageFuelConsumption(m_ActivePage) / 100,
-		                           m_Model.GetTripAverageFuelConsumption(m_ActivePage) % 100);
+	sprintf(scratchpad, "%lu.%02lu", l_100km / 100,
+		                             l_100km % 100);
 
 	m_AverageFuelConsumption.SetValue(scratchpad);
 	m_AverageFuelConsumption.OnDraw(e);
