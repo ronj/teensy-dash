@@ -84,7 +84,9 @@ PeripheralLayer::Color::HSL PeripheralLayer::Color::ConvertHSL(const Color::RGB&
 	float bd = (float)rgb.b / 255;
 	float max = std::max({ rd, gd, bd });
 	float min = std::min({ rd, gd, bd });
-	float h, s, l = (max + min) / 2;
+	float h = 0;
+	float s = 0;
+	float l = (max + min) / 2;
 
 	if (max == min) {
 		h = s = 0; // achromatic

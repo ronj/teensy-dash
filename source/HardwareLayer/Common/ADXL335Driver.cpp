@@ -1,11 +1,9 @@
 #include "ADXL335Driver.h"
 
 #include "AnalogPin.h"
-#include "Timer.h"
 
-HardwareLayer::ADXL335Driver::ADXL335Driver(const AnalogPin& xPin, const AnalogPin& yPin, const AnalogPin& zPin, const Timer& timer)
-	: m_Timer(timer)
-	, m_XPin(xPin)
+HardwareLayer::ADXL335Driver::ADXL335Driver(const AnalogPin& xPin, const AnalogPin& yPin, const AnalogPin& zPin)
+	: m_XPin(xPin)
 	, m_YPin(yPin)
 	, m_ZPin(zPin)
 {

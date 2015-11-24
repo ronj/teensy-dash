@@ -18,7 +18,7 @@ namespace ApplicationLayer
 
 			virtual int32_t GetRawValue() const;
 			virtual const char* GetFormattedValue() const;
-			virtual void Update(uint32_t now);
+			virtual void Update(uint32_t);
 
 		private:
 			uint32_t ConvertFrequencyToRPM(float frequency) const;

@@ -30,7 +30,7 @@ struct ExpectedGear
 {
 	uint16_t rpm;
 	uint32_t speed;
-	uint32_t gear;
+	int32_t gear;
 };
 
 TEST(CalculatedGearModelTest, should_have_correct_initial_value)

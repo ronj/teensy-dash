@@ -1,8 +1,8 @@
 #include "SDLHardware.h"
 
 HardwareLayer::SDLHardware::SDLHardware()
-	: m_AccelerometerDriver(m_X, m_Y, m_Z, m_Timer)
-	, m_BatteryVoltagePin()
+	: m_BatteryVoltagePin()
+	, m_AccelerometerDriver(m_X, m_Y, m_Z)
 {
 	m_Platform.Init();
 }

@@ -10,6 +10,6 @@ namespace HardwareLayer
 	public:
 		virtual bool Available();
 		virtual uint32_t Read();
-		virtual float CountToFrequency(uint32_t count);
+		virtual float CountToFrequency(uint32_t);
 	};
 }

@@ -21,11 +21,8 @@ ApplicationLayer::Views::ParkDistanceView::ParkDistanceView(const Models::Repres
 
 void ApplicationLayer::Views::ParkDistanceView::OnDraw(ApplicationLayer::DrawEventArgs& e)
 {
-	const uint16_t xmargin = 5;
 	const uint16_t ymargin = 5;
 	const uint16_t halfWidth = e.graphicContext.Width() / 2;
-
-	int32_t packedValue = m_Model.GetRawValue();
 
 	e.graphicContext.DrawBitmap(e.graphicContext.Width() / 2 - PeripheralLayer::Bitmaps::BigCar.width / 2, ymargin, PeripheralLayer::Bitmaps::BigCar, e.colorScheme.Foreground);
 

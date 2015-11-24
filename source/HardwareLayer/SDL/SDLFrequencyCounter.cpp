@@ -10,7 +10,7 @@ uint32_t HardwareLayer::SDLFrequencyCounter::Read()
 	return 0;
 }
 
-float HardwareLayer::SDLFrequencyCounter::CountToFrequency(uint32_t count)
+float HardwareLayer::SDLFrequencyCounter::CountToFrequency(uint32_t)
 {
 	return 60.f;
 }

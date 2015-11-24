@@ -5,12 +5,11 @@
 namespace HardwareLayer
 {
 	class AnalogPin;
-	class Timer;
 
 	class ADXL335Driver : public AccelerometerDriver
 	{
 	public:
-		ADXL335Driver(const AnalogPin& xPin, const AnalogPin& yPin, const AnalogPin& zPin, const Timer& timer);
+		ADXL335Driver(const AnalogPin& xPin, const AnalogPin& yPin, const AnalogPin& zPin);
 
 		virtual int32_t GetXAcceleration() const;
 		virtual int32_t GetYAcceleration() const;
@@ -21,8 +20,6 @@ namespace HardwareLayer
 
 	private:
 		const uint8_t m_SampleSize = 10;
-
-		const Timer& m_Timer;
 
 		const AnalogPin& m_XPin;
 		const AnalogPin& m_YPin;

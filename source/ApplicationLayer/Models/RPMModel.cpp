@@ -23,7 +23,7 @@ const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 	return formatted;
 }
 
-void ApplicationLayer::Models::RPMModel::Update(uint32_t now)
+void ApplicationLayer::Models::RPMModel::Update(uint32_t)
 {
 	m_RPM = ConvertFrequencyToRPM(m_FrequencyCounter.GetFrequency());
 }

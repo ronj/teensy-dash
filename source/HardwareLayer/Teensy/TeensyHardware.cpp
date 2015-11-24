@@ -9,7 +9,7 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_VSSPin(23, PinType::InputPullUp)
 	, m_InjectorPin(21, PinType::Input)
 	, m_ParkingSensorPin(5, PinType::Input)
-	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin, m_Timer)
+	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin)
 	, m_LedDriver(2)
 {
 	m_Platform.Init();
