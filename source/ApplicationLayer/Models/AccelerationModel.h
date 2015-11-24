@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 
 namespace PeripheralLayer
 {
@@ -11,7 +11,7 @@ namespace ApplicationLayer
 {
     namespace Models
     {
-        class AccelerationModel : public Model
+		class AccelerationModel : public RepresentableModel
         {
         public:
             AccelerationModel(const PeripheralLayer::AccelerationAxis&);

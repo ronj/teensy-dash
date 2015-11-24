@@ -9,12 +9,12 @@
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
 
-#include "ApplicationLayer/Models/Model.h"
+#include "ApplicationLayer/Models/RepresentableModel.h"
 
 #include <cstring>
 
-ApplicationLayer::Views::TwoRowView::TwoRowView(int16_t x, int16_t y, const char* labelOne, const Models::Model& modelOne,
-	                                                                  const char* labelTwo, const Models::Model& modelTwo)
+ApplicationLayer::Views::TwoRowView::TwoRowView(int16_t x, int16_t y, const char* labelOne, const Models::RepresentableModel& modelOne,
+	                                                                  const char* labelTwo, const Models::RepresentableModel& modelTwo)
 	: m_X(x)
 	, m_Y(y)
 	, m_LabelOne(labelOne)
@@ -35,7 +35,7 @@ void ApplicationLayer::Views::TwoRowView::Query()
 	Common::Logger::Get().LogExpectation(m_ModelOne.GetRawValue());
 }
 
-void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint8_t textSize, uint16_t& previousWidth)
+void ApplicationLayer::Views::TwoRowView::DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::RepresentableModel& model, uint8_t textSize, uint16_t& previousWidth)
 {
 	const uint8_t labelSize = 2;
 

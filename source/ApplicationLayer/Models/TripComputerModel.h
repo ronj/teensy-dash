@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 #include "TripData.h"
 
 #include "Common/List.h"
@@ -17,7 +17,7 @@ namespace ApplicationLayer
 		class WheelTickModel;
 		class InjectorModel;
 
-		class TripComputerModel : public Model
+		class TripComputerModel : public RepresentableModel
 		{
 		public:
 			TripComputerModel(const PeripheralLayer::Configuration& configuration, const WheelTickModel& wheelTicks, const InjectorModel& injectorDuration);

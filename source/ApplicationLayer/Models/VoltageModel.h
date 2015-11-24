@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 
 namespace PeripheralLayer
 {
@@ -11,7 +11,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class VoltageModel : public Model
+		class VoltageModel : public RepresentableModel
 		{
 		public:
 			VoltageModel(const PeripheralLayer::Voltmeter& meter);

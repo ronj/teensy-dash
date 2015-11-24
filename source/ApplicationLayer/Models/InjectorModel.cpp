@@ -14,11 +14,6 @@ int32_t ApplicationLayer::Models::InjectorModel::GetRawValue() const
     return m_InjectorOpen;
 }
 
-const char* ApplicationLayer::Models::InjectorModel::GetFormattedValue() const
-{
-	return nullptr;
-}
-
 void ApplicationLayer::Models::InjectorModel::Update(uint32_t)
 {
 	uint32_t count = 0;

@@ -8,7 +8,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class Model;
+		class RepresentableModel;
 	}
 
 	namespace Views
@@ -17,25 +17,25 @@ namespace ApplicationLayer
 			: public View
 		{
 		public:
-			TwoRowView(int16_t x, int16_t y, const char* labelOne, const Models::Model& modelOne,
-				                             const char* labelTwo, const Models::Model& modelTwo);
+			TwoRowView(int16_t x, int16_t y, const char* labelOne, const Models::RepresentableModel& modelOne,
+				                             const char* labelTwo, const Models::RepresentableModel& modelTwo);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 			void Query();
 
 		private:
-			void DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::Model& model, uint8_t textSize, uint16_t& previousWidth);
+			void DrawLabelAndModel(int16_t x, int16_t y, ApplicationLayer::DrawEventArgs& e, const char* label, const Models::RepresentableModel& model, uint8_t textSize, uint16_t& previousWidth);
 
 		private:
 			int16_t m_X;
 			int16_t m_Y;
 
 			const char* m_LabelOne;
-			const Models::Model& m_ModelOne;
+			const Models::RepresentableModel& m_ModelOne;
 			uint16_t m_PreviousWidthOne;
 
 			const char* m_LabelTwo;
-			const Models::Model& m_ModelTwo;
+			const Models::RepresentableModel& m_ModelTwo;
 			uint16_t m_PreviousWidthTwo;
 		};
 	}

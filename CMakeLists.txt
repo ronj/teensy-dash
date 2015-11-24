@@ -357,6 +357,7 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/ParkDistanceModel.h
             source/ApplicationLayer/Models/PitchModel.cpp
             source/ApplicationLayer/Models/PitchModel.h
+            source/ApplicationLayer/Models/RepresentableModel.h
             source/ApplicationLayer/Models/RollModel.cpp
             source/ApplicationLayer/Models/RollModel.h
             source/ApplicationLayer/Models/RPMModel.cpp

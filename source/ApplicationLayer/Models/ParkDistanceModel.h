@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 
 namespace PeripheralLayer
 {
@@ -11,7 +11,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class ParkDistanceModel: public Model
+		class ParkDistanceModel : public RepresentableModel
 		{
 		public:
 			ParkDistanceModel(const PeripheralLayer::ParkDistanceDecoder& parkDistanceDecoder);

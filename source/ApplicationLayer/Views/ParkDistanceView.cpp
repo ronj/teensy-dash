@@ -1,5 +1,7 @@
 #include "ParkDistanceView.h"
 
+#include "Common/Logger.h"
+
 #include "PeripheralLayer/Bitmaps.h"
 #include "PeripheralLayer/GraphicContext.h"
 #include "PeripheralLayer/TextHelper.h"
@@ -12,7 +14,7 @@
 
 #include <algorithm>
 
-ApplicationLayer::Views::ParkDistanceView::ParkDistanceView(const Models::ParkDistanceModel& model)
+ApplicationLayer::Views::ParkDistanceView::ParkDistanceView(const Models::RepresentableModel& model)
 	: m_Model(model)
 {
 }
@@ -36,4 +38,5 @@ void ApplicationLayer::Views::ParkDistanceView::OnDraw(ApplicationLayer::DrawEve
 
 void ApplicationLayer::Views::ParkDistanceView::Query()
 {
+	Common::Logger::Get().LogExpectation(m_Model.GetRawValue());
 }

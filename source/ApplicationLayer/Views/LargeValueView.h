@@ -11,7 +11,7 @@ namespace ApplicationLayer
 		class LargeValueView : public BaseView
 		{
 		public:
-			LargeValueView(int16_t x, int16_t y, const char* label, const Models::Model& model);
+			LargeValueView(int16_t x, int16_t y, const char* label, const Models::RepresentableModel& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 			void Query();

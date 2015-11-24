@@ -35,17 +35,17 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	m_ModelList.Add(m_RollModel);
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetSpeedModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetSpeedModel() const
 {
 	return m_SpeedModel;
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetRPMModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetRPMModel() const
 {
 	return m_RPMModel;
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetGearModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetGearModel() const
 {
 	return m_GearModel;
 }
@@ -55,12 +55,12 @@ const ApplicationLayer::Models::TripComputerModel& ApplicationLayer::ModelCollec
 	return m_TripComputerModel;
 }
 
-const ApplicationLayer::Models::ParkDistanceModel& ApplicationLayer::ModelCollection::GetParkDistanceModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetParkDistanceModel() const
 {
 	return m_ParkDistanceModel;
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const
 {
 	return m_BatteryVoltageModel;
 }
@@ -80,12 +80,12 @@ const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetZAc
 	return m_ZAccelerationModel;
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetPitchModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetPitchModel() const
 {
 	return m_PitchModel;
 }
 
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetRollModel() const
+const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetRollModel() const
 {
 	return m_RollModel;
 }

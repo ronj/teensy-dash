@@ -7,6 +7,7 @@
 #include "Models/InjectorModel.h"
 #include "Models/ParkDistanceModel.h"
 #include "Models/PitchModel.h"
+#include "Models/RepresentableModel.h"
 #include "Models/RollModel.h"
 #include "Models/RPMModel.h"
 #include "Models/SpeedModel.h"
@@ -26,23 +27,21 @@ namespace ApplicationLayer
 	public:
 		ModelCollection(PeripheralLayer::Peripherals& peripherals);
 
-		const Models::Model& GetSpeedModel() const;
-		const Models::Model& GetRPMModel() const;
-
-		const Models::Model& GetGearModel() const;
+		const Models::RepresentableModel& GetSpeedModel() const;
+		const Models::RepresentableModel& GetRPMModel() const;
+		const Models::RepresentableModel& GetGearModel() const;
 
 		const Models::TripComputerModel& GetTripComputerModel() const;
+		const Models::RepresentableModel& GetParkDistanceModel() const;
 
-		const Models::ParkDistanceModel& GetParkDistanceModel() const;
-
-		const Models::Model& GetBatteryVoltageModel() const;
+		const Models::RepresentableModel& GetBatteryVoltageModel() const;
 
 		const Models::Model& GetXAccelerationModel() const;
 		const Models::Model& GetYAccelerationModel() const;
 		const Models::Model& GetZAccelerationModel() const;
 
-		const Models::Model& GetPitchModel() const;
-		const Models::Model& GetRollModel() const;
+		const Models::RepresentableModel& GetPitchModel() const;
+		const Models::RepresentableModel& GetRollModel() const;
 
 		Common::List<Models::Model>& GetModels();
 

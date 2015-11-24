@@ -21,11 +21,6 @@ namespace ApplicationLayer
 			virtual void Update(uint32_t);
 
 		private:
-			// This is a "special" Model in the sense that it should
-			// only be used by other Models, not directly by a view.
-			virtual const char* GetFormattedValue() const;
-
-		private:
 			const PeripheralLayer::Configuration& m_Configuration;
 			PeripheralLayer::PulseDuration& m_PulseDuration;
 

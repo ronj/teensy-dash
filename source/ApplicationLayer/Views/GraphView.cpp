@@ -5,9 +5,9 @@
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
 
-#include "ApplicationLayer/Models/Model.h"
+#include "ApplicationLayer/Models/RepresentableModel.h"
 
-ApplicationLayer::Views::GraphView::GraphView(int16_t x, int16_t y, int16_t width, int16_t height, const Models::Model& model)
+ApplicationLayer::Views::GraphView::GraphView(int16_t x, int16_t y, int16_t width, int16_t height, const Models::RepresentableModel& model)
 	: BaseView(x, y, model)
 	, m_Width(width)
 	, m_Height(height)

@@ -9,7 +9,7 @@ namespace ApplicationLayer
 		class GraphView : public BaseView
 		{
 		public:
-			GraphView(int16_t x, int16_t y, int16_t width, int16_t height, const Models::Model& model);
+			GraphView(int16_t x, int16_t y, int16_t width, int16_t height, const Models::RepresentableModel& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 

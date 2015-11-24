@@ -8,7 +8,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class ParkDistanceModel;
+		class RepresentableModel;
 	}
 
 	namespace Views
@@ -16,13 +16,13 @@ namespace ApplicationLayer
 		class ParkDistanceView : public View
 		{
 		public:
-			ParkDistanceView(const Models::ParkDistanceModel& model);
+			ParkDistanceView(const Models::RepresentableModel& model);
 
 			void OnDraw(ApplicationLayer::DrawEventArgs& e);
 			void Query();
 
 		private:
-			const Models::ParkDistanceModel& m_Model;
+			const Models::RepresentableModel& m_Model;
 		};
 	}
 }

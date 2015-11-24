@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 
 namespace PeripheralLayer
 {
@@ -11,7 +11,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class RPMModel : public Model
+		class RPMModel : public RepresentableModel
 		{
 		public:
 			RPMModel(PeripheralLayer::FrequencyCounter& frequencyCounter);

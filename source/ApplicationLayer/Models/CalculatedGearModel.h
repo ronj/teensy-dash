@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Model.h"
+#include "RepresentableModel.h"
 
 #include <array>
 
@@ -13,7 +13,7 @@ namespace ApplicationLayer
 {
 	namespace Models
 	{
-		class CalculatedGearModel : public Model
+		class CalculatedGearModel : public RepresentableModel
 		{
 		public:
 			CalculatedGearModel(const PeripheralLayer::Configuration& configuration, const Model& speedModel, const Model& rpmModel);

@@ -9,9 +9,9 @@
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
 
-#include "ApplicationLayer/Models/Model.h"
+#include "ApplicationLayer/Models/RepresentableModel.h"
 
-ApplicationLayer::Views::LargeValueView::LargeValueView(int16_t x, int16_t y, const char* label, const Models::Model& model)
+ApplicationLayer::Views::LargeValueView::LargeValueView(int16_t x, int16_t y, const char* label, const Models::RepresentableModel& model)
 	: BaseView(x, y, model)
 	, m_Label(label)
 {
