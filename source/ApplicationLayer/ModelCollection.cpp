@@ -11,8 +11,6 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel, m_InjectorModel)
 	, m_ParkDistanceModel(peripherals.GetParkDistanceDecoder())
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())
-	, m_OilPressureModel(4, 6)
-	, m_OilTemperatureModel(25, 125)
 	, m_XAccelerationModel(peripherals.GetXAcceleration())
 	, m_YAccelerationModel(peripherals.GetYAcceleration())
 	, m_ZAccelerationModel(peripherals.GetZAcceleration())
@@ -30,8 +28,6 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	m_ModelList.Add(m_TripComputerModel);
 	m_ModelList.Add(m_ParkDistanceModel);
 	m_ModelList.Add(m_BatteryVoltageModel);
-	m_ModelList.Add(m_OilPressureModel);
-	m_ModelList.Add(m_OilTemperatureModel);
 	m_ModelList.Add(m_XAccelerationModel);
 	m_ModelList.Add(m_YAccelerationModel);
 	m_ModelList.Add(m_ZAccelerationModel);
@@ -67,16 +63,6 @@ const ApplicationLayer::Models::ParkDistanceModel& ApplicationLayer::ModelCollec
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const
 {
 	return m_BatteryVoltageModel;
-}
-
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetOilPressureModel() const
-{
-	return m_OilPressureModel;
-}
-
-const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetOilTemperatureModel() const
-{
-	return m_OilTemperatureModel;
 }
 
 const ApplicationLayer::Models::Model& ApplicationLayer::ModelCollection::GetXAccelerationModel() const

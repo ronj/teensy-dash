@@ -7,7 +7,6 @@
 #include "Models/InjectorModel.h"
 #include "Models/ParkDistanceModel.h"
 #include "Models/PitchModel.h"
-#include "Models/RandomValueModel.h"
 #include "Models/RollModel.h"
 #include "Models/RPMModel.h"
 #include "Models/SpeedModel.h"
@@ -37,8 +36,6 @@ namespace ApplicationLayer
 		const Models::ParkDistanceModel& GetParkDistanceModel() const;
 
 		const Models::Model& GetBatteryVoltageModel() const;
-		const Models::Model& GetOilPressureModel() const;
-		const Models::Model& GetOilTemperatureModel() const;
 
 		const Models::Model& GetXAccelerationModel() const;
 		const Models::Model& GetYAccelerationModel() const;
@@ -62,8 +59,6 @@ namespace ApplicationLayer
 		Models::ParkDistanceModel m_ParkDistanceModel;
 
 		Models::VoltageModel m_BatteryVoltageModel;
-		Models::RandomValueModel m_OilPressureModel;
-		Models::RandomValueModel m_OilTemperatureModel;
 
 		Models::AccelerationModel m_XAccelerationModel;
 		Models::AccelerationModel m_YAccelerationModel;
