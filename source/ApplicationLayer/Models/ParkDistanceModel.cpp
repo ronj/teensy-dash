@@ -1,5 +1,7 @@
 #include "ParkDistanceModel.h"
 
+#include "ConversionHelper.h"
+
 #include "PeripheralLayer/ParkDistanceDecoder.h"
 
 #include "Common/Logger.h"
@@ -28,11 +30,11 @@ const char* ApplicationLayer::Models::ParkDistanceModel::GetFormattedValue() con
 
 	if (minDistance < std::numeric_limits<uint8_t>::max())
 	{
-		sprintf(formatted, "%d.%02d", minDistance / 100, minDistance % 100);
+		snprintf(formatted, 4, "%d.%02d", minDistance / 100, minDistance % 100);
 	}
 	else
 	{
-		sprintf(formatted, "-.--");
+		snprintf(formatted, 4, "-.--");
 	}
 
 	return formatted;

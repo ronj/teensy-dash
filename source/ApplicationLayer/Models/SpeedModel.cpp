@@ -19,7 +19,7 @@ int32_t ApplicationLayer::Models::SpeedModel::GetRawValue() const
 const char* ApplicationLayer::Models::SpeedModel::GetFormattedValue() const
 {
 	static char formatted[4] = { 0 };
-	itoa2(GetRawValue() / 10, formatted, 10);
+	snprintf(formatted, 4, "%d", GetRawValue() / 10);
 	return formatted;
 }
 

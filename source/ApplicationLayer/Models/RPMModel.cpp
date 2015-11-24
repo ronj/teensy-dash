@@ -16,8 +16,10 @@ int32_t ApplicationLayer::Models::RPMModel::GetRawValue() const
 
 const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 {
-	static char formatted[4] = { 0 };
-	sprintf(formatted, "%d", (GetRawValue() / 100) * 100);
+	static char formatted[5] = { 0 };
+
+	snprintf(formatted, 5, "%d", (GetRawValue() / 100) * 100);
+
 	return formatted;
 }
 

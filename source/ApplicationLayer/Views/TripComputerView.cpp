@@ -8,6 +8,7 @@
 #include "ApplicationLayer/DrawEventArgs.h"
 #include "ApplicationLayer/Palette.h"
 
+#include "ApplicationLayer/Models/ConversionHelper.h"
 #include "ApplicationLayer/Models/TripComputerModel.h"
 
 #include <cstdio>
@@ -27,7 +28,8 @@ void ApplicationLayer::Views::TripComputerView::OnDraw(ApplicationLayer::DrawEve
 
 void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage, ApplicationLayer::DrawEventArgs& e)
 {
-	char scratchpad[15] = { 0 };
+	const uint8_t scratchpad_size = 16;
+	char scratchpad[scratchpad_size] = { 0 };
 
 	uint32_t km = m_Model.GetTripDistance(m_ActivePage) / 1000;
 	uint32_t m = (m_Model.GetTripDistance(m_ActivePage) % 1000) / 100;
@@ -35,23 +37,23 @@ void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage,
 
 	if (km < 1000)
 	{
-		sprintf(scratchpad, "%lu.%lu", km, m);
+		snprintf(scratchpad, scratchpad_size, "%lu.%lu", km, m);
 	}
 	else
 	{
-		sprintf(scratchpad, "%lu", km);
+		snprintf(scratchpad, scratchpad_size, "%lu", km);
 	}
 
 	m_Distance.SetValue(scratchpad);
 	m_Distance.OnDraw(e);
 
-	sprintf(scratchpad, "%lu.%02lu", l_100km / 100,
-		                             l_100km % 100);
+	snprintf(scratchpad, scratchpad_size, "%lu.%02lu", l_100km / 100,
+		                                               l_100km % 100);
 
 	m_AverageFuelConsumption.SetValue(scratchpad);
 	m_AverageFuelConsumption.OnDraw(e);
 
-	sprintf(scratchpad, "%lu", m_Model.GetTripAverageSpeed(m_ActivePage));
+	snprintf(scratchpad, scratchpad_size, "%lu", m_Model.GetTripAverageSpeed(m_ActivePage));
 
 	m_AverageSpeed.SetValue(scratchpad);
 	m_AverageSpeed.OnDraw(e);
@@ -62,7 +64,7 @@ void ApplicationLayer::Views::TripComputerView::DrawTripData(uint8_t activePage,
 	uint32_t minutes = (milliseconds / (1000 * 60)) % 60;
 	uint32_t hours = (milliseconds / (1000 * 60 * 60));
 
-	sprintf(scratchpad, "%02lu:%02lu:%02lu", hours, minutes, seconds);
+	snprintf(scratchpad, scratchpad_size, "%02lu:%02lu:%02lu", hours, minutes, seconds);
 
 	smallerFont.SetCursor(e.graphicContext.Width() / 2 - smallerFont.TextWidth(scratchpad) / 2, e.graphicContext.Height() - smallerFont.TextHeight(scratchpad));
 	smallerFont.Write(scratchpad);

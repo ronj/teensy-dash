@@ -30,7 +30,8 @@ const char* ApplicationLayer::Models::CalculatedGearModel::GetFormattedValue() c
 
 	if (gear > 0)
 	{
-		itoa2(gear, formatted, 10);
+		gear > 0 ? snprintf(formatted, 2, "%d", gear) :
+			       snprintf(formatted, 2, "%s", "N");
 	}
 	else
 	{
@@ -59,7 +60,7 @@ uint8_t ApplicationLayer::Models::CalculatedGearModel::DetermineGear(float gearR
 
 	for (auto ratio : m_GearRatios)
 	{
-		if (std::isnan(ratio)) return 0;
+		if (std::isnan(ratio)) break;
 		if (std::isgreater(gearRatio, ratio)) return gear;
 
 		gear++;

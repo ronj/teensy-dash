@@ -25,7 +25,7 @@ const char* ApplicationLayer::Models::RollModel::GetFormattedValue() const
 {
     static char formatted[4] = { 0 };
 
-    itoa2(GetRawValue(), formatted, 10);
+	snprintf(formatted, 4, "%d", GetRawValue());
 
     return formatted;
 }

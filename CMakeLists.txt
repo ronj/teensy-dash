@@ -348,7 +348,6 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/AccelerationModel.h
             source/ApplicationLayer/Models/CalculatedGearModel.cpp
             source/ApplicationLayer/Models/CalculatedGearModel.h
-            source/ApplicationLayer/Models/ConversionHelper.cpp
             source/ApplicationLayer/Models/ConversionHelper.h
 			source/ApplicationLayer/Models/InjectorModel.cpp
             source/ApplicationLayer/Models/InjectorModel.h

@@ -29,7 +29,7 @@ const char* ApplicationLayer::Models::TripComputerModel::GetFormattedValue() con
 {
 	static char formatted[8] = { 0 };
 
-	itoa2(GetRawValue() / 1000, formatted, 10);
+	snprintf(formatted, 8, "%d", GetRawValue() / 1000);
 
 	return formatted;
 }
