@@ -67,9 +67,9 @@ void PeripheralLayer::GraphicContext::DrawHorizontalLine(int16_t x, int16_t y, i
 uint32_t Brightness(uint32_t color, float brightness)
 {
 	PeripheralLayer::Color::RGB c(color >> 8);
-	c.r = std::round((float)c.r * brightness);
-	c.g = std::round((float)c.g * brightness);
-	c.b = std::round((float)c.b * brightness);
+	c.r = static_cast<PeripheralLayer::Color::RGB::rgb_data_t>(std::round((float)c.r * brightness));
+	c.g = static_cast<PeripheralLayer::Color::RGB::rgb_data_t>(std::round((float)c.g * brightness));
+	c.b = static_cast<PeripheralLayer::Color::RGB::rgb_data_t>(std::round((float)c.b * brightness));
 
 	return c.ToRGBA(0xff);
 }
@@ -94,9 +94,9 @@ void PeripheralLayer::GraphicContext::DrawWuLine(int16_t x0, int16_t y0, int16_t
 	float gradient = (float)dy / (float)dx;
 
 	// handle first endpoint
-	int xend = std::round(x0);
+	int xend = static_cast<int>(std::round(x0));
 	float yend = y0 + gradient * (xend - x0);
-	float xgap = rfpart(x0 + 0.5);
+	float xgap = rfpart(x0 + 0.5f);
 	int xpxl1 = xend;  //this will be used in the main loop
 	int ypxl1 = ipart(yend);
 
@@ -113,9 +113,9 @@ void PeripheralLayer::GraphicContext::DrawWuLine(int16_t x0, int16_t y0, int16_t
 	float intery = yend + gradient; // first y-intersection for the main loop
 
 	// handle second endpoint
-	xend = std::round(x1);
+	xend = static_cast<int>(std::round(x1));
 	yend = y1 + gradient * (xend - x1);
-	xgap = fpart(x1 + 0.5);
+	xgap = fpart(x1 + 0.5f);
 	int xpxl2 = xend; //this will be used in the main loop
 	int ypxl2 = ipart(yend);
 	if (steep)
@@ -206,7 +206,7 @@ void PeripheralLayer::GraphicContext::DrawWuCircle(int16_t xc, int16_t yc, int16
 	while (x < y1)
 	{
 		x++;
-		ynew = std::sqrt(r*r - x*x);
+		ynew = static_cast<float>(std::sqrt(r*r - x*x));
 		y1 = (int)std::ceil(ynew);
 
 		if (yprev - ipart(ynew) > 1)
