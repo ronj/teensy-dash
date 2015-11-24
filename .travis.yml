@@ -1,3 +1,9 @@
+sudo:
+  required
+
+dist:
+  trusty
+
 language:
   - cpp
 
@@ -5,25 +11,13 @@ compiler:
   - gcc
 
 before_install:
-  - sudo apt-add-repository --yes ppa:zoogie/sdl2-snapshots  # libsdl2
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y   # gcc4.8
+  - sudo apt-add-repository --yes ppa:zoogie/sdl2-snapshots
+  - sudo apt-add-repository --yes ppa:george-edison55/cmake-3.x
   - sudo apt-get -qq update
+  - sudo apt-get -qq upgrade
 
 install:
-  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
   - sudo apt-get -qq install libsdl2-dev
-
-  # Set gxx-4.8 as default
-  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 90
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90
-
-  # Install more current version of CMake
-  - wget https://s3.amazonaws.com/biibinaries/thirdparty/cmake-3.0.2-Linux-64.tar.gz
-  - tar -xzf cmake-3.0.2-Linux-64.tar.gz
-  - sudo cp -fR cmake-3.0.2-Linux-64/* /usr
-  - rm -rf cmake-3.0.2-Linux-64 cmake-3.0.2-Linux-64.tar.gz
 
   # Install more current version of lcov
   - wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.11.orig.tar.gz
