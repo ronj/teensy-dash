@@ -375,6 +375,10 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/WheelTickModel.cpp
             source/ApplicationLayer/Models/WheelTickModel.h)
 
+source_group("Application" ".*/ApplicationLayer/")
+source_group("Views" ".*/ApplicationLayer/Views/")
+source_group("Models" ".*/ApplicationLayer/Models/")
+
 internal_add_library(${CMAKE_PROJECT_NAME}.ApplicationLayer ${APPLICATION_LAYER_SOURCES} ${APPLICATION_LAYER_VIEW_SOURCES} ${APPLICATION_LAYER_MODEL_SOURCES})
 target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
 target_link_libraries(${CMAKE_PROJECT_NAME}.ApplicationLayer ${CMAKE_PROJECT_NAME}.PeripheralLayer)
