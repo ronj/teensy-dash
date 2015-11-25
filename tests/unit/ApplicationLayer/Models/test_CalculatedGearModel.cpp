@@ -6,6 +6,7 @@
 #include "ApplicationLayer/Models/Model.h"
 #include "ApplicationLayer/Models/CalculatedGearModel.h"
 
+#include <limits>
 #include <list>
 
 struct CalculatedGearModelTest
@@ -22,7 +23,7 @@ struct CalculatedGearModelTest
 		mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetTireAspect).Return(40);
 		mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetTireWidth).Return(205);
 		mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetFinalDriveRatio).Return(4.06f);
-		mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetGearRatios).Return({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, PeripheralLayer::Configuration::UnavailableGear() } });
+		mocks.ExpectCall(configuration, PeripheralLayer::Configuration::GetGearRatios).Return({ { 3.42f, 1.81f, 1.28f, 0.98f, 0.77f, std::numeric_limits<float>::quiet_NaN() } });
 	}
 };
 
