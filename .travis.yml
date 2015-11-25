@@ -1,8 +1,6 @@
-sudo:
-  required
+sudo: required
 
-dist:
-  trusty
+dist: trusty
 
 language:
   - cpp
