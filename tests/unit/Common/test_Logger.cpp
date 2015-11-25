@@ -74,6 +74,7 @@ TEST(LoggerTest, should_log_broken_contract)
 	EXPECT_EQ("Assertion failed: 0 == 1\n", actual.str());
 }
 
+/*
 TEST(LoggerTest, should_log_method_entry)
 {
 	std::regex re("test_Logger.cpp(.*)");
@@ -99,3 +100,4 @@ TEST(LoggerTest, should_log_method_exit)
 	EXPECT_TRUE(std::regex_search(result, match, re));
 	EXPECT_EQ("test_Logger.cpp(41) [test_exit_logger] Exit", match[0].str());
 }
+*/
