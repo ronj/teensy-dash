@@ -165,6 +165,7 @@ write_compiler_detection_header(
            cxx_final
            cxx_override
            cxx_variadic_templates
+           cxx_variable_templates
 )
 
 ## Build Common

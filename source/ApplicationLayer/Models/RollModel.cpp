@@ -35,5 +35,5 @@ void ApplicationLayer::Models::RollModel::Update(uint32_t)
 	float yAccel = m_YAxis.GetValue() / 1000.0f;
 	float zAccel = m_ZAxis.GetValue() / 1000.0f;
 
-    m_RollMilliDegrees = static_cast<int32_t>(((std::atan2(-yAccel, zAccel) * 180.0f) / Common::Math::PI<float>) * 1000.0f);
+    m_RollMilliDegrees = static_cast<int32_t>(((std::atan2(-yAccel, zAccel) * 180.0f) / Common::Math::PI) * 1000.0f);
 }

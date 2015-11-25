@@ -19,7 +19,7 @@ namespace Common
 		{
 			double tt;
 
-			tt = (1 - std::cos(t * Math::PI<T>)) / 2;
+			tt = (1 - std::cos(t * Math::PI)) / 2;
 			return static_cast<T>(a * (1 - tt) + b * tt);
 		}
     }

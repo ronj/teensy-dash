@@ -76,5 +76,5 @@ float ApplicationLayer::Models::CalculatedGearModel::TireDiameter(int width, int
 
 float ApplicationLayer::Models::CalculatedGearModel::TireCircumfence(float rollingRadius)
 {
-	return Common::Math::PI<float> * rollingRadius;
+	return Common::Math::PI * rollingRadius;
 }
