@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Common/NonCopyable.h"
-
 #include <cinttypes>
 #include <functional>
 
@@ -11,7 +9,6 @@ namespace HardwareLayer
     enum class InterruptType { Rising, Falling, Change, Low, High };
 
 	class DigitalPin
-        : public Common::NonCopyable
 	{
 	public:
 		virtual uint8_t Read() = 0;

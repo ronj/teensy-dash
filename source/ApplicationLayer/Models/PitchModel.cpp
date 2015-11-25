@@ -37,5 +37,5 @@ void ApplicationLayer::Models::PitchModel::Update(uint32_t)
 	float yAccel = m_YAxis.GetValue() / 1000.0f;
 	float zAccel = m_ZAxis.GetValue() / 1000.0f;
 
-    m_PitchMilliDegrees = static_cast<int32_t>(((std::atan2(xAccel, std::sqrt(yAccel * yAccel + zAccel * zAccel)) * 180.0f) / Common::Math::PI) * 1000.0f);
+    m_PitchMilliDegrees = static_cast<int32_t>(((std::atan2(xAccel, std::sqrt(yAccel * yAccel + zAccel * zAccel)) * 180.0f) / Common::Math::PI<float>) * 1000.0f);
 }

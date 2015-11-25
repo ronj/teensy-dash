@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1.0)
 
 project(dash)
 
@@ -17,8 +17,6 @@ option(BUILD_SHARED_LIBS  "Build shared libraries" OFF)
 # put them in this directory.
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-include(CheckCXXCompilerFlag)
 
 
 ## Generate version file
@@ -48,6 +46,8 @@ configure_file("${PROJECT_SOURCE_DIR}/source/Version.h.in"
 
 set(EXTERNAL_DIR ${PROJECT_SOURCE_DIR}/external)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(${BUILD_FOR_EMULATOR})
   function(internal_add_executable)
@@ -132,26 +132,10 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLA
     set(PROJECT_COMMON_FLAGS "${PROJECT_COMMON_FLAGS} -static-libstdc++ -static-libgcc -static")
   endif()
 
-  foreach (flag "-std=c++11" "-std=c++0x")
-    CHECK_CXX_COMPILER_FLAG(${flag} CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
-
-    if (CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
-      set(CXX_NEW_ISO_STD_FLAG ${flag})
-      break()
-    endif()
-  endforeach()
-
-  if (NOT CXX_COMPILER_SUPPORTS_NEW_ISO_STD)
-    #message(FATAL_ERROR "The project requires C++11 features.\n"
-    #                    "You need at least one of the following compilers:\n"
-    #                    "- gcc 4.7 (see: http://gcc.gnu.org/projects/cxx0x.html).\n"
-    #                    "- clang 3.1 (see: http://clang.llvm.org/cxx_status.html).")
-  endif()
-
   if (CMAKE_COMPILER_IS_CLANGXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_NEW_ISO_STD_FLAG} -stdlib=libc++")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
   else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_NEW_ISO_STD_FLAG}")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     # Workaround for usage of thread::sleep (see: http://stackoverflow.com/questions/12523122/what-is-glibcxx-use-nanosleep-all-about).
     add_definitions("-D_GLIBCXX_USE_NANOSLEEP")
   endif()
@@ -164,6 +148,25 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLA
 endif()
 
 
+## Detect compiler features
+#
+# See: https://cmake.org/cmake/help/v3.1/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.html#prop_gbl:CMAKE_CXX_KNOWN_FEATURES
+#      for a complete list of features
+#
+include(WriteCompilerDetectionHeader)
+
+write_compiler_detection_header(
+  FILE ${PROJECT_BINARY_DIR}/DashCompilerDetection.h
+  PREFIX CFG
+  COMPILERS AppleClang Clang GNU MSVC
+  FEATURES cxx_constexpr
+           cxx_defaulted_functions
+           cxx_deleted_functions
+           cxx_final
+           cxx_override
+           cxx_variadic_templates
+)
+
 ## Build Common
 #
 set(COMMON_SOURCES source/Common/ArduinoWrapper.h
@@ -173,7 +176,6 @@ set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/Logger.h
                    source/Common/Math.cpp
                    source/Common/Math.h
-                   source/Common/NonCopyable.h
                    source/Common/Task.h
                    source/Common/TaskScheduler.cpp
                    source/Common/TaskScheduler.h
@@ -181,7 +183,7 @@ set(COMMON_SOURCES source/Common/ArduinoWrapper.h
                    source/Common/TimedTask.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.Common ${COMMON_SOURCES})
-
+target_include_directories(${CMAKE_PROJECT_NAME}.Common PUBLIC ${PROJECT_BINARY_DIR})
 
 ## Build HardwareLayer
 #
@@ -252,7 +254,8 @@ internal_add_library(${CMAKE_PROJECT_NAME}.HardwareLayer ${HARDWARE_LAYER_SOURCE
 target_include_directories(${CMAKE_PROJECT_NAME}.HardwareLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source
                                                                       ${CMAKE_CURRENT_SOURCE_DIR}/source/HardwareLayer
                                                                       ${CMAKE_CURRENT_SOURCE_DIR}/source/HardwareLayer/Common
-                                                                      ${EXTERNAL_INCLUDES})
+                                                                      ${EXTERNAL_INCLUDES}
+                                                                      ${PROJECT_BINARY_DIR})
 
 
 ## Build PeripheralLayer
@@ -302,7 +305,7 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/Voltmeter.h)
 
 internal_add_library(${CMAKE_PROJECT_NAME}.PeripheralLayer ${PERIPHERAL_LAYER_SOURCES})
-target_include_directories(${CMAKE_PROJECT_NAME}.PeripheralLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_include_directories(${CMAKE_PROJECT_NAME}.PeripheralLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source ${PROJECT_BINARY_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME}.PeripheralLayer ${CMAKE_PROJECT_NAME}.Common)
 
 
@@ -380,7 +383,7 @@ source_group("Views" ".*/ApplicationLayer/Views/")
 source_group("Models" ".*/ApplicationLayer/Models/")
 
 internal_add_library(${CMAKE_PROJECT_NAME}.ApplicationLayer ${APPLICATION_LAYER_SOURCES} ${APPLICATION_LAYER_VIEW_SOURCES} ${APPLICATION_LAYER_MODEL_SOURCES})
-target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source)
+target_include_directories(${CMAKE_PROJECT_NAME}.ApplicationLayer PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/source ${PROJECT_BINARY_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME}.ApplicationLayer ${CMAKE_PROJECT_NAME}.PeripheralLayer)
 
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NonCopyable.h"
+#include "DashCompilerDetection.h"
 
 #ifdef BUILD_FOR_EMULATOR
 	#include <iostream>
@@ -12,9 +12,12 @@
 
 namespace Common
 {
-	class Logger : public NonCopyable
+	class Logger
 	{
 	public:
+		Logger(const Logger&) CFG_DELETED_FUNCTION;
+		Logger& operator=(const Logger&) CFG_DELETED_FUNCTION;
+
 		static Logger& Get()
 		{
 			static Logger instance;
@@ -56,7 +59,7 @@ namespace Common
 		}
 
 	private:
-		Logger() CFG_DECL_DEFAULT;
+		Logger() = default;
 	};
 
 	class LogDecorator

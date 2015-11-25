@@ -1,13 +1,10 @@
 #pragma once
 
-#include "Common/NonCopyable.h"
-
 #include <cinttypes>
 
 namespace HardwareLayer
 {
 	class FrequencyCounter
-		: public Common::NonCopyable
 	{
 	public:
 		virtual bool Available() = 0;
