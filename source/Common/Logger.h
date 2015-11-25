@@ -92,7 +92,8 @@ namespace Common
 
 #define INTERNAL_FILE_LINE_DECORATOR Common::LogDecorator(__FILE__, __LINE__, __PRETTY_FUNCTION__).GetLogger()
 
-#define LOG_METHOD_ENTRY INTERNAL_FILE_LINE_DECORATOR.Log('\n');
+#define LOG_METHOD_ENTRY INTERNAL_FILE_LINE_DECORATOR.LogLine("Entry");
+#define LOG_METHOD_EXIT  INTERNAL_FILE_LINE_DECORATOR.LogLine("Exit");
 
 #define ASSERT_THAT(boolean_expression) \
 	if (false == (boolean_expression)) \
