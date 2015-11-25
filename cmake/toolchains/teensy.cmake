@@ -3,6 +3,8 @@
 # and https://github.com/sudar/Arduino-Makefile
 # and on the Teensy Makefile.
 
+include(CMakeForceCompiler)
+
 if(UNIX)
     include(Platform/UnixPaths)
     if(APPLE)
@@ -56,7 +58,7 @@ find_path(ARDUINO_SDK_PATH
 if(ARDUINO_SDK_PATH)
     list(APPEND CMAKE_SYSTEM_PREFIX_PATH ${ARDUINO_SDK_PATH}/hardware/tools/arm)
 else()
-    message(FATAL_ERROR "Could not find Arduino SDK (set ARDUINO_SDK_PATH)!")
+    #message(FATAL_ERROR "Could not find Arduino SDK (set ARDUINO_SDK_PATH)!")
 endif()
 
 
@@ -84,6 +86,9 @@ set(LIBRARYPATH "${ARDUINOPATH}hardware/teensy/avr/libraries/")
 
 # this one is important
 set(CMAKE_SYSTEM_NAME Generic)
+
+cmake_force_c_compiler(${COMPILERPATH}arm-none-eabi-gcc GNU)
+cmake_force_cxx_compiler(${COMPILERPATH}arm-none-eabi-g++ GNU)
 
 # where is the target environment 
 #set(CMAKE_FIND_ROOT_PATH ${COMPILERPATH})
