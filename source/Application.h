@@ -11,7 +11,6 @@ public:
 
 	void LogSoftwareVersion() const
 	{
-		Common::Logger::Get().Log("Software version: ");
-		Common::Logger::Get().LogLine(DASH_SOFTWARE_VERSION);
+		Common::Logger::Get().Log("Software version: ", DASH_SOFTWARE_VERSION, '\n');
 	}
 };

@@ -25,13 +25,30 @@ namespace Common
 		}
 
 		template <typename T>
-		void Log(const T& toLog) const
+		void DoLog(const T& toLog) const
 		{
 #ifdef BUILD_FOR_EMULATOR
 			std::cout << toLog;
 #else
 			Serial.print(toLog);
 #endif
+		}
+
+		template <typename T, typename... Args>
+		void DoLog(const T& toLog, Args... args) const
+		{
+#ifdef BUILD_FOR_EMULATOR
+			std::cout << toLog;
+#else
+			Serial.print(toLog);
+#endif
+			DoLog(args...);
+		}
+
+		template <typename... Args>
+		void Log(Args... args) const
+		{
+			DoLog(args...);
 		}
 
 		template <typename T>
@@ -72,12 +89,7 @@ namespace Common
 		{
 			Common::Logger& logger = Logger::Get();
 
-			logger.Log(m_File);
-			logger.Log('(');
-			logger.Log(m_Line);
-			logger.Log(") [");
-			logger.Log(m_Function);
-			logger.Log("] ");
+			logger.Log(m_File, '(', m_Line, ") [", m_Function, "] ");
 		}
 
 		Common::Logger& GetLogger() { return Logger::Get(); }
