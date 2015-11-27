@@ -57,7 +57,7 @@ TEST(ListTest, should_add_and_remove_items)
 	EXPECT_TRUE(list.IsEmpty());
 }
 
-TEST(ListTest, should_not_add_element_that_is_already_in_list)
+TEST(ListTest, should_not_add_item_that_is_already_in_list)
 {
 	Common::List<ListElement> list;
 
@@ -78,6 +78,21 @@ TEST(ListTest, should_remove_item_from_list_when_item_is_destructed)
 
 	EXPECT_TRUE(list.IsEmpty());
 	EXPECT_TRUE(!list.GetFirst());
+}
+
+TEST(ListTest, should_advance_iterator_when_item_is_removed)
+{
+	Common::List<ListElement> list;
+	list.Add(one);
+	list.Add(two);
+	list.Add(three);
+
+	ListElement* element = list.GetFirst();
+
+	list.Remove(two);
+
+	EXPECT_EQ(&one, element);
+	EXPECT_EQ(&three, list.GetNext());
 }
 
 TEST(ListTest, should_not_remove_item_that_is_not_in_list)
