@@ -11,6 +11,7 @@
 #include "Models/RollModel.h"
 #include "Models/RPMModel.h"
 #include "Models/SpeedModel.h"
+#include "Models/TirePressureModel.h"
 #include "Models/TripComputerModel.h"
 #include "Models/VoltageModel.h"
 #include "Models/WheelTickModel.h"
@@ -34,6 +35,8 @@ namespace ApplicationLayer
 		const Models::TripComputerModel& GetTripComputerModel() const;
 		const Models::RepresentableModel& GetParkDistanceModel() const;
 
+		const Models::TirePressureModel& GetTirePressureModel() const;
+
 		const Models::RepresentableModel& GetBatteryVoltageModel() const;
 
 		const Models::Model& GetXAccelerationModel() const;
@@ -56,6 +59,8 @@ namespace ApplicationLayer
 		Models::TripComputerModel m_TripComputerModel;
 
 		Models::ParkDistanceModel m_ParkDistanceModel;
+
+		Models::TirePressureModel m_TirePressureModel;
 
 		Models::VoltageModel m_BatteryVoltageModel;
 

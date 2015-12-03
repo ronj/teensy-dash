@@ -339,6 +339,8 @@ list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/LargeValueView.h
             source/ApplicationLayer/Views/ParkDistanceView.cpp
             source/ApplicationLayer/Views/ParkDistanceView.h
+			source/ApplicationLayer/Views/TPMSView.cpp
+            source/ApplicationLayer/Views/TPMSView.h
             source/ApplicationLayer/Views/TripComputerView.cpp
             source/ApplicationLayer/Views/TripComputerView.h
             source/ApplicationLayer/Views/TwoRowView.cpp
@@ -370,7 +372,9 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/RPMModel.h
             source/ApplicationLayer/Models/SpeedModel.cpp
             source/ApplicationLayer/Models/SpeedModel.h
-            source/ApplicationLayer/Models/TripComputerModel.cpp
+            source/ApplicationLayer/Models/TirePressureModel.cpp
+            source/ApplicationLayer/Models/TirePressureModel.h
+			source/ApplicationLayer/Models/TripComputerModel.cpp
             source/ApplicationLayer/Models/TripComputerModel.h
             source/ApplicationLayer/Models/TripData.cpp
             source/ApplicationLayer/Models/TripData.h

@@ -10,6 +10,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	, m_GearModel(peripherals.GetConfiguration(), m_SpeedModel, m_RPMModel)
 	, m_TripComputerModel(peripherals.GetConfiguration(), m_WheelTickModel, m_InjectorModel)
 	, m_ParkDistanceModel(peripherals.GetParkDistanceDecoder())
+	, m_TirePressureModel()
 	, m_BatteryVoltageModel(peripherals.GetBatteryVoltageMeter())
 	, m_XAccelerationModel(peripherals.GetXAcceleration())
 	, m_YAccelerationModel(peripherals.GetYAcceleration())
@@ -27,6 +28,7 @@ ApplicationLayer::ModelCollection::ModelCollection(PeripheralLayer::Peripherals&
 	m_ModelList.Add(m_GearModel);
 	m_ModelList.Add(m_TripComputerModel);
 	m_ModelList.Add(m_ParkDistanceModel);
+	m_ModelList.Add(m_TirePressureModel);
 	m_ModelList.Add(m_BatteryVoltageModel);
 	m_ModelList.Add(m_XAccelerationModel);
 	m_ModelList.Add(m_YAccelerationModel);
@@ -58,6 +60,11 @@ const ApplicationLayer::Models::TripComputerModel& ApplicationLayer::ModelCollec
 const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetParkDistanceModel() const
 {
 	return m_ParkDistanceModel;
+}
+
+const ApplicationLayer::Models::TirePressureModel& ApplicationLayer::ModelCollection::GetTirePressureModel() const
+{
+	return m_TirePressureModel;
 }
 
 const ApplicationLayer::Models::RepresentableModel& ApplicationLayer::ModelCollection::GetBatteryVoltageModel() const

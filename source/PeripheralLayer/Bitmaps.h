@@ -8,6 +8,7 @@ namespace PeripheralLayer
 	{
 		namespace internal
 		{
+			extern const uint8_t TirePressureData[];
 			extern const uint8_t WaterTemperatureData[];
 			extern const uint8_t TripDistanceData[];
 			extern const uint8_t BatteryData[];
@@ -19,6 +20,7 @@ namespace PeripheralLayer
 			extern const uint8_t OilCanData[];
 		}
 
+		static const Bitmap TirePressure { 35, 35, internal::TirePressureData };
 		static const Bitmap WaterTemperature { 35, 32, internal::WaterTemperatureData };
 		static const Bitmap TripDistance { 27, 26, internal::TripDistanceData };
 		static const Bitmap Battery { 35, 23, internal::BatteryData };

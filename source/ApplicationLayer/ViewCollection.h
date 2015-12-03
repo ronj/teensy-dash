@@ -6,6 +6,7 @@
 #include "ApplicationLayer/Views/IconValueRow.h"
 #include "ApplicationLayer/Views/LargeValueView.h"
 #include "ApplicationLayer/Views/ParkDistanceView.h"
+#include "ApplicationLayer/Views/TPMSView.h"
 #include "ApplicationLayer/Views/TripComputerView.h"
 #include "ApplicationLayer/Views/TwoRowView.h"
 #include "ApplicationLayer/Views/XYScatterView.h"
@@ -26,6 +27,7 @@ namespace ApplicationLayer
 		Views::TwoRowView m_SpeedRPMView;
 		Views::LargeValueView m_GearView;
 		Views::ParkDistanceView m_ParkDistanceView;
+		Views::TPMSView m_TPMSView;
 		Views::TripComputerView m_TripComputerView;
 		Views::XYScatterView m_AccelerationView;
 
