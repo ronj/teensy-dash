@@ -25,6 +25,8 @@ namespace ApplicationLayer
 			void Query();
 
 		private:
+			void DrawTirePressure(DrawEventArgs& e, TireLocation tire, uint16_t pressure);
+            void DrawTireTemperature(DrawEventArgs& e, TireLocation tire, uint16_t temperature);
 			void DrawTireHealth(DrawEventArgs& e, TireLocation tire, uint16_t pressure, uint16_t temperature);
 
 		private:
