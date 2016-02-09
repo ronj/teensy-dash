@@ -30,8 +30,5 @@ void ApplicationLayer::Models::RPMModel::Update(uint32_t)
 
 uint32_t ApplicationLayer::Models::RPMModel::ConvertFrequencyToRPM(float frequency) const
 {
-	// Why we read 1/3 too high is sill beyond me.
-	// But in the absence of a logic analyser take if for granted
-	// and introduce this fudge factor.
-	return static_cast<uint32_t>(((frequency) * 60.f) * (2.f / 3.f));
+	return static_cast<uint32_t>(((frequency) * 60.f)) / 2;
 }
