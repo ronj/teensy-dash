@@ -6,6 +6,7 @@
 #include "ApplicationLayer/Views/IconValueRow.h"
 #include "ApplicationLayer/Views/LargeValueView.h"
 #include "ApplicationLayer/Views/ParkDistanceView.h"
+#include "ApplicationLayer/Views/ThreeRowView.h"
 #include "ApplicationLayer/Views/TPMSView.h"
 #include "ApplicationLayer/Views/TripComputerView.h"
 #include "ApplicationLayer/Views/TwoRowView.h"
@@ -23,7 +24,7 @@ namespace ApplicationLayer
 		Common::List<Views::View>& GetViews();
 
 	private:
-		//Views::IconValueRow m_BatteryVoltage;
+		Views::ThreeRowView m_SensorView;
 		Views::TwoRowView m_SpeedRPMView;
 		Views::LargeValueView m_GearView;
 		Views::ParkDistanceView m_ParkDistanceView;

@@ -20,7 +20,7 @@ const char* ApplicationLayer::Models::VoltageModel::GetFormattedValue() const
 	static char formatted[5] = { 0 };
 	int32_t rawValue = GetRawValue();
 
-	snprintf(formatted, 5, "%d.%02d", rawValue / 100, rawValue % 100);
+	snprintf(formatted, 5, "%" PRIu32 ".%" PRIu32, rawValue / 100, (rawValue % 100) / 10);
 
 	return formatted;
 }

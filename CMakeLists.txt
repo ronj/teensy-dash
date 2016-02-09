@@ -339,7 +339,9 @@ list(APPEND APPLICATION_LAYER_VIEW_SOURCES
             source/ApplicationLayer/Views/LargeValueView.h
             source/ApplicationLayer/Views/ParkDistanceView.cpp
             source/ApplicationLayer/Views/ParkDistanceView.h
-			source/ApplicationLayer/Views/TPMSView.cpp
+            source/ApplicationLayer/Views/ThreeRowView.cpp
+            source/ApplicationLayer/Views/ThreeRowView.h
+            source/ApplicationLayer/Views/TPMSView.cpp
             source/ApplicationLayer/Views/TPMSView.h
             source/ApplicationLayer/Views/TripComputerView.cpp
             source/ApplicationLayer/Views/TripComputerView.h
