@@ -6,11 +6,13 @@ HardwareLayer::TeensyHardware::TeensyHardware()
 	, m_ZPin(A2)
 	, m_BacklightPin(6)
 	, m_BatteryVoltagePin(22)
-	, m_VSSPin(23, PinType::InputPullUp)
+	, m_VSSPin(23, PinType::Input)
 	, m_InjectorPin(21, PinType::Input)
 	, m_ParkingSensorPin(5, PinType::Input)
+	, m_ButtonPin(7, PinType::InputPullUp)
 	, m_AccelerometerDriver(m_XPin, m_YPin, m_ZPin)
 	, m_LedDriver(2)
+	, m_RotaryEncoder()
 {
 	m_Platform.Init();
 	m_BacklightPin.Write(0);
@@ -59,6 +61,11 @@ HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetInjectorPin()
 HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetParkingSensorPin()
 {
 	return m_ParkingSensorPin;
+}
+
+HardwareLayer::DigitalPin& HardwareLayer::TeensyHardware::GetButtonPin()
+{
+	return m_ButtonPin;
 }
 
 HardwareLayer::FrequencyCounter& HardwareLayer::TeensyHardware::GetRPMFrequencyCounter()

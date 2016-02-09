@@ -28,6 +28,7 @@ namespace HardwareLayer
 		virtual DigitalPin& GetVSSPin();
 		virtual DigitalPin& GetInjectorPin();
 		virtual DigitalPin& GetParkingSensorPin();
+		virtual DigitalPin& GetButtonPin();
 		virtual FrequencyCounter& GetRPMFrequencyCounter();
 		virtual const AnalogPin& GetBatteryVoltagePin();
 		virtual AnalogPin& GetBacklightPin();
@@ -45,6 +46,7 @@ namespace HardwareLayer
 		TeensyDigitalPin m_VSSPin;
 		TeensyDigitalPin m_InjectorPin;
 		TeensyDigitalPin m_ParkingSensorPin;
+		TeensyDigitalPin m_ButtonPin;
 		TeensyFrequencyCounter m_RPMFrequencyCounter;
 
 		TeensyTimer m_Timer;

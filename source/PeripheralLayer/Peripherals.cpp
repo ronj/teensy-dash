@@ -14,7 +14,7 @@ PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	, m_InjectorPulseDurationCounter(hardware.GetInjectorPin(), m_TimeProvider)
 	, m_ParkDistanceDecoder(hardware.GetParkingSensorPin(), m_TimeProvider)
 	, m_RPMFrequencyCounter(hardware.GetRPMFrequencyCounter())
-	, m_RotaryEventSource(hardware.GetRotaryEncoder())
+	, m_RotaryEventSource(hardware.GetRotaryEncoder(), hardware.GetButtonPin())
 	, m_BatteryVoltageDivider(120000, 33000, 3.3f)
 	, m_BatteryVoltageMeter(hardware.GetBatteryVoltagePin(), m_BatteryVoltageDivider)
 {

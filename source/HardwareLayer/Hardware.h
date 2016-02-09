@@ -23,6 +23,7 @@ namespace HardwareLayer
 		virtual DigitalPin& GetVSSPin() = 0;
 		virtual DigitalPin& GetInjectorPin() = 0;
 		virtual DigitalPin& GetParkingSensorPin() = 0;
+		virtual DigitalPin& GetButtonPin() = 0;
 		virtual FrequencyCounter& GetRPMFrequencyCounter() = 0;
 		virtual const AnalogPin& GetBatteryVoltagePin() = 0;
 		virtual AnalogPin& GetBacklightPin() = 0;

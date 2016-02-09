@@ -12,6 +12,7 @@ namespace
     static std::array<std::function<void()>, CORE_NUM_DIGITAL> interruptFunctions;
 
     static void portc_interrupt2(void);
+    static void portd_interrupt2(void);
 
     void attachInterruptVector2(enum IRQ_NUMBER_t irq, void (*function)(void))
     {
@@ -28,7 +29,7 @@ namespace
           case CHANGE:  mask = 0x0B; break;
           case RISING:  mask = 0x09; break;
           case FALLING: mask = 0x0A; break;
-          case LOW: mask = 0x08; break;
+          case LOW:     mask = 0x08; break;
           case HIGH:    mask = 0x0C; break;
           default: return;
         }
@@ -36,6 +37,7 @@ namespace
         config = portConfigRegister(pin);
 
         attachInterruptVector2(IRQ_PORTC, portc_interrupt2);
+        attachInterruptVector2(IRQ_PORTD, portd_interrupt2);
         {
             Common::DisableInterruptContext interruptDisable;
             cfg = *config;
@@ -66,6 +68,20 @@ namespace
         PORTC_ISFR = isfr;
         if ((isfr & CORE_PIN22_BITMASK) && interruptFunctions[22]) interruptFunctions[22]();
         if ((isfr & CORE_PIN23_BITMASK) && interruptFunctions[23]) interruptFunctions[23]();
+    }
+
+    static void portd_interrupt2(void)
+    {
+        uint32_t isfr = PORTD_ISFR;
+        PORTD_ISFR = isfr;
+        if ((isfr & CORE_PIN2_BITMASK) && interruptFunctions[2]) interruptFunctions[2]();
+        if ((isfr & CORE_PIN5_BITMASK) && interruptFunctions[5]) interruptFunctions[5]();
+        if ((isfr & CORE_PIN6_BITMASK) && interruptFunctions[6]) interruptFunctions[6]();
+        if ((isfr & CORE_PIN7_BITMASK) && interruptFunctions[7]) interruptFunctions[7]();
+        if ((isfr & CORE_PIN8_BITMASK) && interruptFunctions[8]) interruptFunctions[8]();
+        if ((isfr & CORE_PIN14_BITMASK) && interruptFunctions[14]) interruptFunctions[14]();
+        if ((isfr & CORE_PIN20_BITMASK) && interruptFunctions[20]) interruptFunctions[20]();
+        if ((isfr & CORE_PIN21_BITMASK) && interruptFunctions[21]) interruptFunctions[21]();
     }
 }
 

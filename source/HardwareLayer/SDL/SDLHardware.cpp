@@ -52,6 +52,11 @@ HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetParkingSensorPin()
 	return m_ParkingSensorPin;
 }
 
+HardwareLayer::DigitalPin& HardwareLayer::SDLHardware::GetButtonPin()
+{
+	return m_ButtonPin;
+}
+
 HardwareLayer::FrequencyCounter& HardwareLayer::SDLHardware::GetRPMFrequencyCounter()
 {
 	return m_RPMFrequencyCounter;
