@@ -12,7 +12,7 @@ ApplicationLayer::DashApplication::DashApplication(PeripheralLayer::Peripherals&
 	, m_ModelUpdateTask(m_Models, peripherals.GetTimeProvider().TickCountMilliseconds())
 	, m_UserEventsTask(peripherals)
 	, m_UITask(peripherals.GetGraphicContext(), m_Views, peripherals.GetTimeProvider().TickCountMilliseconds())
-	, m_Shiftlight(peripherals.GetLedContext(), m_Models.GetRPMModel())
+	, m_Shiftlight(peripherals.GetPatternPlayer(), m_Models.GetRPMModel())
 {
 	LOG_METHOD_ENTRY;
 

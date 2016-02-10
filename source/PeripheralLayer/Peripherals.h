@@ -5,6 +5,7 @@
 #include "FrequencyCounter.h"
 #include "GraphicContext.h"
 #include "ParkDistanceDecoder.h"
+#include "PatternPlayer.h"
 #include "PowerManagement.h"
 #include "PulseCounter.h"
 #include "PulseDuration.h"
@@ -30,7 +31,7 @@ namespace PeripheralLayer
 		PowerManagement& GetPowerManagement();
 
 		GraphicContext& GetGraphicContext();
-		GraphicContext& GetLedContext();
+		PatternPlayer& GetPatternPlayer();
 		TimeProvider& GetTimeProvider();
 
 		AccelerationAxis& GetXAcceleration();
@@ -52,7 +53,7 @@ namespace PeripheralLayer
 		PowerManagement m_PowerManagement;
 
 		GraphicContext m_GraphicContext;
-		GraphicContext m_LedContext;
+		PatternPlayer m_PatternPlayer;
 		TimeProvider m_TimeProvider;
 
 		AccelerationAxis m_XAccelerationAxis;

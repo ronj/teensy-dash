@@ -33,7 +33,7 @@ HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetDisplayDriver()
 	return m_DisplayDriver;
 }
 
-HardwareLayer::DisplayDriver& HardwareLayer::TeensyHardware::GetLedDriver()
+HardwareLayer::LedDriver& HardwareLayer::TeensyHardware::GetLedDriver()
 {
 	return m_LedDriver;
 }

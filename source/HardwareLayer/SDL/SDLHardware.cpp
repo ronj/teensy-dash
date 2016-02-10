@@ -22,7 +22,7 @@ HardwareLayer::DisplayDriver& HardwareLayer::SDLHardware::GetDisplayDriver()
 	return m_DisplayDriver;
 }
 
-HardwareLayer::DisplayDriver& HardwareLayer::SDLHardware::GetLedDriver()
+HardwareLayer::LedDriver& HardwareLayer::SDLHardware::GetLedDriver()
 {
 	return m_LedDriver;
 }

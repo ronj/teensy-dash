@@ -197,6 +197,7 @@ set(HARDWARE_LAYER_SOURCES source/HardwareLayer/AccelerometerDriver.h
                            source/HardwareLayer/DisplayDriver.h
                            source/HardwareLayer/FrequencyCounter.h
                            source/HardwareLayer/Hardware.h
+                           source/HardwareLayer/LedDriver.h
                            source/HardwareLayer/Platform.h
                            source/HardwareLayer/RotaryEncoder.h
                            source/HardwareLayer/Timer.h)
@@ -284,6 +285,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/GraphicContext.h
             source/PeripheralLayer/ParkDistanceDecoder.cpp
             source/PeripheralLayer/ParkDistanceDecoder.h
+            source/PeripheralLayer/PatternPlayer.cpp
+            source/PeripheralLayer/PatternPlayer.h
             source/PeripheralLayer/Peripherals.cpp
             source/PeripheralLayer/Peripherals.h
             source/PeripheralLayer/PowerManagement.cpp
@@ -322,6 +325,8 @@ list(APPEND APPLICATION_LAYER_SOURCES
             source/ApplicationLayer/ModelUpdateTask.cpp
             source/ApplicationLayer/ModelUpdateTask.h
             source/ApplicationLayer/Palette.h
+            source/ApplicationLayer/Shiftlight.cpp
+            source/ApplicationLayer/Shiftlight.h
             source/ApplicationLayer/UserEventsTask.cpp
             source/ApplicationLayer/UserEventsTask.h
             source/ApplicationLayer/UserInterfaceTask.cpp
@@ -376,7 +381,7 @@ list(APPEND APPLICATION_LAYER_MODEL_SOURCES
             source/ApplicationLayer/Models/SpeedModel.h
             source/ApplicationLayer/Models/TirePressureModel.cpp
             source/ApplicationLayer/Models/TirePressureModel.h
-			source/ApplicationLayer/Models/TripComputerModel.cpp
+            source/ApplicationLayer/Models/TripComputerModel.cpp
             source/ApplicationLayer/Models/TripComputerModel.h
             source/ApplicationLayer/Models/TripData.cpp
             source/ApplicationLayer/Models/TripData.h

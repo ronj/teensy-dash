@@ -5,7 +5,7 @@
 PeripheralLayer::Peripherals::Peripherals(HardwareLayer::Hardware& hardware)
 	: m_PowerManagement(hardware)
 	, m_GraphicContext(hardware.GetDisplayDriver())
-	, m_LedContext(hardware.GetLedDriver())
+	, m_PatternPlayer(hardware.GetLedDriver())
 	, m_TimeProvider(hardware.GetTimer())
 	, m_XAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::X)
 	, m_YAccelerationAxis(hardware.GetAccelerometerDriver(), m_Configuration, Axis::Y)
@@ -35,9 +35,9 @@ PeripheralLayer::GraphicContext& PeripheralLayer::Peripherals::GetGraphicContext
 	return m_GraphicContext;
 }
 
-PeripheralLayer::GraphicContext& PeripheralLayer::Peripherals::GetLedContext()
+PeripheralLayer::PatternPlayer& PeripheralLayer::Peripherals::GetPatternPlayer()
 {
-	return m_LedContext;
+	return m_PatternPlayer;
 }
 
 PeripheralLayer::TimeProvider& PeripheralLayer::Peripherals::GetTimeProvider()

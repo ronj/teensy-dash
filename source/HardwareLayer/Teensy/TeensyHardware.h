@@ -22,7 +22,7 @@ namespace HardwareLayer
 		virtual Platform& GetPlatform();
 		virtual AccelerometerDriver& GetAccelerometerDriver();
 		virtual DisplayDriver& GetDisplayDriver();
-		virtual DisplayDriver& GetLedDriver();
+		virtual LedDriver& GetLedDriver();
 		virtual Timer& GetTimer();
 		virtual RotaryEncoder& GetRotaryEncoder();
 		virtual DigitalPin& GetVSSPin();
