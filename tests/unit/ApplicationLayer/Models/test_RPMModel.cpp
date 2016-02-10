@@ -21,9 +21,10 @@ TEST(RPMModelTest, should_have_correct_initial_value)
 
 TEST(RPMModelTest, should_return_correct_rpm_based_on_measured_frequency)
 {
-	std::list<std::tuple<float, int32_t, std::string>> expected = { std::make_tuple(50.f, 2000, "2000"),
-		                                                            std::make_tuple(60.f, 2400, "2400"),
-			                                                        std::make_tuple(63.55f, 2542, "2500") };
+	std::list<std::tuple<float, int32_t, std::string>> expected = { std::make_tuple(50.f, 1500, "1500"),
+		                                                            std::make_tuple(60.f, 1800, "1800"),
+			                                                        std::make_tuple(63.6f, 1908, "1900"),
+			                                                        std::make_tuple(68.5f, 2055, "2100") };
 
 	ApplicationLayer::Models::RPMModel rpm(*frequencyCounter);
 

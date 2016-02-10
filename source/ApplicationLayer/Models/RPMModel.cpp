@@ -18,7 +18,7 @@ const char* ApplicationLayer::Models::RPMModel::GetFormattedValue() const
 {
 	static char formatted[5] = { 0 };
 
-	snprintf(formatted, 5, "%d", (GetRawValue() / 100) * 100);
+	snprintf(formatted, 5, "%d", ((GetRawValue() + 50) / 100) * 100);
 
 	return formatted;
 }
