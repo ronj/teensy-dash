@@ -22,12 +22,9 @@ namespace ApplicationLayer
         void Update(uint32_t now);
 
     private:
-        void ClearFrom(int n);
-
-    private:
         const ApplicationLayer::Models::Model& m_RpmModel;
         PeripheralLayer::PatternPlayer& m_PatternPlayer;
-        bool m_BlinkState = false;
-        uint32_t m_PreviousBlink = 0;
+        uint16_t m_LowerLimit = 6000;
+        uint16_t m_UpperLimit = 7000;
     };
 }

@@ -1,9 +1,38 @@
 #include "Shiftlight.h"
 
+#include "Common/Math.h"
+
+#include "HardwareLayer/LedDriver.h"
+
 #include "PeripheralLayer/Color.h"
 #include "PeripheralLayer/PatternPlayer.h"
 
 #include "ApplicationLayer/Models/Model.h"
+
+class BarFillPattern : public PeripheralLayer::LedPattern
+{
+public:
+    void operator()(HardwareLayer::LedDriver& leds, uint32_t)
+    {
+        for (uint8_t i = 0; i < m_BarLength; ++i)
+        {
+            uint32_t color = i < 3 ? PeripheralLayer::Color::RGB(0, 20, 0).ToRGB() : PeripheralLayer::Color::RGB(20, 0, 0).ToRGB();
+            leds.SetPixel(i, i < m_BarLength ? color : 0);
+        }
+    }
+
+    void SetBarLength(uint8_t length)
+    {
+        m_BarLength = length;
+    }
+
+private:
+    uint8_t m_BarLength = 0;
+};
+
+static PeripheralLayer::OffPattern LedOff;
+static PeripheralLayer::BlinkPattern LedBlink(125);
+static BarFillPattern LedBarFill;
 
 ApplicationLayer::Shiftlight::Shiftlight(PeripheralLayer::PatternPlayer& patternPlayer, const ApplicationLayer::Models::Model& rpmModel)
     : m_RpmModel(rpmModel)
@@ -13,80 +42,17 @@ ApplicationLayer::Shiftlight::Shiftlight(PeripheralLayer::PatternPlayer& pattern
 
 void ApplicationLayer::Shiftlight::Update(uint32_t now)
 {
-    if (m_RpmModel.GetRawValue() < 6000)
+    if (m_RpmModel.GetRawValue() < m_LowerLimit)
     {
-        m_PatternPlayer.Clear();
+        m_PatternPlayer.Set(LedOff);
     }
-    else if (m_RpmModel.GetRawValue() > 7000)
+    else if (m_RpmModel.GetRawValue() > m_UpperLimit)
     {
-        if (now - m_PreviousBlink > 125)
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                m_PatternPlayer.DrawPixel(i, m_BlinkState ? PeripheralLayer::Color::RGB(50, 0, 0).ToRGB() : 0);
-            }
-
-            m_BlinkState = !m_BlinkState;
-            m_PreviousBlink = now;
-        }
+        m_PatternPlayer.Set(LedBlink);
     }
     else
     {
-        if (m_RpmModel.GetRawValue() > 6000)
-        {
-            m_PatternPlayer.DrawPixel(0, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
-            ClearFrom(1);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6200)
-        {
-            m_PatternPlayer.DrawPixel(1, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
-            ClearFrom(2);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6400)
-        {
-            m_PatternPlayer.DrawPixel(2, PeripheralLayer::Color::RGB(0, 20, 0).ToRGB());
-            ClearFrom(3);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6500)
-        {
-            m_PatternPlayer.DrawPixel(3, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
-            ClearFrom(4);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6600)
-        {
-            m_PatternPlayer.DrawPixel(4, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
-            ClearFrom(5);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6700)
-        {
-            m_PatternPlayer.DrawPixel(5, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
-            ClearFrom(6);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6800)
-        {
-            m_PatternPlayer.DrawPixel(6, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
-            ClearFrom(7);
-        }
-
-        if (m_RpmModel.GetRawValue() > 6900)
-        {
-            m_PatternPlayer.DrawPixel(7, PeripheralLayer::Color::RGB(20, 0, 0).ToRGB());
-        }
-    }
-
-    m_PatternPlayer.Update();
-}
-
-void ApplicationLayer::Shiftlight::ClearFrom(int n)
-{
-    for (int i = n; i < 8; ++i)
-    {
-        m_PatternPlayer.DrawPixel(i, 0);
+        m_PatternPlayer.Set(LedBarFill);
+        LedBarFill.SetBarLength(Common::Math::Map(m_RpmModel.GetRawValue(), m_LowerLimit, m_UpperLimit - 100, 1, 8));
     }
 }

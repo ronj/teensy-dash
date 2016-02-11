@@ -38,6 +38,8 @@ void ApplicationLayer::DashApplication::Eventloop()
 
 	m_Shiftlight.Update(now);
 
+    m_Peripherals.GetPatternPlayer().Update(now);
+
 	m_Scheduler.Run(now);
 
 	HandlePowerMode(now);
