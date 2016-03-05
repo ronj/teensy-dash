@@ -16,6 +16,15 @@ namespace PeripheralLayer
 
 namespace ApplicationLayer
 {
+	enum class ApplicationState : uint8_t
+	{
+		Initial,
+		EngineStart,
+		EngineRunning,
+		EngineStop,
+		Sleep
+	};
+
 	class DashApplication
 	{
 	public:
@@ -25,13 +34,13 @@ namespace ApplicationLayer
 		void Eventloop();
 
 	private:
-		void HandlePowerMode(uint32_t now);
+		void SetState(ApplicationState newState);
 
 	private:
 		static const uint32_t SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS = 3000;
 
+		ApplicationState m_State = ApplicationState::Initial;
 		bool m_Running = true;
-		bool m_IsPoweredDown = true;
 		uint32_t m_RPMLossTimestamp = 0;
 
 		PeripheralLayer::Peripherals& m_Peripherals;
