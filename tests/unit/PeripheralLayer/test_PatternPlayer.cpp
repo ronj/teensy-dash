@@ -2,6 +2,7 @@
 #include "hippomocks.h"
 
 #include "PeripheralLayer/PatternPlayer.h"
+#include "PeripheralLayer/LedPatterns.h"
 
 #include "HardwareLayer/LedDriver.h"
 
