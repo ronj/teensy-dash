@@ -2,6 +2,7 @@
 
 #include "Common/Logger.h"
 
+#include "PeripheralLayer/LedPatterns.h"
 #include "PeripheralLayer/Peripherals.h"
 #include "PeripheralLayer/TimeProvider.h"
 
@@ -35,6 +36,7 @@ bool ApplicationLayer::DashApplication::IsRunning()
 void ApplicationLayer::DashApplication::Eventloop()
 {
 	uint32_t now = m_Peripherals.GetTimeProvider().TickCountMilliseconds();
+	PeripheralLayer::ScanPattern startupAnimation;
 
 	switch (m_State)
 	{
@@ -70,7 +72,7 @@ void ApplicationLayer::DashApplication::Eventloop()
 			}
 
 			if (m_RPMLossTimestamp &&
-	   		   (now - m_RPMLossTimestamp > SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS))
+			   (now - m_RPMLossTimestamp > SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS))
 			{
 				SetState(ApplicationState::EngineStop);
 			}
@@ -93,6 +95,7 @@ void ApplicationLayer::DashApplication::Eventloop()
 			else
 			{
 				m_Peripherals.GetPowerManagement().LowPowerSleep();
+				m_Peripherals.GetTimeProvider().Sleep(25);
 			}
 			break;
 

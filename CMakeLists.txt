@@ -283,6 +283,8 @@ list(APPEND PERIPHERAL_LAYER_SOURCES
             source/PeripheralLayer/FrequencyCounter.h
             source/PeripheralLayer/GraphicContext.cpp
             source/PeripheralLayer/GraphicContext.h
+            source/PeripheralLayer/LedPatterns.cpp
+            source/PeripheralLayer/LedPatterns.h
             source/PeripheralLayer/ParkDistanceDecoder.cpp
             source/PeripheralLayer/ParkDistanceDecoder.h
             source/PeripheralLayer/PatternPlayer.cpp
