@@ -1,32 +1,8 @@
 #include "PatternPlayer.h"
 
 #include "PeripheralLayer/Color.h"
-
+#include "PeripheralLayer/LedPatterns.h"
 #include "HardwareLayer/LedDriver.h"
-
-void PeripheralLayer::OffPattern::operator()(HardwareLayer::LedDriver& leds, uint32_t)
-{
-    leds.Clear();
-}
-
-PeripheralLayer::BlinkPattern::BlinkPattern(uint32_t blinkperiod)
-    : m_BlinkPeriod(blinkperiod)
-{
-}
-
-void PeripheralLayer::BlinkPattern::operator()(HardwareLayer::LedDriver& leds, uint32_t tickcount)
-{
-    if (tickcount - m_PreviousBlink > m_BlinkPeriod)
-    {
-        for (int i = 0; i < leds.Width(); i++)
-        {
-            leds.SetPixel(i, m_BlinkState ? PeripheralLayer::Color::RGB(50, 0, 0).ToRGB() : 0);
-        }
-
-        m_BlinkState = !m_BlinkState;
-        m_PreviousBlink = tickcount;
-    }
-}
 
 PeripheralLayer::PatternPlayer::PatternPlayer(HardwareLayer::LedDriver& driver)
 	: m_Driver(driver)
@@ -36,6 +12,11 @@ PeripheralLayer::PatternPlayer::PatternPlayer(HardwareLayer::LedDriver& driver)
 void PeripheralLayer::PatternPlayer::Set(LedPattern& pattern)
 {
     m_CurrentPattern = &pattern;
+}
+
+uint8_t PeripheralLayer::PatternPlayer::Width() const
+{
+    return m_Driver.Width();
 }
 
 void PeripheralLayer::PatternPlayer::DrawPixel(int16_t x, uint32_t color)
@@ -50,6 +31,6 @@ void PeripheralLayer::PatternPlayer::Clear()
 
 void PeripheralLayer::PatternPlayer::Update(uint32_t tickcount)
 {
-    (*m_CurrentPattern)(m_Driver, tickcount);
+    m_CurrentPattern->Update(*this, tickcount);
 	m_Driver.Update();
 }

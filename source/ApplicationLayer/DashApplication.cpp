@@ -2,6 +2,7 @@
 
 #include "Common/Logger.h"
 
+#include "PeripheralLayer/LedPatterns.h"
 #include "PeripheralLayer/Peripherals.h"
 #include "PeripheralLayer/TimeProvider.h"
 
@@ -35,46 +36,76 @@ bool ApplicationLayer::DashApplication::IsRunning()
 void ApplicationLayer::DashApplication::Eventloop()
 {
 	uint32_t now = m_Peripherals.GetTimeProvider().TickCountMilliseconds();
+	PeripheralLayer::ScanPattern startupAnimation;
 
-	m_Shiftlight.Update(now);
+	switch (m_State)
+	{
+		case ApplicationState::Initial:
+			// Read config from non-volatile memory and go to sleep
+		    // state, which keeps checking if the engine is running.
+			m_Peripherals.GetPowerManagement().PowerDownPeripherals();
+			SetState(ApplicationState::Sleep);
+			break;
 
-    m_Peripherals.GetPatternPlayer().Update(now);
+		case ApplicationState::EngineStart:
+			// Show splash-screen and after time-out go to running
+			// state.
+			m_RPMLossTimestamp = 0;
+			m_Peripherals.GetPowerManagement().PowerUpPeripherals();
+			SetState(ApplicationState::EngineRunning);
+			break;
 
-	m_Scheduler.Run(now);
+		case ApplicationState::EngineRunning:
+			// Update all tasks by running the scheduler.
+			m_Shiftlight.Update(now);
+			m_Peripherals.GetPatternPlayer().Update(now);
 
-	HandlePowerMode(now);
+			m_Scheduler.Run(now);
+
+			if (m_Models.GetRPMModel().GetRawValue() == 0 && m_RPMLossTimestamp == 0)
+			{
+				m_RPMLossTimestamp = now;
+			}
+			else if (m_Models.GetRPMModel().GetRawValue() > 0)
+			{
+				m_RPMLossTimestamp = 0;
+			}
+
+			if (m_RPMLossTimestamp &&
+			   (now - m_RPMLossTimestamp > SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS))
+			{
+				SetState(ApplicationState::EngineStop);
+			}
+			break;
+
+		case ApplicationState::EngineStop:
+			// Write updated info to non-volatile memory, show trip
+			// summary and after time-out go to sleep state.
+			m_Peripherals.GetPowerManagement().PowerDownPeripherals();
+			SetState(ApplicationState::Sleep);
+			break;
+
+		case ApplicationState::Sleep:
+			m_ModelUpdateTask.Run(now);
+
+			if (m_Models.GetRPMModel().GetRawValue() > 0)
+			{
+				SetState(ApplicationState::EngineStart);
+			}
+			else
+			{
+				m_Peripherals.GetPowerManagement().LowPowerSleep();
+				m_Peripherals.GetTimeProvider().Sleep(25);
+			}
+			break;
+
+		default:
+			Common::Logger::Get().LogLine("Unknown application state.");
+			m_Running = false;
+	}
 }
 
-void ApplicationLayer::DashApplication::HandlePowerMode(uint32_t now)
+void ApplicationLayer::DashApplication::SetState(ApplicationState newState)
 {
-	uint32_t rpm = m_Models.GetRPMModel().GetRawValue();
-
-	if ((rpm == 0) && (m_RPMLossTimestamp == 0))
-	{
-		m_RPMLossTimestamp = now;
-	}
-	else if (rpm > 0)
-	{
-		m_RPMLossTimestamp = 0;
-
-		if (m_IsPoweredDown)
-		{
-			m_IsPoweredDown = false;
-			m_Peripherals.GetPowerManagement().PowerUpPeripherals();
-		}
-	}
-
-	if (m_RPMLossTimestamp &&
-	   (now - m_RPMLossTimestamp > SHUTDOWN_THRESHOLD_AFTER_RPM_LOSS))
-	{
-		m_IsPoweredDown = true;
-
-		m_Peripherals.GetPowerManagement().PowerDownPeripherals();
-		m_Peripherals.GetPowerManagement().LowPowerSleep();
-	}
-
-	if (m_IsPoweredDown)
-	{
-		m_Peripherals.GetTimeProvider().Sleep(25);
-	}
+	m_State = newState;
 }

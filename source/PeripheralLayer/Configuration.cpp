@@ -10,7 +10,7 @@ PeripheralLayer::Configuration::Configuration()
 	, m_TireWidth(205)
 	, m_TireAspect(40)
 	, m_RimSize(17)
-	, m_FinalDrive(75.f / 19.f) // Or 77.f / 19.f
+	, m_FinalDrive(77.f / 19.f) // Or 75.f / 19.f
 	, m_GearRatios({ { 2.92f, 1.87f, 1.41f, 1.15f, 0.95f, 0.79f } })
 	, m_VSSPulsesPerKm(4971)
 	, m_InjectorFlow(2660)
